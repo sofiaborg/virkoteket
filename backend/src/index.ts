@@ -1,10 +1,10 @@
-import express, { Request, Response } from "express";
+import express, { Application, Request, Response } from "express";
 import { json } from "body-parser";
 import userRouter from "./routes/userRoute";
 import cors from "cors";
 import connectDB from "./services/database";
 
-const app = express();
+const app: Application = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
