@@ -50,7 +50,8 @@ export const PostSchema = new Schema({
     required: true,
   },
   reviews: [{ type: Schema.Types.ObjectId, ref: "Reviews" }],
+  users: [{ type: Schema.Types.ObjectId, ref: "Users" }],
 });
 
-export const PostModel = model<IPost>("Posts", PostSchema);
+export const Posts = model<IPost>("Posts", PostSchema);
 //krk

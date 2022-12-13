@@ -19,6 +19,8 @@ export const ReviewSchema = new Schema({
     type: String,
     required: false,
   },
+  users: [{ type: Schema.Types.ObjectId, ref: "Users" }],
+  posts: [{ type: Schema.Types.ObjectId, ref: "Posts" }],
 });
 
-export const ReviewModel = model<IReview>("Reviews", ReviewSchema);
+export const Reviews = model<IReview>("Reviews", ReviewSchema);
