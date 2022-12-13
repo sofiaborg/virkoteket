@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-interface IBooking {
+interface IPost {
   title: String;
   image: String;
   description: String;
@@ -52,5 +52,5 @@ export const PostSchema = new Schema({
   reviews: [{ type: Schema.Types.ObjectId, ref: "Reviews" }],
 });
 
-export const PostModel = model<IBooking>("Posts", PostSchema);
+export const PostModel = model<IPost>("Posts", PostSchema);
 //krk

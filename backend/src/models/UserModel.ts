@@ -1,17 +1,8 @@
-import { Schema, model } from "mongoose";
+import mongoose from "mongoose";
 
-interface IUser {
-  mail: String;
-  password: String;
-  image: String;
-  description: String;
-  // posts: [];
-}
-
-export const UserSchema = new Schema({
+export const UserSchema = new mongoose.Schema({
   mail: {
     type: String,
-    required: true,
   },
   // password: {
   //   type: String,
@@ -28,4 +19,6 @@ export const UserSchema = new Schema({
   // posts: [{ type: Schema.Types.ObjectId, ref: "Posts" }],
 });
 
-export const UserModel = model<IUser>("Users", UserSchema);
+const UserModel = mongoose.model("Users", UserSchema);
+
+module.exports = UserModel;

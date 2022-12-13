@@ -1,13 +1,13 @@
 import express, { Request, Response } from "express";
 import { PostModel } from "../models/PostModel";
-import { UserModel } from "../models/UserModel";
+const UserModel = require("././../models/UserModel.ts");
 import { ReviewModel } from "../models/ReviewModel";
 
 const router = express.Router();
 
 router.post("/createuser", [], async (req: Request, res: Response) => {
   const newUser = new UserModel({
-    mail: req.body.title,
+    mail: req.body.mail,
   });
 
   await newUser.save();
@@ -17,14 +17,14 @@ router.post("/createuser", [], async (req: Request, res: Response) => {
 router.post("/createpost", [], async (req: Request, res: Response) => {
   const newPost = new PostModel({
     title: req.body.title,
-    image: req.body.title,
-    description: req.body.title,
-    type: req.body.title,
-    category: req.body.title,
-    difficulty: req.body.title,
-    yarn: req.body.title,
-    hook: req.body.title,
-    space: req.body.title,
+    image: req.body.image,
+    description: req.body.description,
+    type: req.body.type,
+    category: req.body.category,
+    difficulty: req.body.difficulty,
+    yarn: req.body.yarn,
+    hook: req.body.hook,
+    space: req.body.space,
   });
 
   await newPost.save();
