@@ -6,13 +6,13 @@ const bcrypt = require("bcrypt");
 
 //REGISTER
 router.post("/register", [], async (req: Request, res: Response) => {
+  console.log(req.body.email);
   const newUser = new Users({
     email: req.body.email,
     password: req.body.password,
   });
 
   const user = await newUser.save();
-  res.set("Access-Control-Allow-Origin", "http://localhost:3000");
   res.status(200).json(user);
 });
 

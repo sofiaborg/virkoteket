@@ -20,6 +20,8 @@ export const Register = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setError(false);
+    console.log(email);
+    console.log(password);
     try {
       const response = await fetch(
         "http://localhost:8080/auth/register",

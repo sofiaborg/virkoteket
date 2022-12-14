@@ -7,12 +7,19 @@ import bodyParser from "body-parser";
 
 require("../services/database.ts");
 
+const corsOptions = {
+  origin: "*",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
+
 const app: Application = express();
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors(corsOptions));
 
-app.get("/", cors(), (req: Request, res: Response) => {
+app.get("/", (req: Request, res: Response) => {
   res.send("you got /");
 });
 
