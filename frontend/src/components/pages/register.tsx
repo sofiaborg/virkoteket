@@ -8,29 +8,25 @@ export const Register = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
 
+  const requestOptionsPost = {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      mode: "no-cors",
+    },
+  };
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setError(false);
     try {
-      await fetch("http://localhost:8080/auth/register", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          mode: "no-cors",
-        },
-      })
-        .then((response) => {
-          //handle response
-          console.log(response);
-        })
-        .then((data) => {
-          //handle data
-          console.log(data);
-        })
-        .catch((error) => {
-          //handle error
-        });
+      const response = await fetch(
+        "http://localhost:8080/auth/register",
+        requestOptionsPost
+      );
+      const data = await response.json();
+      console.log(data);
     } catch (err) {
       setError(true);
     }
