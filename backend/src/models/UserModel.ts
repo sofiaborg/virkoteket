@@ -1,30 +1,17 @@
 import { Schema, model } from "mongoose";
 
 interface IUser {
-  mail: String;
+  email: String;
   password: String;
-  image: String;
-  description: String;
 }
 
 export const UserSchema = new Schema({
-  mail: {
+  email: {
     type: String,
-    required: true,
   },
   password: {
     type: String,
-    required: true,
   },
-  image: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-  posts: [{ type: Schema.Types.ObjectId, ref: "Posts" }],
 });
 
 export const Users = model<IUser>("Users", UserSchema);
