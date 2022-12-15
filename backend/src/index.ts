@@ -7,17 +7,20 @@ import bodyParser from "body-parser";
 
 require("../services/database.ts");
 
-const corsOptions = {
-  origin: "*",
-  credentials: true, //access-control-allow-credentials:true
-  optionSuccessStatus: 200,
-};
-
 const app: Application = express();
+
+app.use(express.urlencoded({ extended: true }));
+app.use((req: Request, res: Response, next: Function) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "*");
+  res.header("Access-Control-Allow-Methods", "*");
+  next();
+});
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(bodyParser.json());
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.get("/", (req: Request, res: Response) => {
   res.send("you got /");
@@ -27,6 +30,6 @@ app.use("/user", UserRoute);
 app.use("/posts", PostsRoute);
 app.use("/auth", AuthRoute);
 
-app.listen(8080, () => {
-  console.log("server is running on 8080");
+app.listen(8000, () => {
+  console.log("server is running on 8000");
 });

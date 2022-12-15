@@ -8,8 +8,8 @@ const bcrypt = require("bcrypt");
 router.post("/register", [], async (req: Request, res: Response) => {
   console.log(req.body.email);
   const newUser = new Users({
-    email: req.body.email,
-    password: req.body.password,
+    email: "sofia",
+    password: "werty",
   });
 
   const user = await newUser.save();
