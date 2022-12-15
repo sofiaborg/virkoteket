@@ -1,6 +1,15 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Document } from "mongoose";
+import bcrypt from "bcrypt";
 
-export const UserSchema = new Schema({
+export interface I_UserDocument extends Document {
+  email: string;
+  password: string;
+  name: string;
+  description: string;
+  profilepic: string;
+}
+
+export const UserSchema: Schema<I_UserDocument> = new Schema({
   email: {
     type: String,
     required: true,
@@ -23,4 +32,14 @@ export const UserSchema = new Schema({
   },
 });
 
-export const Users = model("Users", UserSchema);
+const saltRounds = 8;
+
+UserSchema.pre("save", async function (next) {
+  const user = this;
+  if (user.isModified("password")) {
+    user.password = await bcrypt.hash(user.password, saltRounds);
+  }
+  next();
+});
+
+export const Users = model<I_UserDocument>("Users", UserSchema);

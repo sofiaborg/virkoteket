@@ -1,6 +1,7 @@
 import React from "react";
 
-import { Route, Routes, BrowserRouter } from "react-router-dom";
+import { Route, Routes } from "react-router";
+import { BrowserRouter } from "react-router-dom";
 import { Layout } from "./components/layout/layout";
 import { Start } from "./components/pages/start";
 import { Mypages } from "./components/pages/mypages";

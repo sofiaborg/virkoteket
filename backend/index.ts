@@ -1,11 +1,11 @@
 import express, { Application, Request, Response } from "express";
-import UserRoute from "./routes/user";
-import PostsRoute from "./routes/posts";
-import AuthRoute from "./routes/auth";
+import UserRoute from "./src/routes/user";
+import PostsRoute from "./src/routes/posts";
+import AuthRoute from "./src/routes/auth";
 import cors from "cors";
 import bodyParser from "body-parser";
 
-require("../services/database.ts");
+require("./services/database.ts");
 
 const app: Application = express();
 
