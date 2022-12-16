@@ -5,6 +5,7 @@ export const Register = () => {
   //register states
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(false);
   const [userCreated, setUserCreated] = useState(false);
 
@@ -12,7 +13,7 @@ export const Register = () => {
     e.preventDefault();
     setError(false);
 
-    await fetch("http://localhost:8000/auth/register", {
+    await fetch("http://localhost:8080/auth/register", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -22,6 +23,7 @@ export const Register = () => {
       body: JSON.stringify({
         email,
         password,
+        confirmPassword,
       }),
     });
   };
@@ -42,6 +44,13 @@ export const Register = () => {
           className="registerInput"
           placeholder="Lösenord"
           onChange={(e) => setPassword(e.target.value)}
+        />
+        <label>Bekräfta lösenord</label>
+        <input
+          type="password"
+          className="registerInput"
+          placeholder="Bekräfta lösenord"
+          onChange={(e) => setConfirmPassword(e.target.value)}
         />
         <button className="registerButton" type="submit">
           Registrera konto

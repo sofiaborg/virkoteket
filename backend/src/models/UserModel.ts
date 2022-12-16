@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 export interface IUser extends Document {
   email: string;
   password: string;
+  confirmPassword: string;
   name: string;
   description: string;
   profilepic: string;
@@ -15,6 +16,10 @@ export const UserSchema: Schema<IUser> = new Schema({
     required: true,
   },
   password: {
+    type: String,
+    required: true,
+  },
+  confirmPassword: {
     type: String,
     required: true,
   },

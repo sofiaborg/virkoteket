@@ -1,15 +1,21 @@
 import express, { Router, Request, Response } from "express";
+import { hashPassword, comparePassword } from "../../utils/utils";
+import { Users } from "../../models/UserModel";
 
-export const registerUser = async (req: Request, res: Response) => {};
+export const registerUser = async (req: Request, res: Response) => {
+  const { email, password, confirmPassword } = req.body;
 
-// const newUser = new Users({
-//   email: req.body.email,
-//   password: req.body.password,
-//   name: req.body.name,
-//   description: req.body.description,
-//   profilefic: req.body.profilepic,
-// });
-
-// const user = await newUser.save();
-// console.log(user);
-// res.status(200).json(user);
+  Users.findOne({ email: String }, async (err: any, user: any) => {
+    if (user) {
+      res.send("Den här mailen finns redan");
+    } else if (password !== confirmPassword) {
+      res.send("Lösenorden matchar inte");
+    } else {
+      const newUser = new Users({
+        email,
+        password: hashPassword(password),
+      });
+      await newUser.save();
+    }
+  });
+};
