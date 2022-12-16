@@ -6,36 +6,28 @@ export const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
-
-  const requestOptionsPost = {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      mode: "no-cors",
-    },
-  };
+  const [userCreated, setUserCreated] = useState(false);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setError(false);
-    console.log(email);
-    console.log(password);
-    try {
-      const response = await fetch(
-        "http://localhost:8000/auth/register",
-        requestOptionsPost
-      );
-      const data = await response.json();
-      console.log(data);
-      data && window.location.replace("/login");
-    } catch (err) {
-      setError(true);
-    }
+
+    await fetch("http://localhost:8000/auth/register", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        mode: "no-cors",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
   };
   return (
     <div className="register">
-      <span className="registerTitle">Register</span>
+      <div className="registerTitle">Register</div>
       <form className="registerForm" onSubmit={handleSubmit}>
         <label>E-post</label>
         <input
@@ -60,11 +52,12 @@ export const Register = () => {
           Logga in
         </Link>
       </button>
-      {error && (
-        <span style={{ color: "red", marginTop: "10px" }}>
-          Hoppsan! Nu trasslade något ihop sig!
-        </span>
+      {error ? (
+        <div> Hoppsan! En användare med den mailadressen finns redan!</div>
+      ) : (
+        <div></div>
       )}
+      {userCreated ? <div> Den användare är skapad!</div> : <div></div>}
     </div>
   );
 };
