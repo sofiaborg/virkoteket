@@ -10,16 +10,16 @@ export const registerUser = async (req: Request, res: Response) => {
 
   Users.findOne({ email: String }, async (err: any, user: any) => {
     if (user) {
-      res.send("Den här mailen finns redan");
+      res.send(JSON.stringify("Den här mailen finns redan"));
     } else if (password !== confirmPassword) {
-      res.send("Lösenorden matchar inte");
+      res.send(JSON.stringify("Lösenorden matchar inte"));
     } else {
       const newUser = new Users({
         email,
         password: hashPassword(password),
       });
       await newUser.save();
-      res.send(201);
+      res.send(JSON.stringify(newUser));
     }
   });
 };

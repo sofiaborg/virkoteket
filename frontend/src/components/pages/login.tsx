@@ -7,31 +7,30 @@ export const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
 
-  const requestOptionsPost = {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      mode: "no-cors",
-    },
-  };
-
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setError(false);
     console.log(email);
     console.log(password);
-    try {
-      const response = await fetch(
-        "http://localhost:8000/auth/login",
-        requestOptionsPost
-      );
-      const data = await response.json();
-      console.log(data);
-      data && window.location.replace("/login");
-    } catch (err) {
-      setError(true);
-    }
+
+    await fetch("http://localhost:8000/auth/login", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        mode: "no-cors",
+      },
+      body: JSON.stringify({ email, password }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data) {
+          console.log("inloggad yay");
+        } else {
+          console.log("funkade ej");
+          setError(true);
+        }
+      });
   };
   return (
     <div className="login">

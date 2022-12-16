@@ -14,10 +14,10 @@ export const loginUser = async (req: Request, res: Response) => {
       const accessToken = jwt.sign(userData, process.env.JWTSECRET);
 
       res.cookie("token", accessToken);
-      res.send("login success");
+      res.send(JSON.stringify("login success"));
     } else {
       // Login incorrect
-      res.send("login failed");
+      res.send(JSON.stringify("login failed"));
     }
   });
 };

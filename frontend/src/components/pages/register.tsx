@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 
 export const Register = () => {
   //register states
@@ -20,17 +20,18 @@ export const Register = () => {
         "Content-Type": "application/json",
         mode: "no-cors",
       },
-      body: JSON.stringify({
-        email,
-        password,
-        confirmPassword,
-      }),
-    }).then((data) => {
-      if (data) {
-        console.log(data);
-        setUserCreated(true);
-      }
-    });
+      body: JSON.stringify({ email, password, confirmPassword }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data) {
+          console.log("registrerad yay");
+          setUserCreated(true);
+        } else {
+          console.log("funkade ej");
+          setError(true);
+        }
+      });
   };
   return (
     <div className="register">
@@ -71,7 +72,7 @@ export const Register = () => {
       ) : (
         <div></div>
       )}
-      {userCreated ? <div> Den användare är skapad!</div> : <div></div>}
+      {userCreated ? <div> Din användare är skapad!</div> : <div></div>}
     </div>
   );
 };
