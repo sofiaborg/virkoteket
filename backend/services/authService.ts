@@ -33,7 +33,7 @@ export async function login(user: DocumentDefinition<I_UserDocument>) {
         }
       );
 
-      return { user: { user }, token: token };
+      return { user: { foundUser }, token: token };
     } else {
       throw new Error("Password is not correct");
     }
