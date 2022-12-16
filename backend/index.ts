@@ -30,6 +30,6 @@ app.use("/user", UserRoute);
 app.use("/posts", PostsRoute);
 app.use("/auth", AuthRoute);
 
-app.listen(8080, () => {
-  console.log("server is running on 8080");
+app.listen(8000, () => {
+  console.log("server is running on 8000");
 });

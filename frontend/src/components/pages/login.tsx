@@ -23,7 +23,7 @@ export const Login = () => {
     console.log(password);
     try {
       const response = await fetch(
-        "http://localhost:8080/auth/login",
+        "http://localhost:8000/auth/login",
         requestOptionsPost
       );
       const data = await response.json();

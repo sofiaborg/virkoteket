@@ -13,7 +13,7 @@ export const Register = () => {
     e.preventDefault();
     setError(false);
 
-    await fetch("http://localhost:8080/auth/register", {
+    await fetch("http://localhost:8000/auth/register", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -25,6 +25,11 @@ export const Register = () => {
         password,
         confirmPassword,
       }),
+    }).then((data) => {
+      if (data) {
+        console.log(data);
+        setUserCreated(true);
+      }
     });
   };
   return (

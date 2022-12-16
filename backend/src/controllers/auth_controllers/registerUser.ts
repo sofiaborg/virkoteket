@@ -4,6 +4,9 @@ import { Users } from "../../models/UserModel";
 
 export const registerUser = async (req: Request, res: Response) => {
   const { email, password, confirmPassword } = req.body;
+  console.log(email);
+  console.log(password);
+  console.log(confirmPassword);
 
   Users.findOne({ email: String }, async (err: any, user: any) => {
     if (user) {
@@ -16,6 +19,7 @@ export const registerUser = async (req: Request, res: Response) => {
         password: hashPassword(password),
       });
       await newUser.save();
+      res.send(201);
     }
   });
 };
