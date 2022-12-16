@@ -12,12 +12,14 @@ export const loginUser = async (req: Request, res: Response) => {
       // Logged in
       const userData = { userId: user._id, email };
       const accessToken = jwt.sign(userData, process.env.JWTSECRET);
-
-      res.cookie("token", accessToken);
-      res.send(JSON.stringify("login success"));
+      console.log("logged in backend");
+      console.log(accessToken);
+      console.log(userData);
+      res.send(JSON.stringify(accessToken));
+      res.sendStatus(200);
     } else {
       // Login incorrect
-      res.send(JSON.stringify("login failed"));
+      res.send("login failed");
     }
   });
 };

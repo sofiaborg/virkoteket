@@ -8,18 +8,25 @@ export const registerUser = async (req: Request, res: Response) => {
   console.log(password);
   console.log(confirmPassword);
 
-  Users.findOne({ email: String }, async (err: any, user: any) => {
-    if (user) {
-      res.send(JSON.stringify("Den här mailen finns redan"));
-    } else if (password !== confirmPassword) {
-      res.send(JSON.stringify("Lösenorden matchar inte"));
-    } else {
-      const newUser = new Users({
-        email,
-        password: hashPassword(password),
-      });
-      await newUser.save();
-      res.send(JSON.stringify(newUser));
+  Users.findOne(
+    { email: req.body.email },
+    async (err: any, emailExists: string) => {
+      if (emailExists) {
+        console.log("Den här mailen finns redan");
+        res.sendStatus(400);
+      } else if (password !== confirmPassword) {
+        console.log(
+          "Lösenorden matchar inte eller så är mailen redan använt. Fixa"
+        );
+        res.sendStatus(400);
+      } else {
+        const newUser = new Users({
+          email,
+          password: hashPassword(password),
+        });
+        await newUser.save();
+        res.send(newUser);
+      }
     }
-  });
+  );
 };

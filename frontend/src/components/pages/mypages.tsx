@@ -2,6 +2,7 @@ import React from "react";
 import { Wrapper } from "../components/StyledComponents/StyledWrappers";
 
 export const Mypages = () => {
+  //OBS denna funkar ej. Fixa
   const handleLogout = async () => {
     await fetch("http://localhost:8000/auth/logout", {
       method: "POST",

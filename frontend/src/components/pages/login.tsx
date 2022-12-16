@@ -10,8 +10,6 @@ export const Login = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setError(false);
-    console.log(email);
-    console.log(password);
 
     await fetch("http://localhost:8000/auth/login", {
       method: "POST",
@@ -22,10 +20,11 @@ export const Login = () => {
       },
       body: JSON.stringify({ email, password }),
     })
-      .then((response) => response.json())
+      .then((response) => response)
       .then((data) => {
-        if (data) {
-          console.log("inloggad yay");
+        if (data.status === 200) {
+          console.log(data);
+          localStorage.setItem("token", JSON.stringify(data));
         } else {
           console.log("funkade ej");
           setError(true);

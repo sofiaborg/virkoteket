@@ -6,12 +6,13 @@ export const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState(false);
+  const [passwordError, setPasswordError] = useState<Boolean>(false);
+  const [mailError, setMailError] = useState<Boolean>(false);
+
   const [userCreated, setUserCreated] = useState(false);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    setError(false);
 
     await fetch("http://localhost:8000/auth/register", {
       method: "POST",
@@ -22,14 +23,14 @@ export const Register = () => {
       },
       body: JSON.stringify({ email, password, confirmPassword }),
     })
-      .then((response) => response.json())
+      .then((response) => response)
       .then((data) => {
-        if (data) {
-          console.log("registrerad yay");
+        if (data.status === 200) {
           setUserCreated(true);
         } else {
+          console.log(data);
           console.log("funkade ej");
-          setError(true);
+          setPasswordError(true);
         }
       });
   };
@@ -63,15 +64,11 @@ export const Register = () => {
         </button>
       </form>
       <button className="registerLoginButton">
-        <Link className="link" to="/login">
+        <Link className="link" to="/">
           Logga in
         </Link>
       </button>
-      {error ? (
-        <div> Hoppsan! En användare med den mailadressen finns redan!</div>
-      ) : (
-        <div></div>
-      )}
+      {passwordError ? <div> Lösenorden matchar inte!</div> : <div></div>}
       {userCreated ? <div> Din användare är skapad!</div> : <div></div>}
     </div>
   );

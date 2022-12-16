@@ -1,9 +1,11 @@
-import express, { Application, Request, Response } from "express";
+import express, { Application, Request, Response, NextFunction } from "express";
 import UserRoute from "./src/routes/user";
 import PostsRoute from "./src/routes/posts";
 import AuthRoute from "./src/routes/auth";
 import cors from "cors";
 import bodyParser from "body-parser";
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 require("./services/database.ts");
 
@@ -22,9 +24,23 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(cors());
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("you got /");
-});
+// app.use((req: Request, res: Response, next: NextFunction) => {
+//   const { token } = req.cookies;
+
+//   //login cookies OM INLOGGAD. Denna kod körs varje gång en req skickas. Om användare är logged in sätts variabeln loggedIn till true. Om ej inloggad sätts den till false.
+//   if (token && jwt.verify(token, process.env.JWTSECRET)) {
+//     const tokenData = jwt.decode(token, process.env.JWTSECRET);
+//     res.locals.loggedIn = true;
+//     res.locals.email = tokenData.email;
+//     res.locals.userId = tokenData.userId;
+//     // else
+//   } else {
+//     res.locals.loggedIn = false;
+//   }
+//   next();
+// });
+
+app.get("/", (req: Request, res: Response) => {});
 
 app.use("/user", UserRoute);
 app.use("/posts", PostsRoute);
