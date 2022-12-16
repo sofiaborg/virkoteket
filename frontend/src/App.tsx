@@ -13,7 +13,7 @@ export const App = () => {
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
-            <Route path="/mypages/mypatterns" element={<Mypages />}></Route>
+            <Route path="/mypages" element={<Mypages />}></Route>
           </Route>
         </Routes>
       </BrowserRouter>

@@ -1,17 +1,44 @@
 import React from "react";
+import { Wrapper } from "../components/StyledComponents/StyledWrappers";
 
 export const Mypages = () => {
+  const handleLogout = async () => {
+    await fetch("http://localhost:8000/auth/logout", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        mode: "no-cors",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data) {
+          console.log("utloggad yay");
+        } else {
+          console.log("funkade ej");
+        }
+      });
+  };
+
   return (
     <>
-      <div className="flex items-center">
-        <h1 className="text-3xl font-bold underline">Hello world!</h1>
-        <div>
-          <form action="#">
-            <input type="text" />
-            <input type="text" />
-          </form>
+      <Wrapper>
+        <div className="sidebar-wrapper">
+          <h1>Mina sidor</h1>
+
+          <div>
+            <h2>Mina mönster</h2>
+          </div>
+          <div>
+            <h2>Mitt konto</h2>
+          </div>
+          <div>
+            <button onClick={handleLogout}>Logga ut</button>
+          </div>
         </div>
-      </div>
+        <div className="mypages-wrapper"></div>
+      </Wrapper>
     </>
   );
 };
