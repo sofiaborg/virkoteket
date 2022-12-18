@@ -1,4 +1,4 @@
-export const categoryFilter = () => {
+export const CategoryFilter = () => {
   return (
     <>
       <div className="category-wrapper">

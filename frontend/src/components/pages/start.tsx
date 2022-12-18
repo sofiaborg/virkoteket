@@ -1,10 +1,10 @@
 import React from "react";
-import { categoryFilter } from "../components/StyledComponents/categoryFilter";
+import { CategoryFilter } from "../components/CategoryFilter";
 
 export const Start = () => {
   return (
     <>
-      <categoryFilter></categoryFilter>
+      <CategoryFilter></CategoryFilter>
     </>
   );
 };
