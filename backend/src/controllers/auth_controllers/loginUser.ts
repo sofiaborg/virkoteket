@@ -13,10 +13,7 @@ export const loginUser = async (req: Request, res: Response) => {
       const userData = { userId: user._id, email };
       const accessToken = jwt.sign(userData, process.env.JWTSECRET);
       console.log("logged in backend");
-      console.log(accessToken);
-      console.log(userData);
-      res.send(JSON.stringify(accessToken));
-      res.sendStatus(200);
+      res.send(JSON.stringify({ accessToken, userData }));
     } else {
       // Login incorrect
       res.send("login failed");

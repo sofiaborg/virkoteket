@@ -23,8 +23,9 @@ export const Login = () => {
       .then((response) => response)
       .then((data) => {
         if (data.status === 200) {
-          console.log(data);
-          localStorage.setItem("token", JSON.stringify(data));
+          data.json().then(function (result) {
+            localStorage.setItem("token", JSON.stringify(result.accessToken));
+          });
         } else {
           console.log("funkade ej");
           setError(true);
