@@ -26,6 +26,7 @@ export const Login = () => {
           data.json().then(function (result) {
             localStorage.setItem("token", JSON.stringify(result.accessToken));
           });
+          window.location.replace("http://localhost:3000/patterns");
         } else {
           console.log("funkade ej");
           setError(true);
