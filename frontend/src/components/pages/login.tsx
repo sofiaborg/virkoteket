@@ -26,7 +26,7 @@ export const Login = () => {
       body: JSON.stringify({ email, password }),
     })
       .then((response) => response.json())
-      .then((data) => sessionStorage.setItem("token", data.accessToken))
+      .then((data) => sessionStorage.setItem("userInfo", JSON.stringify(data)))
       .catch((error) => console.error(error));
   };
   return (

@@ -10,10 +10,11 @@ export const loginUser = async (req: Request, res: Response) => {
   Users.findOne({ email }, (err: any, user: any) => {
     if (user && comparePassword(password, user.password)) {
       // Logged in
-      const userData = { userId: user._id, email };
+      const userData = { userId: user._id };
+      const userID = user._id;
       const accessToken = jwt.sign(userData, process.env.JWTSECRET);
       console.log("logged in backend");
-      res.send(JSON.stringify({ accessToken, userData }));
+      res.send({ accessToken, userID });
     } else {
       // Login incorrect
       res.send("login failed");
