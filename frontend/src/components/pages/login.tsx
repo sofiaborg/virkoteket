@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../context";
 
 export const Login = () => {
   //login states
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
+  const [token, setToken] = useState(null);
+  const { isLoggedIn, login, logout } = useContext(AuthContext);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -16,22 +20,14 @@ export const Login = () => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
         mode: "no-cors",
       },
       body: JSON.stringify({ email, password }),
     })
-      .then((response) => response)
-      .then((data) => {
-        if (data.status === 200) {
-          data.json().then(function (result) {
-            localStorage.setItem("token", JSON.stringify(result.accessToken));
-          });
-          window.location.replace("http://localhost:3000/patterns");
-        } else {
-          console.log("funkade ej");
-          setError(true);
-        }
-      });
+      .then((response) => response.json())
+      .then((data) => sessionStorage.setItem("token", data.accessToken))
+      .catch((error) => console.error(error));
   };
   return (
     <div className="login">

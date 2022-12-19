@@ -1,3 +1,4 @@
+import { forceAuth } from "./src/middlewares/forceAuth";
 import express, { Application, Request, Response, NextFunction } from "express";
 import UserRoute from "./src/routes/user";
 import PostsRoute from "./src/routes/posts";
@@ -42,8 +43,8 @@ app.use(cors());
 
 app.get("/", (req: Request, res: Response) => {});
 
-app.use("/user", UserRoute);
-app.use("/posts", PostsRoute);
+app.use("/user", forceAuth, UserRoute);
+app.use("/posts", forceAuth, PostsRoute);
 app.use("/auth", AuthRoute);
 
 app.listen(8000, () => {
