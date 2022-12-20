@@ -5,7 +5,7 @@ interface IPost {
   image: String;
   description: String;
   type: Number;
-  category: Number;
+  category: String;
   difficulty: Number;
   yarn: Number;
   hook: Number;
@@ -30,7 +30,7 @@ export const PostSchema = new Schema({
     required: true,
   },
   category: {
-    type: Number,
+    type: String,
     required: true,
   },
   difficulty: {

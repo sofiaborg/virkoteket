@@ -1,13 +1,20 @@
 import { useState, useEffect } from "react";
 import { useContext } from "react";
-import { AuthContext } from "../../context";
-import { IPost } from "../../interfaces/IPost";
+import { Categories } from "./Categories";
+import { Filters } from "./Filters";
+import {
+  postsContext,
+  IPostsContext,
+  defaultValue,
+} from "../../contexts/products-context";
+import { AuthContext } from "../../contexts/auth-context";
+import { IPost } from "../../interfaces/IProps";
 import { Link } from "react-router-dom";
 
 export const AllPatterns = () => {
-  const [allPosts, setAllPosts] = useState<IPost[]>([]);
-
-  const { isLoggedIn, login, logout } = useContext(AuthContext);
+  const [posts, setPosts] = useState<IPostsContext>(defaultValue);
+  const [category, setCategory] = useState<IPostsContext>(defaultValue);
+  const [filters, setFilters] = useState<IPostsContext>(defaultValue);
 
   useEffect(() => {
     fetch("http://localhost:8000/posts/getposts", {
@@ -20,7 +27,7 @@ export const AllPatterns = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        setAllPosts(data);
+        setPosts({ ...posts, posts: data });
       });
   }, []);
 
@@ -45,7 +52,7 @@ export const AllPatterns = () => {
   return (
     <>
       <div>
-        {allPosts.map((post) => (
+        {posts.posts.map((post: IPost) => (
           <div key={post.id}>
             <Link className="link" to={"/posts/" + post.id}>
               <img src={post.image} alt={post.image} />
