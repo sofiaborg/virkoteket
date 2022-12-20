@@ -48,7 +48,7 @@ export const AllPatterns = () => {
 
   return (
     <>
-      {/* <div>
+      <div>
         {posts.map((post: IPost) => (
           <div key={post.id}>
             <Link className="link" to={"/posts/" + post.id}>
@@ -57,7 +57,7 @@ export const AllPatterns = () => {
             </Link>
           </div>
         ))}
-      </div> */}
+      </div>
     </>
   );
 };

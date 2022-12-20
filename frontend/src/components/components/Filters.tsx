@@ -23,10 +23,15 @@ export const Filters = () => {
             {filter.title}
 
             <ul>
-              {" "}
-              <li key={i} value={filter.options[i].title}>
-                {filter.options[i].title}
-              </li>
+              {filter.options.map((option) => (
+                <li
+                  key={option.title}
+
+                  // onClick={() => props.setFilters(option)}
+                >
+                  {option.title}
+                </li>
+              ))}
             </ul>
           </li>
         ))}
