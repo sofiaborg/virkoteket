@@ -1,69 +1,36 @@
+import { filtersList } from "../../interfaces/IProps";
+
+// interface IFilter {
+//   name: string;
+//   options: string[];
+// }
+
+// interface filterProps {
+//   filters: IFilter[];
+// }
+
+interface filterProps {
+  setFilters(filter: String): void;
+}
+
 export const Filters = () => {
+  console.log(filtersList);
   return (
-    <>
-      {" "}
-      <div className="mainfilter-wrapper">
-        <div>Virka</div>
-        <div>Sticka</div>
-      </div>
-      <div className="filter-wrapper">
-        <ul>
+    <div className="filter-wrapper">
+      <ul>
+        {filtersList.map((filter, i) => (
           <li>
-            Svårighetsgrad
-            <ul>
-              {" "}
-              <li>Nybörjare</li>
-              <li>Mellan</li>
-              <li>Erfaren</li>
-            </ul>
-          </li>
-        </ul>
+            {filter.title}
 
-        <ul>
-          <li>
-            Stickfasthet
             <ul>
               {" "}
-              <li>2-2.5 mm</li>
-              <li>2.5-3.5 mm</li>
-              <li>3.5-4 mm</li>
-              <li>4-4.5 mm</li>
-              <li>5-5.5 mm</li>
-              <li>6-7 mm</li>
-              <li>8-10 mm</li>
-              <li>12-20 mm</li>
+              <li key={i} value={filter.options[i].title}>
+                {filter.options[i].title}
+              </li>
             </ul>
           </li>
-        </ul>
-
-        <ul>
-          <li>
-            Virknål
-            <ul>
-              {" "}
-              <li>2-2.5 mm</li>
-              <li>3-3.5 mm</li>
-              <li>4-4.5 mm</li>
-              <li>6-6.5 mm</li>
-              <li>7-8 mm</li>
-              <li>9-10 mm</li>
-              <li>12-20 mm</li>
-            </ul>
-          </li>
-        </ul>
-
-        <ul>
-          <li>
-            Garntyp
-            <ul>
-              {" "}
-              <li>Mohair</li>
-              <li>Fin bomull</li>
-              <li>Ull</li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </>
+        ))}
+      </ul>
+    </div>
   );
 };

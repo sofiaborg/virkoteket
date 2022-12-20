@@ -1,7 +1,4 @@
 import { useState, useEffect } from "react";
-import { useContext } from "react";
-import { Categories } from "./Categories";
-import { Filters } from "./Filters";
 import {
   postsContext,
   IPostsContext,
@@ -12,7 +9,7 @@ import { IPost } from "../../interfaces/IProps";
 import { Link } from "react-router-dom";
 
 export const AllPatterns = () => {
-  const [posts, setPosts] = useState<IPostsContext>(defaultValue);
+  const [posts, setPosts] = useState<IPost[]>([]);
   const [category, setCategory] = useState<IPostsContext>(defaultValue);
   const [filters, setFilters] = useState<IPostsContext>(defaultValue);
 
@@ -27,7 +24,7 @@ export const AllPatterns = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        setPosts({ ...posts, posts: data });
+        setPosts(data);
       });
   }, []);
 
@@ -51,8 +48,8 @@ export const AllPatterns = () => {
 
   return (
     <>
-      <div>
-        {posts.posts.map((post: IPost) => (
+      {/* <div>
+        {posts.map((post: IPost) => (
           <div key={post.id}>
             <Link className="link" to={"/posts/" + post.id}>
               <img src={post.image} alt={post.image} />
@@ -60,7 +57,7 @@ export const AllPatterns = () => {
             </Link>
           </div>
         ))}
-      </div>
+      </div> */}
     </>
   );
 };

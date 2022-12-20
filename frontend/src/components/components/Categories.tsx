@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
 import { useContext } from "react";
 import { categoryList } from "../../interfaces/IProps";
-import {
-  postsContext,
-  IPostsContext,
-  defaultValue,
-} from "../../contexts/products-context";
 
-export const Categories = (props: IPostsContext) => {
+interface categoryProps {
+  setCategories(category: string): void;
+}
+
+export const Categories = () => {
   return (
     <>
       <div className="category-wrapper">
@@ -15,7 +14,7 @@ export const Categories = (props: IPostsContext) => {
           {categoryList.map((category, i) => (
             <li
               key={i}
-              onClick={() => props.setCategories(category)}
+              // onClick={() => props.setCategories(category)}
               value={category}
             >
               {category}
