@@ -1,8 +1,8 @@
-import { logoutUser } from "./../controllers/auth_controllers/logoutUser";
+import { logoutUser } from "../controllers/auth_controllers/logout";
 import express, { Router } from "express";
 const router: Router = express.Router();
-import { registerUser } from "../controllers/auth_controllers/registerUser";
-import { loginUser } from "../controllers/auth_controllers/loginUser";
+import { registerUser } from "../controllers/auth_controllers/register";
+import { loginUser } from "../controllers/auth_controllers/login";
 
 router.post("/register", registerUser);
 router.post("/login", loginUser);

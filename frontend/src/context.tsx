@@ -19,19 +19,19 @@ const AuthContext = createContext<AuthContextData>({
 const AuthProvider: React.FC<Props> = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
     // Check if a token exists in session storage
-    const token = sessionStorage.getItem("userInfo");
+    const token = sessionStorage.getItem("token");
     return !!token;
   });
 
   const login = () => {
     // Save the token to session storage
-    sessionStorage.setItem("userInfo", "your-token-here");
+    sessionStorage.setItem("token", "your-token-here");
     setIsLoggedIn(true);
   };
 
   const logout = () => {
     // Remove the token from session storage
-    sessionStorage.removeItem("userInfo");
+    sessionStorage.removeItem("token");
     setIsLoggedIn(false);
   };
 

@@ -37,30 +37,41 @@ export const CategoryFilter = () => {
         <label>Svårighetsgrad:</label>
 
         <select name="cars" id="cars">
-          <option value="volvo">Nybörjare</option>
-          <option value="saab">Normal</option>
-          <option value="saab">Erfaren</option>
+          <option value="x">Nybörjare</option>
+          <option value="x">Mellan</option>
+          <option value="x">Erfaren</option>
         </select>
         <label>Stickfasthet:</label>
 
         <select name="cars" id="cars">
-          <option value="volvo">x</option>
-          <option value="saab">x</option>
-          <option value="saab">x</option>
+          <option value="x">2-2.5 mm</option>
+          <option value="x">2.5-3.5 mm</option>
+          <option value="x">3.5-4 mm</option>
+          <option value="x">4-4.5 mm</option>
+          <option value="x">5-5.5 mm</option>
+          <option value="x">3.5-4 mm</option>
+          <option value="x">6-7 mm</option>
+          <option value="x">8-10 mm</option>
+          <option value="x">12-20 mm</option>
         </select>
         <label>Virknål:</label>
 
-        <select name="cars" id="cars">
-          <option value="volvo">x</option>
-          <option value="saab">x</option>
-          <option value="saab">x</option>
+        <select name="x" id="x">
+          <option value="x">2-2.5 mm</option>
+          <option value="x">3-3.5 mm</option>
+          <option value="x">4-4.5 mm</option>
+
+          <option value="x">5-6.5 mm</option>
+          <option value="x">7-8 mm</option>
+          <option value="x">9-10 mm</option>
+          <option value="x">12-20 mm</option>
         </select>
         <label>Garntyp:</label>
 
-        <select name="cars" id="cars">
-          <option value="volvo">x</option>
-          <option value="saab">x</option>
-          <option value="saab">x</option>
+        <select name="x" id="x">
+          <option value="x">Mohair</option>
+          <option value="x">Fin bomull</option>
+          <option value="x">Ull</option>
         </select>
       </div>
     </>

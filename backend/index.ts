@@ -43,8 +43,8 @@ app.use(cors());
 
 app.get("/", (req: Request, res: Response) => {});
 
-app.use("/user", forceAuth, UserRoute);
-app.use("/posts", forceAuth, PostsRoute);
+app.use("/user", UserRoute);
+app.use("/posts", PostsRoute);
 app.use("/auth", AuthRoute);
 
 app.listen(8000, () => {

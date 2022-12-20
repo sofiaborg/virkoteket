@@ -7,9 +7,9 @@ import { forceAuth } from "../middlewares/forceAuth";
 
 const router: Router = express.Router();
 
-router.get("/getall", forceAuth, getPosts);
-router.get("/:id/getone", forceAuth, getSinglePost);
-router.post("/createreview", forceAuth, createReview);
-router.get("/:id/patterns", forceAuth, getUserPosts);
+router.get("/getposts", getPosts);
+router.get("/:id/getsinglepost", getSinglePost);
+router.post("/createreview", createReview);
+router.get("/:id/getuserposts", getUserPosts);
 
 export default router;

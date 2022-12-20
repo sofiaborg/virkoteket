@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context";
@@ -9,24 +9,27 @@ export const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [token, setToken] = useState(null);
-  const { isLoggedIn, login, logout } = useContext(AuthContext);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setError(false);
+
+    const storageFunction = (data: any) => {
+      sessionStorage.setItem("token", data.accessToken);
+      sessionStorage.setItem("userID", data.userID);
+    };
 
     await fetch("http://localhost:8000/auth/login", {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
         mode: "no-cors",
       },
       body: JSON.stringify({ email, password }),
     })
       .then((response) => response.json())
-      .then((data) => sessionStorage.setItem("userInfo", JSON.stringify(data)))
+      .then((data) => storageFunction(data))
       .catch((error) => console.error(error));
   };
   return (
