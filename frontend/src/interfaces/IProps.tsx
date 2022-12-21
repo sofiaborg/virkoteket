@@ -2,6 +2,15 @@ export interface categoryProps {
   onCategoryClick: (category: string) => void;
 }
 
+export interface filtersProps {
+  onFiltersClick: (filters: string) => void;
+}
+
+export interface postsProps {
+  category: string;
+  filter: string;
+}
+
 export interface ICategory {
   name: string;
 }

@@ -7,11 +7,16 @@ import { AllPatterns } from "../components/AllPatterns";
 
 export const Start = () => {
   const { isLoggedIn, login, logout } = useContext(AuthContext);
-  const [category, setCategory] = useState("");
-  const [filters, setFilters] = useState([]);
+  const [chosenCategory, setChosenCategory] = useState("");
+  const [chosenFilter, setChosenFilter] = useState("");
+  const [sortedPosts, setSortedPosts] = useState("");
 
   const handleCategory = (category: string) => {
-    // Do something with the new category value
+    setChosenCategory(category);
+  };
+
+  const handleFilters = (filter: string) => {
+    setChosenFilter(filter);
   };
 
   if (!isLoggedIn) {
@@ -21,9 +26,12 @@ export const Start = () => {
   return (
     <>
       <Categories onCategoryClick={handleCategory}></Categories>
-      <Filters></Filters>
-      <AllPatterns></AllPatterns>;
-      {/* dessa props ska skickas med till varje component */}
+      <Filters onFiltersClick={handleFilters}></Filters>
+      <AllPatterns
+        filter={chosenFilter}
+        category={chosenCategory}
+      ></AllPatterns>
+      ;{/* dessa props ska skickas med till varje component */}
       {/* <Categories category={category} setCategory={setCategory} />
       <Filters filters={filters} setFilters={setFilters} />
       <AllPatterns products={getFilteredProducts(category, filters)} /> */}

@@ -1,34 +1,42 @@
 import { useState, useEffect } from "react";
-import {
-  postsContext,
-  IPostsContext,
-  defaultValue,
-} from "../../contexts/products-context";
 import { AuthContext } from "../../contexts/auth-context";
 import { IPost } from "../../interfaces/IProps";
 import { Link } from "react-router-dom";
+import { postsProps } from "../../interfaces/IProps";
 
-import { getFilteredProducts } from "../../utils/utils";
-
-export const AllPatterns = () => {
-  const [posts, setPosts] = useState<IPost[]>([]);
-  const [category, setCategory] = useState<IPostsContext>(defaultValue);
-  const [filters, setFilters] = useState<IPostsContext>(defaultValue);
+export const AllPatterns = (props: postsProps) => {
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8000/posts/getposts", {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        mode: "no-cors",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setPosts(data);
-      });
-  }, []);
+    async function fetchProducts() {
+      const response = await fetch(
+        `http://localhost:8000/posts/getposts?category=${props.category}&filter=${props.filter}`
+      );
+      const data = await response.json();
+      setPosts(data);
+
+      // Now you can use the `products` array in your component
+      // ...
+    }
+    fetchProducts();
+  }, [props.category, props.filter]); // This will cause the effect to run again if either `category` or `filter` changes
+
+  // ...
+
+  // useEffect(() => {
+  //   fetch("http://localhost:8000/posts/getposts", {
+  //     method: "GET",
+  //     headers: {
+  //       Accept: "application/json",
+  //       "Content-Type": "application/json",
+  //       mode: "no-cors",
+  //     },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setPosts(data);
+  //     });
+  // }, []);
 
   // //get posts and set in state when entering admin-page
   // useEffect(() => {

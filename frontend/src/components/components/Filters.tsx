@@ -1,20 +1,7 @@
 import { filtersList } from "../../interfaces/IProps";
+import { filtersProps } from "../../interfaces/IProps";
 
-// interface IFilter {
-//   name: string;
-//   options: string[];
-// }
-
-// interface filterProps {
-//   filters: IFilter[];
-// }
-
-interface filterProps {
-  setFilters(filter: String): void;
-}
-
-export const Filters = () => {
-  console.log(filtersList);
+export const Filters = (props: filtersProps) => {
   return (
     <div className="filter-wrapper">
       <ul>
@@ -26,8 +13,9 @@ export const Filters = () => {
               {filter.options.map((option) => (
                 <li
                   key={option.title}
-
-                  // onClick={() => props.setFilters(option)}
+                  onClick={(e) => {
+                    props.onFiltersClick(option.title);
+                  }}
                 >
                   {option.title}
                 </li>
