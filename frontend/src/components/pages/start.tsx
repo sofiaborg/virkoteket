@@ -5,15 +5,14 @@ import { Categories } from "../components/Categories";
 import { Filters } from "../components/Filters";
 import { AllPatterns } from "../components/AllPatterns";
 
-//skapa och importera en funktion "getFilteredProducts" som tar in 2 parametrar...
-//... vald kategori och valda filter!
-//skicka denna funktion som props till AllPatterns så att...
-//...rätt produkter visas beroende på kategori och filter
-
 export const Start = () => {
   const { isLoggedIn, login, logout } = useContext(AuthContext);
   const [category, setCategory] = useState("");
   const [filters, setFilters] = useState([]);
+
+  const handleCategory = (category: string) => {
+    // Do something with the new category value
+  };
 
   if (!isLoggedIn) {
     return <div>Please login to view this page</div>;
@@ -21,7 +20,7 @@ export const Start = () => {
 
   return (
     <>
-      <Categories></Categories>
+      <Categories onCategoryClick={handleCategory}></Categories>
       <Filters></Filters>
       <AllPatterns></AllPatterns>;
       {/* dessa props ska skickas med till varje component */}

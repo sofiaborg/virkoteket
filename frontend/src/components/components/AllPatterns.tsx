@@ -8,6 +8,8 @@ import { AuthContext } from "../../contexts/auth-context";
 import { IPost } from "../../interfaces/IProps";
 import { Link } from "react-router-dom";
 
+import { getFilteredProducts } from "../../utils/utils";
+
 export const AllPatterns = () => {
   const [posts, setPosts] = useState<IPost[]>([]);
   const [category, setCategory] = useState<IPostsContext>(defaultValue);

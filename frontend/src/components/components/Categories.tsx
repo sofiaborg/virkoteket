@@ -1,12 +1,9 @@
 import { useState, useEffect } from "react";
 import { useContext } from "react";
 import { categoryList } from "../../interfaces/IProps";
+import { categoryProps } from "../../interfaces/IProps";
 
-interface categoryProps {
-  setCategories(category: string): void;
-}
-
-export const Categories = () => {
+export const Categories = (props: categoryProps) => {
   return (
     <>
       <div className="category-wrapper">
@@ -14,8 +11,10 @@ export const Categories = () => {
           {categoryList.map((category, i) => (
             <li
               key={i}
-              // onClick={() => props.setCategories(category)}
               value={category}
+              onClick={(e) => {
+                props.onCategoryClick(category);
+              }}
             >
               {category}
             </li>

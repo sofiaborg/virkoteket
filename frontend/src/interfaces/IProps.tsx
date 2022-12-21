@@ -1,5 +1,8 @@
-export interface ICategories {
-  id: string;
+export interface categoryProps {
+  onCategoryClick: (category: string) => void;
+}
+
+export interface ICategory {
   name: string;
 }
 
@@ -13,7 +16,7 @@ export interface IPost {
   yarn: number;
   hook: number;
   space: number;
-  category: ICategories;
+  category: ICategory;
 }
 
 export const categoryList = [

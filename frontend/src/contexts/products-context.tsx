@@ -1,4 +1,4 @@
-import { ICategories } from "../interfaces/IProps";
+import { ICategory } from "../interfaces/IProps";
 import { IPost } from "../interfaces/IProps";
 import { createContext } from "react";
 
@@ -9,7 +9,7 @@ interface IFilter {
 export interface IPostsContext {
   posts: IPost[];
   filters: IFilter[];
-  categories: ICategories[];
+  categories: ICategory[];
 
   setFilters(filter: string): void;
 }
