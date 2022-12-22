@@ -3,12 +3,12 @@ export interface categoryProps {
 }
 
 export interface filtersProps {
-  onFiltersClick: (filters: string) => void;
+  onFiltersClick: (filter: string) => void;
 }
 
 export interface postsProps {
   category: string;
-  filter: string;
+  filters: string[];
 }
 
 export interface ICategory {
@@ -39,11 +39,11 @@ export const categoryList = [
 ];
 
 //filter and options
-interface IOption {
+export interface IOption {
   title: string;
 }
 
-interface IFilter {
+export interface IFilter {
   title: string;
   options: IOption[];
 }

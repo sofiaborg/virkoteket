@@ -8,15 +8,25 @@ import { AllPatterns } from "../components/AllPatterns";
 export const Start = () => {
   const { isLoggedIn, login, logout } = useContext(AuthContext);
   const [chosenCategory, setChosenCategory] = useState("");
-  const [chosenFilter, setChosenFilter] = useState("");
+  const [chosenFilters, setChosenFilters] = useState<string[]>([]);
   const [sortedPosts, setSortedPosts] = useState("");
 
   const handleCategory = (category: string) => {
     setChosenCategory(category);
   };
 
-  const handleFilters = (filter: string) => {
-    setChosenFilter(filter);
+  const handleFilters = (filters: string) => {
+    setChosenFilters([...chosenFilters, filters]);
+    console.log(chosenFilters);
+
+    fetch(
+      `http://localhost:8000/posts/getposts/?filters=${encodeURIComponent(
+        JSON.stringify(chosenFilters)
+      )}`
+    )
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
   };
 
   if (!isLoggedIn) {
@@ -28,13 +38,9 @@ export const Start = () => {
       <Categories onCategoryClick={handleCategory}></Categories>
       <Filters onFiltersClick={handleFilters}></Filters>
       <AllPatterns
-        filter={chosenFilter}
+        filters={chosenFilters}
         category={chosenCategory}
       ></AllPatterns>
-      ;{/* dessa props ska skickas med till varje component */}
-      {/* <Categories category={category} setCategory={setCategory} />
-      <Filters filters={filters} setFilters={setFilters} />
-      <AllPatterns products={getFilteredProducts(category, filters)} /> */}
     </>
   );
 };

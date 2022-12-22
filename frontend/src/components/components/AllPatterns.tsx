@@ -10,16 +10,15 @@ export const AllPatterns = (props: postsProps) => {
   useEffect(() => {
     async function fetchProducts() {
       const response = await fetch(
-        `http://localhost:8000/posts/getposts?category=${props.category}&filter=${props.filter}`
+        `http://localhost:8000/posts/getposts/?category=${
+          props.category
+        }&filter=${encodeURIComponent(JSON.stringify(props.filters))}`
       );
       const data = await response.json();
       setPosts(data);
-
-      // Now you can use the `products` array in your component
-      // ...
     }
     fetchProducts();
-  }, [props.category, props.filter]); // This will cause the effect to run again if either `category` or `filter` changes
+  }, [props.category, props.filters]);
 
   // ...
 
