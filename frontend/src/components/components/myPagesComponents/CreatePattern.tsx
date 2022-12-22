@@ -5,6 +5,17 @@ export const CreatePattern = (props: showPage) => {
   const [typeCrochet, setTypeCrochet] = useState<Boolean>(false);
   const [typeKnit, setTypeKnit] = useState<Boolean>(false);
 
+  const [title, setTitle] = useState<String>("");
+  const [description, setDescription] = useState<String>("");
+  const [image, setImage] = useState<String>("");
+  const [pattern, setPattern] = useState<String>("");
+  const [category, setCategory] = useState<String>("");
+  const [type, setType] = useState<String>("");
+  const [level, setLevel] = useState<String>("");
+  const [yarn, setYarn] = useState<String>("");
+  const [hooks, setHook] = useState<String>("");
+  const [needle, setNeedle] = useState<String>("");
+
   return (
     <>
       {props.show ? (
@@ -35,9 +46,11 @@ export const CreatePattern = (props: showPage) => {
                 if (e.target.value === "Virka") {
                   setTypeCrochet(true);
                   setTypeKnit(false);
+                  setType(e.target.value);
                 } else if (e.target.value === "Sticka") {
                   setTypeCrochet(false);
                   setTypeKnit(true);
+                  setType(e.target.value);
                 }
               }}
             >
