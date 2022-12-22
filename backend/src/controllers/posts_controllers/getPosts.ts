@@ -6,16 +6,16 @@ export const getPosts = async (req: Request, res: Response) => {
   let filters = {};
 
   if (req.query.category) {
-    console.log(req.query.category + " hej");
     category = { category: req.query.category };
   }
 
   if (req.query.filters) {
-    console.log(req.query.filter + " hej");
+    const filterToString = JSON.stringify(req.query.filters);
+    let filters = JSON.parse(decodeURIComponent(filterToString));
     filters = Object.assign(filters, { filters: req.query.filters });
   }
 
-  const posts = await Posts.find(category).lean();
+  const posts = await Posts.find(filters).lean();
 
   res.send(posts);
 };

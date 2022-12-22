@@ -4,12 +4,12 @@ interface IPost {
   title: String;
   image: String;
   description: String;
-  type: Number;
+  type: String;
   category: String;
-  difficulty: Number;
-  yarn: Number;
-  hook: Number;
-  space: Number;
+  difficulty: String;
+  yarn: String;
+  hook: String;
+  space: String;
 }
 
 export const PostSchema = new Schema({
@@ -26,7 +26,7 @@ export const PostSchema = new Schema({
     required: true,
   },
   type: {
-    type: Number,
+    type: String,
     required: true,
   },
   category: {
@@ -34,19 +34,19 @@ export const PostSchema = new Schema({
     required: true,
   },
   difficulty: {
-    type: Number,
+    type: String,
     required: true,
   },
   yarn: {
-    type: Number,
+    type: String,
     required: true,
   },
   hook: {
-    type: Number,
+    type: String,
     required: true,
   },
   space: {
-    type: Number,
+    type: String,
     required: true,
   },
   reviews: [{ type: Schema.Types.ObjectId, ref: "Reviews" }],
