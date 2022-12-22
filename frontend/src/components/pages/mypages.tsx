@@ -4,7 +4,7 @@ import { CreatePattern } from "../components/myPagesComponents/CreatePattern";
 import { MyPatterns } from "../components/myPagesComponents/MyPatterns";
 import { MyAccount } from "../components/myPagesComponents/MyAccount";
 export const Mypages = () => {
-  const [showCreatePattern, setShowCreatePattern] = useState<Boolean>(false);
+  const [showCreatePattern, setShowCreatePattern] = useState<Boolean>(true);
   const [showMyPatterns, setShowMyPatterns] = useState<Boolean>(false);
   const [showMyAccount, setShowMyAccount] = useState<Boolean>(false);
 
@@ -37,6 +37,8 @@ export const Mypages = () => {
             <h2
               onClick={(e) => {
                 setShowCreatePattern(true);
+                setShowMyAccount(false);
+                setShowMyPatterns(false);
               }}
             >
               Skapa mönster
@@ -46,6 +48,8 @@ export const Mypages = () => {
                 <h2
                   onClick={(e) => {
                     setShowMyPatterns(true);
+                    setShowCreatePattern(false);
+                    setShowMyAccount(false);
                   }}
                 >
                   Mina mönster
@@ -55,6 +59,8 @@ export const Mypages = () => {
                 <h2
                   onClick={(e) => {
                     setShowMyAccount(true);
+                    setShowCreatePattern(false);
+                    setShowMyPatterns(false);
                   }}
                 >
                   Mitt konto
