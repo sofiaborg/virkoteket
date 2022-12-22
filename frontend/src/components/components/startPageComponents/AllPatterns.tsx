@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import { AuthContext } from "../../contexts/auth-context";
-import { IPost } from "../../interfaces/IProps";
+import { IPost } from "../../../interfaces/IProps";
 import { Link } from "react-router-dom";
-import { postsProps } from "../../interfaces/IProps";
+import { postsProps } from "../../../interfaces/IProps";
 
 export const AllPatterns = (props: postsProps) => {
   const [posts, setPosts] = useState([]);

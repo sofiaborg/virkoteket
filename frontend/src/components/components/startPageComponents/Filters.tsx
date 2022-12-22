@@ -1,5 +1,5 @@
-import { filtersList } from "../../interfaces/IProps";
-import { filtersProps } from "../../interfaces/IProps";
+import { filtersList } from "../../../interfaces/IProps";
+import { filtersProps } from "../../../interfaces/IProps";
 
 export const Filters = (props: filtersProps) => {
   return (

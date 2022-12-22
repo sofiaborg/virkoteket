@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Wrapper } from "../components/StyledComponents/StyledWrappers";
-
+import { CreatePattern } from "../components/myPagesComponents/CreatePattern";
+import { MyPatterns } from "../components/myPagesComponents/MyPatterns";
+import { MyAccount } from "../components/myPagesComponents/MyAccount";
 export const Mypages = () => {
+  const [showCreatePattern, setShowCreatePattern] = useState<Boolean>(false);
+  const [showMyPatterns, setShowMyPatterns] = useState<Boolean>(false);
+  const [showMyAccount, setShowMyAccount] = useState<Boolean>(false);
+
   //OBS denna funkar ej. Fixa
   const handleLogout = async () => {
     await fetch("http://localhost:8000/auth/logout", {
@@ -28,10 +34,31 @@ export const Mypages = () => {
         <h1>Mina sidor</h1>
         <div className="sidebar-wrapper">
           <div>
-            <h2>Mina mönster</h2>
+            <h2
+              onClick={(e) => {
+                setShowCreatePattern(true);
+              }}
+            >
+              Skapa mönster
+            </h2>
             <div>
               <div>
-                <h2>Mitt konto</h2>
+                <h2
+                  onClick={(e) => {
+                    setShowMyPatterns(true);
+                  }}
+                >
+                  Mina mönster
+                </h2>
+              </div>
+              <div>
+                <h2
+                  onClick={(e) => {
+                    setShowMyAccount(true);
+                  }}
+                >
+                  Mitt konto
+                </h2>
               </div>
               <div>
                 <button onClick={handleLogout}>Logga ut</button>
@@ -42,89 +69,12 @@ export const Mypages = () => {
 
         <div className="mainbar-wrapper">
           <div className="patterns-wrapper">
-            <h3>
-              Om mönster finns, loopa ut dem här. "Skapa mönster"-knapp ligger
-              längst ner på sidan
-            </h3>
-            <button>Skapa mönster</button>
-            <h3>Om inga mönster är skapade ännu ska detta form visas direkt</h3>
-
-            <form action="#">
-              <input type="text" placeholder="Namn på mösnter" />
-              <input type="text" placeholder="Beskrining" />
-              <input type="file" placeholder="ladda upp bild" />
-              <input type="file" placeholder="Ladda upp mönster som pdf" />
-              <h3>KATEGORIER</h3>
-              <label>Välj passande kategori:</label>
-              <select name="x" id="x">
-                <option selected disabled>
-                  Kategori
-                </option>
-                <option value="x">Dam</option>
-                <option value="x">Herr</option>
-                <option value="x">Barn</option>
-                <option value="x">Baby</option>
-                <option value="x">Djur</option>
-                <option value="x">Hem</option>
-                <option value="x">Högtider</option>
-              </select>
-              <h3>FILTER</h3>
-              <label>Huvudfilter:</label>
-              <select name="x" id="x">
-                <option selected disabled>
-                  Typ
-                </option>
-                <option value="x">Virka</option>
-                <option value="x">Sticka</option>
-              </select>
-              <h3>Beroende på valt huvudfilter får man olika filter här:</h3>
-              <select name="x" id="x">
-                <option selected disabled>
-                  Svårighetsgrad
-                </option>
-                <option value="x">Nybörjare</option>
-                <option value="x">Normal</option>
-                <option value="x">Erfaren</option>
-              </select>
-              <select name="x" id="x">
-                <option selected disabled>
-                  Stickfasthet
-                </option>
-                <option value="x">x</option>
-                <option value="x">x</option>
-                <option value="x">x</option>
-              </select>
-
-              <select name="x" id="x">
-                <option selected disabled>
-                  Virknål
-                </option>
-                <option value="x">x</option>
-                <option value="x">x</option>
-                <option value="x">x</option>
-              </select>
-              <select name="x" id="x">
-                <option selected disabled>
-                  Garntyp
-                </option>
-                <option value="x">x</option>
-                <option value="x">x</option>
-                <option value="x">x</option>
-              </select>
-            </form>
-
-            <button>Ladda upp mönster</button>
+            <CreatePattern show={showCreatePattern}></CreatePattern>
+            <MyPatterns show={showMyPatterns}></MyPatterns>
+            <MyAccount show={showMyAccount}></MyAccount>
           </div>
 
-          <div className="myaccount-wrapper">
-            <h3>Mitt konto</h3>
-
-            <h4>"här står mail"</h4>
-            <h4>"medlem sedan xx-xx-xx"</h4>
-
-            <h4>"här står beskrivning"</h4>
-            <button>Lägg till beskrivning / Redigera</button>
-          </div>
+          <div className="myaccount-wrapper"></div>
         </div>
       </Wrapper>
     </>

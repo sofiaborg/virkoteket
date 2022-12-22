@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/auth-context";
-import { Categories } from "../components/Categories";
-import { Filters } from "../components/Filters";
-import { AllPatterns } from "../components/AllPatterns";
+import { Categories } from "../components/startPageComponents/Categories";
+import { Filters } from "../components/startPageComponents/Filters";
+import { AllPatterns } from "../components/startPageComponents/AllPatterns";
 
 export const Start = () => {
   const { isLoggedIn, login, logout } = useContext(AuthContext);
