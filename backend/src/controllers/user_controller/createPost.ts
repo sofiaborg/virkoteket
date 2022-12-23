@@ -16,5 +16,5 @@ export const createPost = async (req: Request, res: Response) => {
   });
 
   await newPost.save();
-  res.send("skapad");
+  res.send(newPost);
 };

@@ -9,7 +9,7 @@ interface IPost {
   difficulty: String;
   yarn: String;
   hook: String;
-  space: String;
+  needle: String;
 }
 
 export const PostSchema = new Schema({
@@ -43,11 +43,9 @@ export const PostSchema = new Schema({
   },
   hook: {
     type: String,
-    required: true,
   },
-  space: {
+  needle: {
     type: String,
-    required: true,
   },
   reviews: [{ type: Schema.Types.ObjectId, ref: "Reviews" }],
   users: [{ type: Schema.Types.ObjectId, ref: "Users" }],

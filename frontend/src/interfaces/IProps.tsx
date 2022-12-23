@@ -50,6 +50,10 @@ export interface IFilter {
 
 export const filtersList: IFilter[] = [
   {
+    title: "Typ",
+    options: [{ title: "Virka" }, { title: "Sticka" }],
+  },
+  {
     title: "Svårighetsgrad",
     options: [
       { title: "Nybörjare" },
