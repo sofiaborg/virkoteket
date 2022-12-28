@@ -29,10 +29,6 @@ export const Start = () => {
       .catch((error) => console.error(error));
   };
 
-  if (!isLoggedIn) {
-    return <div>Please login to view this page</div>;
-  }
-
   return (
     <>
       <Categories onCategoryClick={handleCategory}></Categories>

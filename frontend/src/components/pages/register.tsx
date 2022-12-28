@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { Link, redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { object, string, TypeOf } from "zod";
+import { useForm, SubmitHandler } from "react-hook-form";
 
 export const Register = () => {
   //register states

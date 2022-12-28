@@ -13,6 +13,7 @@ export const loginUser = async (req: Request, res: Response) => {
       const userData = { userId: user._id };
       const userID = user._id;
       const accessToken = jwt.sign(userData, process.env.JWTSECRET);
+      res.cookie("token", accessToken);
 
       res.send({ accessToken, userID });
     } else {

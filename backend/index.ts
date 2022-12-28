@@ -13,12 +13,13 @@ require("./services/database.ts");
 const app: Application = express();
 
 app.use(express.urlencoded({ extended: true }));
-app.use((req: Request, res: Response, next: Function) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "*");
-  res.header("Access-Control-Allow-Methods", "*");
-  next();
-});
+
+// app.use((req: Request, res: Response, next: Function) => {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "*");
+//   res.header("Access-Control-Allow-Methods", "*");
+//   next();
+// });
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
