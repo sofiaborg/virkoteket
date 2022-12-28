@@ -14,13 +14,6 @@ const app: Application = express();
 
 app.use(express.urlencoded({ extended: true }));
 
-// app.use((req: Request, res: Response, next: Function) => {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Headers", "*");
-//   res.header("Access-Control-Allow-Methods", "*");
-//   next();
-// });
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(bodyParser.json());
@@ -34,7 +27,7 @@ app.use(cors());
 //     const tokenData = jwt.decode(token, process.env.JWTSECRET);
 //     res.locals.loggedIn = true;
 //     res.locals.email = tokenData.email;
-//     res.locals.userId = tokenData.userId;
+//     res.locals.id = tokenData.id;
 //     // else
 //   } else {
 //     res.locals.loggedIn = false;

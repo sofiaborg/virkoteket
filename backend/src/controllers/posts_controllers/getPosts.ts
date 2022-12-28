@@ -15,7 +15,7 @@ export const getPosts = async (req: Request, res: Response) => {
     filters = Object.assign(filters, { filters: req.query.filters });
   }
 
-  const posts = await Posts.find(filters).lean();
+  const posts = await Posts.find(category).lean();
 
   res.send(posts);
 };

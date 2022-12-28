@@ -6,7 +6,7 @@ interface Props {
 
 interface AuthContextData {
   isLoggedIn: boolean;
-  login: () => void;
+  login: (data: any) => void;
   logout: () => void;
 }
 
@@ -23,15 +23,17 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
     return !!token;
   });
 
-  const login = () => {
+  const login = (data: any) => {
     // Save the token to session storage
-    sessionStorage.setItem("token", "your-token-here");
+    sessionStorage.setItem("token", data.accessToken);
+    sessionStorage.setItem("userID", data.userID);
     setIsLoggedIn(true);
   };
 
   const logout = () => {
     // Remove the token from session storage
     sessionStorage.removeItem("token");
+    sessionStorage.removeItem("userID");
     setIsLoggedIn(false);
   };
 

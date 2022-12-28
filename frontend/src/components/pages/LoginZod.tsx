@@ -15,7 +15,7 @@ const createSessionSchema = object({
 
 type CreateSessionInput = TypeOf<typeof createSessionSchema>;
 
-function LoginPage() {
+export const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState(null);
@@ -35,9 +35,11 @@ function LoginPage() {
 
     await fetch("http://localhost:8000/auth/login", {
       method: "POST",
+      credentials: "same-origin",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+
         mode: "no-cors",
       },
       body: JSON.stringify({ email, password }),
@@ -89,6 +91,4 @@ function LoginPage() {
       </div>
     </>
   );
-}
-
-export default LoginPage;
+};

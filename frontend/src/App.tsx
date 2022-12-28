@@ -5,7 +5,7 @@ import { Mypages } from "./components/pages/MyPages";
 import { Start } from "./components/pages/Start";
 import { Register } from "./components/pages/Register";
 import { RegisterPage } from "./components/pages/RegisterZod";
-import LoginPage from "./components/pages/LoginZod";
+import { LoginPage } from "./components/pages/LoginZod";
 import { Login } from "./components/pages/Login";
 import {
   postsContext,

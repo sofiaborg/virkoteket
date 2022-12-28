@@ -7,11 +7,17 @@ export const AllPatterns = (props: postsProps) => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
+    const headers: Record<string, string> = {
+      Authorization: sessionStorage.getItem("token") as string,
+    };
     async function fetchProducts() {
       const response = await fetch(
         `http://localhost:8000/posts/getposts/?category=${
           props.category
-        }&filter=${encodeURIComponent(JSON.stringify(props.filters))}`
+        }&filter=${encodeURIComponent(JSON.stringify(props.filters))}`,
+        {
+          headers,
+        }
       );
       const data = await response.json();
       setPosts(data);

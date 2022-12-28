@@ -4,20 +4,16 @@ import { useContext } from "react";
 import { AuthContext } from "../../contexts/auth-context";
 
 export const Login = () => {
+  const auth = useContext(AuthContext);
+
   //login states
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
-  const [token, setToken] = useState(null);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setError(false);
-
-    const storageFunction = (data: any) => {
-      sessionStorage.setItem("token", data.accessToken);
-      sessionStorage.setItem("userID", data.userID);
-    };
 
     await fetch("http://localhost:8000/auth/login", {
       method: "POST",
@@ -29,7 +25,7 @@ export const Login = () => {
       body: JSON.stringify({ email, password }),
     })
       .then((response) => response.json())
-      .then((data) => storageFunction(data))
+      .then((data) => auth.login(data))
       .catch((error) => console.error(error));
   };
   return (
