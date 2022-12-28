@@ -9,6 +9,7 @@ export const loginUser = async (req: Request, res: Response) => {
 
   Users.findOne({ email }, (err: any, user: any) => {
     if (user && comparePassword(password, user.password)) {
+      console.log("inlogadd");
       // Logged in
       const userData = { userId: user._id };
       const userID = user._id;
@@ -18,7 +19,8 @@ export const loginUser = async (req: Request, res: Response) => {
       res.send({ accessToken, userID });
     } else {
       // Login incorrect
-      res.send("login failed");
+      console.log("failed");
+      res.sendStatus(400);
     }
   });
 };
