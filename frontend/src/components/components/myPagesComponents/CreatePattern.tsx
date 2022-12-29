@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { showPage } from "../../../interfaces/IProps";
+import { getCurrentUser } from "../../../interfaces/IProps";
 
 export const CreatePattern = (props: showPage) => {
   const [typeCrochet, setTypeCrochet] = useState<Boolean>(false);
@@ -17,27 +18,35 @@ export const CreatePattern = (props: showPage) => {
   const [needle, setNeedle] = useState<String>("");
 
   const handleCreatePattern = async (e: any) => {
+    const user = getCurrentUser();
+
     e.preventDefault();
-    await fetch("http://localhost:8000/user/createpost", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        mode: "no-cors",
-      },
-      body: JSON.stringify({
-        title,
-        description,
-        image,
-        pattern,
-        category,
-        type,
-        difficulty,
-        yarn,
-        hook,
-        needle,
-      }),
-    })
+    await fetch(
+      "http://localhost:8000/user/createpost",
+
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          mode: "no-cors",
+          user: user.id,
+        },
+
+        body: JSON.stringify({
+          title,
+          description,
+          image,
+          pattern,
+          category,
+          type,
+          difficulty,
+          yarn,
+          hook,
+          needle,
+        }),
+      }
+    )
       .then((response) => response.json())
       .then((data) => console.log(data))
       .catch((error) => console.error(error));

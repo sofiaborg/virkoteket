@@ -7,12 +7,12 @@ export const MyPatterns = (props: showPage) => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    async function fetchProducts() {
-      const response = await fetch(`http://localhost:8000/posts/getposts`);
+    async function fetchPosts() {
+      const response = await fetch(`http://localhost:8000/user/myaccount`);
       const data = await response.json();
       setPosts(data);
     }
-    fetchProducts();
+    fetchPosts();
   }, []);
 
   return (
@@ -22,8 +22,8 @@ export const MyPatterns = (props: showPage) => {
           <h3>Mina mönster</h3>
 
           {posts.map((post: IPost) => (
-            <div key={post.id}>
-              <Link className="link" to={"/posts/" + post.id}>
+            <div key={post._id}>
+              <Link className="link" to={"/posts/" + post._id}>
                 <img src={post.image} alt={post.image} />
                 <h3>{post.title}</h3>
               </Link>

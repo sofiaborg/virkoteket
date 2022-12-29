@@ -9,17 +9,17 @@ export const AllPatterns = (props: postsProps) => {
   const user = getCurrentUser();
 
   useEffect(() => {
-    // const headers: Record<string, string> = {
-    //   Authorization: sessionStorage.getItem(user.token) as string,
-    // };
+    const headers: Record<string, string> = {
+      Authorization: sessionStorage.getItem(user.token) as string,
+    };
     async function fetchProducts() {
       const response = await fetch(
         `http://localhost:8000/posts/getposts/?category=${
           props.category
-        }&filter=${encodeURIComponent(JSON.stringify(props.filters))}`
-        // {
-        //   headers,
-        // }
+        }&filter=${encodeURIComponent(JSON.stringify(props.filters))}`,
+        {
+          headers,
+        }
       );
       const data = await response.json();
       setPosts(data);
@@ -66,8 +66,8 @@ export const AllPatterns = (props: postsProps) => {
     <>
       <div>
         {posts.map((post: IPost) => (
-          <div key={post.id}>
-            <Link className="link" to={"/posts/" + post.id}>
+          <div key={post._id}>
+            <Link className="link" to={"/patterns/" + post._id}>
               <img src={post.image} alt={post.image} />
               <h3>{post.title}</h3>
             </Link>

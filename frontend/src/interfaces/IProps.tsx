@@ -23,7 +23,7 @@ export interface ICategory {
 }
 
 export interface IPost {
-  id: number;
+  _id: number;
   title: string;
   image: string;
   description: string;

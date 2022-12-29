@@ -10,6 +10,7 @@ interface IPost {
   yarn: String;
   hook: String;
   needle: String;
+  user: String;
 }
 
 export const PostSchema = new Schema({
@@ -47,8 +48,9 @@ export const PostSchema = new Schema({
   needle: {
     type: String,
   },
-  reviews: [{ type: Schema.Types.ObjectId, ref: "Reviews" }],
-  users: [{ type: Schema.Types.ObjectId, ref: "Users" }],
+  user: {
+    type: String,
+  },
 });
 
 export const Posts = model<IPost>("Posts", PostSchema);

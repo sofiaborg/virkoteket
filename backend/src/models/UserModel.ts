@@ -8,6 +8,7 @@ export interface IUser {
   name: string;
   description: string;
   profilepic: string;
+  posts: [];
 }
 
 export const UserSchema: Schema<IUser> = new Schema({
@@ -35,6 +36,7 @@ export const UserSchema: Schema<IUser> = new Schema({
     type: String,
     default: "",
   },
+  posts: [{ type: Schema.Types.ObjectId, ref: "Posts" }],
 });
 
 export const Users = model<IUser>("Users", UserSchema);

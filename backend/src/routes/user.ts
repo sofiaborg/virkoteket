@@ -6,12 +6,13 @@ import { forceAuth } from "../middlewares/forceAuth";
 const router: Router = express.Router();
 
 //MINA SIDOR
-//OK - GET logged in users info
-router.get("/:id/myaccount", async (req: Request, res: Response) => {
-  const id: String = ObjectId(req.params.id); //säg att id ska vara samma id som inloggat id JWT!!!! Ej finnas i urlen
-  const user = await Users.findOne({ _id: id });
-  console.log(user);
-  res.sendStatus(200);
+//OK - GET logged in users info + all their patterns
+router.get("/myaccount", async (req: Request, res: Response) => {
+  const userID = ObjectId(req.headers.user);
+
+  const myPosts = await Posts.find({ user: userID }).lean();
+  console.log(myPosts);
+  res.status(200).send(myPosts);
 });
 
 //OK - POST update the users information
@@ -89,6 +90,8 @@ router.post("/:id/deletepost", async (req: Request, res: Response) => {
 
 //OK - POST a new pattern
 router.post("/createpost", async (req: Request, res: Response) => {
+  const userID = req.headers.user;
+
   const newPost = new Posts({
     title: req.body.title,
     image: req.body.image,
@@ -98,10 +101,12 @@ router.post("/createpost", async (req: Request, res: Response) => {
     difficulty: req.body.difficulty,
     yarn: req.body.yarn,
     hook: req.body.hook,
-    space: req.body.space,
+    needle: req.body.needle,
+    user: userID,
   });
 
   await newPost.save();
+
   res.send(newPost);
 });
 

@@ -3,10 +3,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "./components/layout/layout";
 import { Mypages } from "./components/pages/MyPages";
 import { Start } from "./components/pages/Start";
-import { Register } from "./components/pages/Register";
 import { RegisterPage } from "./components/pages/RegisterZod";
 import { LoginPage } from "./components/pages/LoginZod";
-import { Login } from "./components/pages/Login";
+import { SinglePattern } from "./components/components/startPageComponents/SinglePattern";
 import {
   postsContext,
   IPostsContext,
@@ -24,6 +23,7 @@ export const App = () => {
             <Route path="/register" element={<RegisterPage />}></Route>
             <Route path="/mypages" element={<Mypages />}></Route>
             <Route path="/patterns" element={<Start />}></Route>
+            <Route path="/patterns/:id" element={<SinglePattern />}></Route>
           </Route>
         </Routes>
       </BrowserRouter>
