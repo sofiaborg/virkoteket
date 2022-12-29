@@ -19,8 +19,8 @@ const AuthContext = createContext<AuthContextData>({
 const AuthProvider: React.FC<Props> = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
     // Check if a token exists in session storage
-    const token = sessionStorage.getItem("token");
-    return !!token;
+    const userExists = sessionStorage.getItem("user");
+    return !!userExists;
   });
 
   const login = (data: any) => {
@@ -31,8 +31,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
 
   const logout = () => {
     // Remove the token from session storage
-    sessionStorage.removeItem("token");
-    sessionStorage.removeItem("userID");
+    sessionStorage.removeItem("user");
     setIsLoggedIn(false);
   };
 

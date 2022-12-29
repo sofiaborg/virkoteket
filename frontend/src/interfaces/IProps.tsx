@@ -1,3 +1,10 @@
+export const getCurrentUser = () => {
+  const userStr = sessionStorage.getItem("user");
+  if (userStr) return JSON.parse(userStr);
+
+  return null;
+};
+
 export interface categoryProps {
   onCategoryClick: (category: string) => void;
 }

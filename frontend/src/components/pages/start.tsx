@@ -4,6 +4,7 @@ import { AuthContext } from "../../contexts/auth-context";
 import { Categories } from "../components/startPageComponents/Categories";
 import { Filters } from "../components/startPageComponents/Filters";
 import { AllPatterns } from "../components/startPageComponents/AllPatterns";
+import { getCurrentUser } from "../../interfaces/IProps";
 
 export const Start = () => {
   const [chosenCategory, setChosenCategory] = useState("");
@@ -11,6 +12,8 @@ export const Start = () => {
   const [sortedPosts, setSortedPosts] = useState("");
   const auth = useContext(AuthContext);
   console.log(auth.isLoggedIn);
+
+  const user = getCurrentUser();
 
   const handleCategory = (category: string) => {
     setChosenCategory(category);
@@ -23,17 +26,17 @@ export const Start = () => {
   };
 
   useEffect(() => {
-    const headers: Record<string, string> = {
-      Authorization: sessionStorage.getItem("token") as string,
-    };
+    // const headers: Record<string, string> = {
+    //   Authorization: sessionStorage.getItem(user.token) as string,
+    // };
 
     fetch(
       `http://localhost:8000/posts/getposts/?filters=${encodeURIComponent(
         JSON.stringify(chosenCategory)
-      )}`,
-      {
-        headers,
-      }
+      )}`
+      // {
+      //   headers,
+      // }
     )
       .then((response) => response.json())
       .then((data) => data)

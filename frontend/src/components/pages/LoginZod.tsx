@@ -7,12 +7,8 @@ import { useContext } from "react";
 import { AuthContext } from "../../contexts/auth-context";
 
 const createSessionSchema = object({
-  email: string().nonempty({
-    message: "E-post krävs",
-  }),
-  password: string().nonempty({
-    message: "Lösenord krävs",
-  }),
+  email: string().min(1, "E-post krävs"),
+  password: string().min(1, "Lösenord krävs"),
 });
 
 type CreateSessionInput = TypeOf<typeof createSessionSchema>;

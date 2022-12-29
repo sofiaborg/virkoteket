@@ -2,22 +2,24 @@ import { useState, useEffect } from "react";
 import { IPost } from "../../../interfaces/IProps";
 import { Link } from "react-router-dom";
 import { postsProps } from "../../../interfaces/IProps";
+import { getCurrentUser } from "../../../interfaces/IProps";
 
 export const AllPatterns = (props: postsProps) => {
   const [posts, setPosts] = useState([]);
+  const user = getCurrentUser();
 
   useEffect(() => {
-    const headers: Record<string, string> = {
-      Authorization: sessionStorage.getItem("token") as string,
-    };
+    // const headers: Record<string, string> = {
+    //   Authorization: sessionStorage.getItem(user.token) as string,
+    // };
     async function fetchProducts() {
       const response = await fetch(
         `http://localhost:8000/posts/getposts/?category=${
           props.category
-        }&filter=${encodeURIComponent(JSON.stringify(props.filters))}`,
-        {
-          headers,
-        }
+        }&filter=${encodeURIComponent(JSON.stringify(props.filters))}`
+        // {
+        //   headers,
+        // }
       );
       const data = await response.json();
       setPosts(data);

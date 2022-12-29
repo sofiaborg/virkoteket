@@ -1,15 +1,60 @@
-import { getUserPosts } from "../controllers/posts_controllers/getUserPosts";
-import { createReview } from "../controllers/posts_controllers/createReview";
-import { getSinglePost } from "../controllers/posts_controllers/getSinglePost";
-import { getPosts } from "../controllers/posts_controllers/getPosts";
 import { forceAuth } from "../middlewares/forceAuth";
-import express, { Router } from "express";
+import { Posts } from "../models/PostModel";
+import { Reviews } from "../models/ReviewModel";
+import { Users } from "../models/UserModel";
+const { ObjectId } = require("mongodb");
+import express, { Router, Request, Response } from "express";
 const router: Router = express.Router();
 
-router.get("/getposts", forceAuth, getPosts);
+//hämta alla inlägg
+router.get("/getposts", async (req: Request, res: Response) => {
+  let category = {};
+  let filters = {};
 
-router.get("/:id/getsinglepost", getSinglePost);
-router.post("/createreview", createReview);
-router.get("/:id/getuserposts", getUserPosts);
+  if (req.query.category) {
+    category = { category: req.query.category };
+  }
+
+  if (req.query.filters) {
+    const filterToString = JSON.stringify(req.query.filters);
+    let filters = JSON.parse(decodeURIComponent(filterToString));
+    filters = Object.assign(filters, { filters: req.query.filters });
+  }
+
+  const posts = await Posts.find(category).lean();
+
+  res.send(posts);
+});
+
+//hämta ett inlägg
+router.get("/:id/getsinglepost", async (req: Request, res: Response) => {
+  const id: String = ObjectId(req.params.id);
+  const post = await Posts.findOne({ _id: id });
+  console.log(post);
+  res.sendStatus(200);
+});
+
+//hämta inloggad användares inlägg
+router.get("/:id/getuserposts", async (req: Request, res: Response) => {
+  const id: String = ObjectId(req.params.id);
+  Users.findOne({ _id: id })
+    .populate("posts") // key to populate
+    .then((user) => {
+      res.send(user);
+    });
+});
+
+//skapa rescencion
+router.post("/createreview", async (req: Request, res: Response) => {
+  const newReview = new Reviews({
+    grade: req.body.grade,
+    comment: req.body.comment,
+    image: req.body.image,
+  });
+
+  await newReview.save();
+  console.log(newReview);
+  res.send("skapad");
+});
 
 export default router;
