@@ -23,10 +23,10 @@ export const Login = () => {
         mode: "no-cors",
       },
       body: JSON.stringify({ email, password }),
-    })
-      .then((response) => response.json())
-      .then((data) => auth.login(data))
-      .catch((error) => console.error(error));
+    }).then((response) => console.log(response.json()));
+
+    // .then((data) => auth.login(data))
+    // .catch((error) => console.error(error));
   };
   return (
     <div className="login">

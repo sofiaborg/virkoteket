@@ -12,13 +12,16 @@ export const loginUser = async (req: Request, res: Response) => {
       console.log("inlogadd");
       // Logged in
       const userData = { userId: user._id };
-      const userID = user._id;
       const accessToken = jwt.sign(userData, process.env.JWTSECRET);
 
-      res.send({ accessToken, userID });
+      res.status(200).send({
+        id: user._id,
+        email: user.email,
+        token: accessToken,
+      });
     } else {
       // Login incorrect
-      console.log("inlogadd");
+      console.log("failed");
       res.sendStatus(400);
     }
   });

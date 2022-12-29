@@ -25,8 +25,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
 
   const login = (data: any) => {
     // Save the token to session storage
-    sessionStorage.setItem("token", data.accessToken);
-    sessionStorage.setItem("userID", data.userID);
+    sessionStorage.setItem("user", JSON.stringify(data));
     setIsLoggedIn(true);
   };
 

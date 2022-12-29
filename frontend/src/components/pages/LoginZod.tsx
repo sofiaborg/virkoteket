@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { object, string, TypeOf } from "zod";
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/auth-context";
 
 const createSessionSchema = object({
   email: string().nonempty({
@@ -16,6 +18,7 @@ const createSessionSchema = object({
 type CreateSessionInput = TypeOf<typeof createSessionSchema>;
 
 export const LoginPage = () => {
+  const auth = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState(null);
@@ -28,11 +31,6 @@ export const LoginPage = () => {
   });
 
   const onSubmit = async () => {
-    const storageFunction = (data: any) => {
-      sessionStorage.setItem("token", data.accessToken);
-      sessionStorage.setItem("userID", data.userID);
-    };
-
     await fetch("http://localhost:8000/auth/login", {
       method: "POST",
       credentials: "same-origin",
@@ -45,11 +43,9 @@ export const LoginPage = () => {
       body: JSON.stringify({ email, password }),
     })
       .then((response) => response.json())
-      .then((data) => storageFunction(data))
+      .then((data) => auth.login(data))
       .catch((error) => console.error(error));
   };
-
-  console.log({ errors });
 
   return (
     <>
