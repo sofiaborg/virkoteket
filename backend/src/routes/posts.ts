@@ -22,6 +22,7 @@ router.get("/getposts", async (req: Request, res: Response) => {
   }
 
   const posts = await Posts.find(category).lean();
+  console.log(posts);
 
   res.send(posts);
 });
@@ -30,8 +31,7 @@ router.get("/getposts", async (req: Request, res: Response) => {
 router.get("/:id/getsinglepost", async (req: Request, res: Response) => {
   const id: String = ObjectId(req.params.id);
   const post = await Posts.findOne({ _id: id });
-  console.log(post);
-  res.sendStatus(200);
+  res.status(200).send(post);
 });
 
 //hämta inloggad användares inlägg

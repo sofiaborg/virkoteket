@@ -1,22 +1,40 @@
 import { showPage } from "../../../interfaces/IProps";
 import { useState, useEffect } from "react";
+import { getCurrentUser } from "../../../interfaces/IProps";
+import { IUser } from "../../../interfaces/IProps";
+import { Link } from "react-router-dom";
 
 export const MyAccount = (props: showPage) => {
   const [user, setUser] = useState([]);
 
-  // useEffect(() => {
-  //   async function fetchLoggedInUser() {
-  //     const response = await fetch(`http://localhost:8000/user/id/myaccount`);
-  //     const data = await response.json();
-  //     setUser(data);
-  //   }
-  //   fetchLoggedInUser();
-  // }, []);
+  useEffect(() => {
+    const user = getCurrentUser();
+    async function fetchInfo() {
+      const response = await fetch(`http://localhost:8000/user/myinfo`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          mode: "no-cors",
+          user: user.id,
+        },
+      });
+      const data = await response.json();
+      setUser(data);
+    }
+    fetchInfo();
+  }, [user]);
   return (
     <>
       {props.show ? (
         <div>
           <h3>Mitt konto</h3>
+
+          {user.map((user: IUser) => (
+            <div key={user._id}>
+              <h3>Welcome {user.email}</h3>
+            </div>
+          ))}
         </div>
       ) : (
         <div></div>

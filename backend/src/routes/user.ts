@@ -6,13 +6,18 @@ import { forceAuth } from "../middlewares/forceAuth";
 const router: Router = express.Router();
 
 //MINA SIDOR
-//OK - GET logged in users info + all their patterns
-router.get("/myaccount", async (req: Request, res: Response) => {
-  const userID = ObjectId(req.headers.user);
-
-  const myPosts = await Posts.find({ user: userID }).lean();
-  console.log(myPosts);
+//OK - GET logged in users patterns
+router.get("/myposts", async (req: Request, res: Response) => {
+  const userID = req.headers.user;
+  const myPosts = await Posts.find({ user: userID });
   res.status(200).send(myPosts);
+});
+
+//OK - GET logged in users info
+router.get("/myinfo", async (req: Request, res: Response) => {
+  const userID = ObjectId(req.headers.user);
+  const myInfo = await Users.find({ _id: userID });
+  res.status(200).send(myInfo);
 });
 
 //OK - POST update the users information

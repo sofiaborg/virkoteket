@@ -35,6 +35,11 @@ export interface IPost {
   category: ICategory;
 }
 
+export interface IUser {
+  _id: number;
+  email: string;
+}
+
 export const categoryList = [
   "dam",
   "herr",
