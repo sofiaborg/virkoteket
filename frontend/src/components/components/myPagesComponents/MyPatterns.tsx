@@ -6,9 +6,9 @@ import { getCurrentUser } from "../../../interfaces/IProps";
 
 export const MyPatterns = (props: showPage) => {
   const [posts, setPosts] = useState([]);
+  const user = getCurrentUser();
 
   useEffect(() => {
-    const user = getCurrentUser();
     async function fetchPosts() {
       const response = await fetch(`http://localhost:8000/user/myposts`, {
         method: "GET",
@@ -25,24 +25,64 @@ export const MyPatterns = (props: showPage) => {
     fetchPosts();
   }, [posts]);
 
-  return (
-    <>
-      {props.show ? (
-        <div>
-          <h3>Mina mönster</h3>
+  const deletePost = async (id: number) => {
+    console.log(id);
+    const response = await fetch(
+      `http://localhost:8000/user/${id}/deletepost`,
+      {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          mode: "no-cors",
+        },
+      }
+    );
+    if (response.ok) {
+      const data = await response.json();
+      setPosts(data);
+    } else {
+      console.log("error");
+    }
+  };
 
-          {posts.map((post: IPost) => (
-            <div key={post._id}>
-              <Link className="link" to={"/mypages/" + post._id}>
-                <img src={post.image} alt={post.image} />
-                <h3>{post.title}</h3>
-              </Link>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div></div>
-      )}
-    </>
-  );
+  if (posts.length > 0) {
+    return (
+      <>
+        {props.show ? (
+          <div>
+            <h3>Mina mönster</h3>
+
+            {posts.map((post: IPost) => (
+              <div key={post._id}>
+                <Link className="link" to={"/mypages/" + post._id}>
+                  <img src={post.image} alt={post.image} />
+                  <h3>{post.title}</h3>
+                </Link>
+                <button onClick={() => deletePost(post._id)}>
+                  Radera mönster
+                </button>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div></div>
+        )}
+      </>
+    );
+  } else {
+    return (
+      <>
+        {props.show ? (
+          <div>
+            <h3>Mina mönster</h3>
+
+            <h4>Du har inga mönster</h4>
+          </div>
+        ) : (
+          <div></div>
+        )}
+      </>
+    );
+  }
 };

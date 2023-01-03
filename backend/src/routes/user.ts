@@ -85,12 +85,10 @@ router.post("/:id/updatepattern", async (req: Request, res: Response) => {
 });
 
 //OK - DELETE a pattern from logged in user
-router.post("/:id/deletepost", async (req: Request, res: Response) => {
-  const id: String = ObjectId(req.params.id);
+router.delete("/:id/deletepost", async (req: Request, res: Response) => {
+  const id = req.params.id;
   await Posts.findOne({ _id: id }).deleteOne();
-
-  res.sendStatus(200);
-  console.log("deleted");
+  res.status(200).send(Posts);
 });
 
 //OK - POST a new pattern
