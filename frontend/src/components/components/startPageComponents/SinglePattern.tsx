@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { IPost } from "../../../interfaces/IProps";
-import { Reviews } from "./singlePatternComponents/Reviews";
+import { IReview } from "../../../interfaces/IProps";
 import { Comment } from "./singlePatternComponents/Comment";
 
 export const SinglePattern = () => {
@@ -16,8 +16,9 @@ export const SinglePattern = () => {
     yarn: 0,
     hook: 0,
     needle: 0,
-    user: "",
     category: "",
+    user: "",
+    reviews: [],
   });
   const { id } = useParams();
 
@@ -41,7 +42,20 @@ export const SinglePattern = () => {
 
   return (
     <>
-      <Reviews></Reviews>
+      <div className="reviews-wrapper">
+        <h3>Recensioner</h3>
+        <div>
+          {post.reviews.map((review: IReview) => (
+            <div key={review._id}>
+              <img src={review.image} alt={review.image} />
+              <h3>{review.comment}</h3>
+              <div>{review.rating}</div>
+              <h5>{review.user}</h5>
+            </div>
+          ))}
+        </div>
+      </div>
+
       <div className="pattern-wrapper">
         <h3>Mönster av {post.user}</h3>
         <h3>{post.title}</h3>

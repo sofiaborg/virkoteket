@@ -31,6 +31,7 @@ export interface IPost {
   needle: number;
   category: string;
   user: string;
+  reviews: [];
 }
 
 export interface IReview {
