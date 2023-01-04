@@ -58,13 +58,12 @@ router.post("/:id/createreview", async (req: Request, res: Response) => {
   });
 
   newReview.save();
-  console.log(newReview);
 
   post?.reviews.push(newReview);
 
   post?.save();
 
-  res.sendStatus(200);
+  res.send(post);
 });
 
 export default router;

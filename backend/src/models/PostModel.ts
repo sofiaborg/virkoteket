@@ -59,7 +59,9 @@ export const PostSchema = new Schema({
     type: String,
   },
 
-  reviews: [{ type: Schema.Types.ObjectId, ref: "Reviews" }],
+  reviews: {
+    type: [],
+  },
 });
 
 export const Posts = model<IPost>("Posts", PostSchema);

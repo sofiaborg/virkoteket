@@ -20,7 +20,6 @@ export const Reviews = () => {
       );
       const data = await response.json();
       setReviews(data.reviews);
-      console.log(data);
     }
     fetchProducts();
   }, []);
