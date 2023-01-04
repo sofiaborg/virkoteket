@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-interface IReview {
+export interface IReview {
   rating: Number;
   comment: String;
   image: String;
@@ -24,7 +24,6 @@ export const ReviewSchema = new Schema({
     type: String,
     required: true,
   },
-  posts: [{ type: Schema.Types.ObjectId, ref: "Posts" }],
 });
 
 export const Reviews = model<IReview>("Reviews", ReviewSchema);

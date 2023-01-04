@@ -1,3 +1,4 @@
+import { IReview } from "./ReviewModel";
 import { Schema, model } from "mongoose";
 
 interface IPost {
@@ -12,6 +13,7 @@ interface IPost {
   hook: String;
   needle: String;
   user: String;
+  reviews: IReview[];
 }
 
 export const PostSchema = new Schema({
@@ -56,6 +58,8 @@ export const PostSchema = new Schema({
   user: {
     type: String,
   },
+
+  reviews: [{ type: Schema.Types.ObjectId, ref: "Reviews" }],
 });
 
 export const Posts = model<IPost>("Posts", PostSchema);

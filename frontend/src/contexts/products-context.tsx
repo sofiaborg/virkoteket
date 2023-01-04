@@ -1,4 +1,4 @@
-import { ICategory } from "../interfaces/IProps";
+// import { ICategory } from "../interfaces/IProps";
 import { IPost } from "../interfaces/IProps";
 import { createContext } from "react";
 
@@ -9,7 +9,7 @@ interface IFilter {
 export interface IPostsContext {
   posts: IPost[];
   filters: IFilter[];
-  categories: ICategory[];
+  // categories: ICategory[];
 
   setFilters(filter: string): void;
 }
@@ -17,7 +17,7 @@ export interface IPostsContext {
 export const defaultValue: IPostsContext = {
   posts: [],
   filters: [],
-  categories: [],
+  // categories: [],
   setFilters: (filter: string) => {},
 };
 

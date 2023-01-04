@@ -1,6 +1,6 @@
+import { Reviews } from "./../models/ReviewModel";
 import { forceAuth } from "../middlewares/forceAuth";
 import { Posts } from "../models/PostModel";
-import { Reviews } from "../models/ReviewModel";
 import { Users } from "../models/UserModel";
 const { ObjectId } = require("mongodb");
 import express, { Router, Request, Response } from "express";
@@ -31,6 +31,7 @@ router.get("/getposts", async (req: Request, res: Response) => {
 router.get("/:id/getsinglepost", async (req: Request, res: Response) => {
   const id: String = ObjectId(req.params.id);
   const post = await Posts.findOne({ _id: id });
+
   res.status(200).send(post);
 });
 
@@ -45,7 +46,10 @@ router.get("/:id/getuserposts", async (req: Request, res: Response) => {
 });
 
 //skapa rescencion
-router.post("/createreview", async (req: Request, res: Response) => {
+router.post("/:id/createreview", async (req: Request, res: Response) => {
+  const id: String = ObjectId(req.params.id);
+  const post = await Posts.findOne({ _id: id });
+
   const newReview = new Reviews({
     rating: req.body.rating,
     comment: req.body.comment,
@@ -53,9 +57,11 @@ router.post("/createreview", async (req: Request, res: Response) => {
     user: req.body.user,
   });
 
-  await newReview.save();
-  console.log(newReview);
-  res.send(newReview);
+  newReview.save();
+
+  post?.reviews.push(newReview);
+
+  res.send(post);
 });
 
 export default router;

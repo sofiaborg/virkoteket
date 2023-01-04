@@ -6,27 +6,26 @@ import { Start } from "./components/pages/Start";
 import { RegisterPage } from "./components/pages/RegisterZod";
 import { LoginPage } from "./components/pages/LoginZod";
 import { SinglePattern } from "./components/components/startPageComponents/SinglePattern";
-import {
-  postsContext,
-  IPostsContext,
-  defaultValue,
-} from "./contexts/products-context";
+// import {
+//   postsContext,
+//   IPostsContext,
+//   defaultValue,
+// } from "./contexts/products-context";
 
 export const App = () => {
-  const [postsState, setPostsState] = useState<IPostsContext>(defaultValue);
+  // const [postsState, setPostsState] = useState<IPostsContext>(defaultValue);
   return (
-    <postsContext.Provider value={postsState}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route path="/" element={<LoginPage />}></Route>
-            <Route path="/register" element={<RegisterPage />}></Route>
-            <Route path="/mypages/*" element={<Mypages />}></Route>
-            <Route path="/patterns" element={<Start />}></Route>
-            <Route path="/patterns/:id" element={<SinglePattern />}></Route>
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </postsContext.Provider>
+    // <postsContext.Provider value={postsState}>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route path="/" element={<LoginPage />}></Route>
+          <Route path="/register" element={<RegisterPage />}></Route>
+          <Route path="/mypages/*" element={<Mypages />}></Route>
+          <Route path="/patterns" element={<Start />}></Route>
+          <Route path="/patterns/:id" element={<SinglePattern />}></Route>
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 };

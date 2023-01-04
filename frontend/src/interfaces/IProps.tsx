@@ -18,10 +18,6 @@ export interface postsProps {
   filters: string[];
 }
 
-export interface ICategory {
-  name: string;
-}
-
 export interface IPost {
   _id: number;
   title: string;
@@ -33,7 +29,14 @@ export interface IPost {
   yarn: number;
   hook: number;
   needle: number;
-  category: ICategory;
+  category: string;
+  user: string;
+}
+
+export interface IReview {
+  rating: number;
+  comment: string;
+  image: string;
   user: string;
 }
 
