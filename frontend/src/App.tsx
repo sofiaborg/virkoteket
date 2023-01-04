@@ -21,7 +21,7 @@ export const App = () => {
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<LoginPage />}></Route>
             <Route path="/register" element={<RegisterPage />}></Route>
-            <Route path="/mypages" element={<Mypages />}></Route>
+            <Route path="/mypages/*" element={<Mypages />}></Route>
             <Route path="/patterns" element={<Start />}></Route>
             <Route path="/patterns/:id" element={<SinglePattern />}></Route>
           </Route>

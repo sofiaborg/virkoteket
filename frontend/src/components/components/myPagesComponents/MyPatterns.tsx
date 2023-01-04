@@ -1,10 +1,9 @@
-import { showPage } from "../../../interfaces/IProps";
 import { IPost } from "../../../interfaces/IProps";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getCurrentUser } from "../../../interfaces/IProps";
 
-export const MyPatterns = (props: showPage) => {
+export const MyPatterns = () => {
   const [posts, setPosts] = useState([]);
   const user = getCurrentUser();
 
@@ -30,7 +29,7 @@ export const MyPatterns = (props: showPage) => {
     const response = await fetch(
       `http://localhost:8000/user/${id}/deletepost`,
       {
-        method: "DELETE",
+        method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -38,6 +37,7 @@ export const MyPatterns = (props: showPage) => {
         },
       }
     );
+
     if (response.ok) {
       const data = await response.json();
       setPosts(data);
@@ -49,39 +49,35 @@ export const MyPatterns = (props: showPage) => {
   if (posts.length > 0) {
     return (
       <>
-        {props.show ? (
-          <div>
-            <h3>Mina mönster</h3>
+        <div>
+          <h3>Mina mönster</h3>
 
-            {posts.map((post: IPost) => (
-              <div key={post._id}>
-                <Link className="link" to={"/mypages/" + post._id}>
-                  <img src={post.image} alt={post.image} />
-                  <h3>{post.title}</h3>
-                </Link>
-                <button onClick={() => deletePost(post._id)}>
-                  Radera mönster
-                </button>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div></div>
-        )}
+          {posts.map((post: IPost) => (
+            <div key={post._id}>
+              <Link className="link" to={"/mypages/" + post._id}>
+                <img src={post.image} alt={post.image} />
+                <h3>{post.title}</h3>
+              </Link>
+              <button onClick={() => deletePost(post._id)}>
+                Radera mönster
+              </button>
+            </div>
+          ))}
+        </div>
+
+        <div></div>
       </>
     );
   } else {
     return (
       <>
-        {props.show ? (
-          <div>
-            <h3>Mina mönster</h3>
+        <div>
+          <h3>Mina mönster</h3>
 
-            <h4>Du har inga mönster</h4>
-          </div>
-        ) : (
-          <div></div>
-        )}
+          <h4>Du har inga mönster</h4>
+        </div>
+
+        <div></div>
       </>
     );
   }

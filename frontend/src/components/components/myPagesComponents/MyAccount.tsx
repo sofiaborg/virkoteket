@@ -1,10 +1,8 @@
-import { showPage } from "../../../interfaces/IProps";
 import { useState, useEffect } from "react";
 import { getCurrentUser } from "../../../interfaces/IProps";
 import { IUser } from "../../../interfaces/IProps";
-import { Link } from "react-router-dom";
 
-export const MyAccount = (props: showPage) => {
+export const MyAccount = () => {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
@@ -26,19 +24,17 @@ export const MyAccount = (props: showPage) => {
   }, [user]);
   return (
     <>
-      {props.show ? (
-        <div>
-          <h3>Mitt konto</h3>
+      <div>
+        <h3>Mitt konto</h3>
 
-          {user.map((user: IUser) => (
-            <div key={user._id}>
-              <h3>Welcome {user.email}</h3>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div></div>
-      )}
+        {user.map((user: IUser) => (
+          <div key={user._id}>
+            <h3>Welcome {user.email}</h3>
+          </div>
+        ))}
+      </div>
+
+      <div></div>
     </>
   );
 };

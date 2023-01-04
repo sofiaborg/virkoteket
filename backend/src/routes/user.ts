@@ -17,7 +17,7 @@ router.get("/myposts", async (req: Request, res: Response) => {
 router.get("/myinfo", async (req: Request, res: Response) => {
   const userID = ObjectId(req.headers.user);
   const myInfo = await Users.find({ _id: userID });
-  res.status(200).send(myInfo);
+  res.send(myInfo);
 });
 
 //OK - POST update the users information
@@ -47,6 +47,7 @@ router.get("/:id/pattern", async (req: Request, res: Response) => {
   const post = await Posts.findOne({ _id: id });
   console.log(post);
   res.send(post);
+  //set status code!!
 });
 
 //OK - POST update/edit a pattern from logged in user
@@ -85,7 +86,7 @@ router.post("/:id/updatepattern", async (req: Request, res: Response) => {
 });
 
 //OK - DELETE a pattern from logged in user
-router.delete("/:id/deletepost", async (req: Request, res: Response) => {
+router.post("/:id/deletepost", async (req: Request, res: Response) => {
   const id = req.params.id;
   await Posts.findOne({ _id: id }).deleteOne();
   res.status(200).send(Posts);

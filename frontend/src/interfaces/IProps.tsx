@@ -103,8 +103,3 @@ export const filtersList: IFilter[] = [
     options: [{ title: "Mohair" }, { title: "Fin bomull" }, { title: "Ull" }],
   },
 ];
-
-//props for showing pages at MyPatterns
-export interface showPage {
-  show: Boolean;
-}

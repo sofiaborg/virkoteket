@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Wrapper } from "../components/StyledComponents/StyledWrappers";
 import { CreatePattern } from "../components/myPagesComponents/CreatePattern";
 import { MyPatterns } from "../components/myPagesComponents/MyPatterns";
 import { MyAccount } from "../components/myPagesComponents/MyAccount";
+import { useLocation } from "react-router-dom";
+
 export const Mypages = () => {
-  const [showCreatePattern, setShowCreatePattern] = useState<Boolean>(true);
-  const [showMyPatterns, setShowMyPatterns] = useState<Boolean>(false);
-  const [showMyAccount, setShowMyAccount] = useState<Boolean>(false);
+  const location = useLocation();
 
   //OBS denna funkar ej. Fixa
   const handleLogout = async () => {
@@ -34,37 +34,20 @@ export const Mypages = () => {
         <h1>Mina sidor</h1>
         <div className="sidebar-wrapper">
           <div>
-            <h2
-              onClick={(e) => {
-                setShowCreatePattern(true);
-                setShowMyAccount(false);
-                setShowMyPatterns(false);
-              }}
-            >
-              Skapa mönster
-            </h2>
+            <Link to="/mypages/createpattern">
+              <h2>Skapa mönster</h2>
+            </Link>
+
             <div>
               <div>
-                <h2
-                  onClick={(e) => {
-                    setShowMyPatterns(true);
-                    setShowCreatePattern(false);
-                    setShowMyAccount(false);
-                  }}
-                >
-                  Mina mönster
-                </h2>
+                <Link to="/mypages/mypatterns">
+                  <h2>Mina mönster</h2>
+                </Link>
               </div>
               <div>
-                <h2
-                  onClick={(e) => {
-                    setShowMyAccount(true);
-                    setShowCreatePattern(false);
-                    setShowMyPatterns(false);
-                  }}
-                >
-                  Mitt konto
-                </h2>
+                <Link to="/mypages/myaccount">
+                  <h2>Mitt konto</h2>
+                </Link>
               </div>
               <div>
                 <button onClick={handleLogout}>Logga ut</button>
@@ -75,9 +58,11 @@ export const Mypages = () => {
 
         <div className="mainbar-wrapper">
           <div className="patterns-wrapper">
-            <CreatePattern show={showCreatePattern}></CreatePattern>
-            <MyPatterns show={showMyPatterns}></MyPatterns>
-            <MyAccount show={showMyAccount}></MyAccount>
+            {location.pathname === "/mypages/createpattern" && (
+              <CreatePattern />
+            )}
+            {location.pathname === "/mypages/mypatterns" && <MyPatterns />}
+            {location.pathname === "/mypages/myaccount" && <MyAccount />}
           </div>
 
           <div className="myaccount-wrapper"></div>
