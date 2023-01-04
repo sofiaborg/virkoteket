@@ -34,6 +34,7 @@ export interface IPost {
 }
 
 export interface IReview {
+  _id: number;
   rating: number;
   comment: string;
   image: string;
