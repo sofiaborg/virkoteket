@@ -26,13 +26,15 @@ export interface IPost {
   _id: number;
   title: string;
   image: string;
+  pattern: string;
   description: string;
   type: number;
   difficulty: number;
   yarn: number;
   hook: number;
-  space: number;
+  needle: number;
   category: ICategory;
+  user: string;
 }
 
 export interface IUser {

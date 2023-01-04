@@ -3,6 +3,7 @@ import { Schema, model } from "mongoose";
 interface IPost {
   title: String;
   image: String;
+  pattern: String;
   description: String;
   type: String;
   category: String;
@@ -19,6 +20,10 @@ export const PostSchema = new Schema({
     required: true,
   },
   image: {
+    type: String,
+    required: true,
+  },
+  pattern: {
     type: String,
     required: true,
   },

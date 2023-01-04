@@ -34,15 +34,15 @@ export const CreatePattern = () => {
 
         body: JSON.stringify({
           title,
-          description,
           image,
           pattern,
-          category,
+          description,
           type,
           difficulty,
           yarn,
           hook,
           needle,
+          category,
         }),
       }
     )

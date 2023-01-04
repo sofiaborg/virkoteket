@@ -99,6 +99,7 @@ router.post("/createpost", async (req: Request, res: Response) => {
   const newPost = new Posts({
     title: req.body.title,
     image: req.body.image,
+    pattern: req.body.pattern,
     description: req.body.description,
     type: req.body.type,
     category: req.body.category,
