@@ -6,6 +6,7 @@ export const Comment = () => {
   const [rating, setRating] = useState<Number>(0);
   const [comment, setComment] = useState<String>("");
   const [image, setImage] = useState<String>("");
+  const [review, setReview] = useState<Boolean>(false);
   const { id } = useParams();
 
   //set rating state
@@ -41,6 +42,8 @@ export const Comment = () => {
       .then((response) => response.json())
       .then((data) => console.log(data))
       .catch((error) => console.error(error));
+
+    setReview(true);
   };
   return (
     <>
