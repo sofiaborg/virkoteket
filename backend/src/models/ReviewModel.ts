@@ -1,13 +1,14 @@
 import { Schema, model } from "mongoose";
 
 interface IReview {
-  grade: Number;
+  rating: Number;
   comment: String;
   image: String;
+  user: String;
 }
 
 export const ReviewSchema = new Schema({
-  grade: {
+  rating: {
     type: Number,
     required: true,
   },
@@ -19,7 +20,10 @@ export const ReviewSchema = new Schema({
     type: String,
     required: false,
   },
-  users: [{ type: Schema.Types.ObjectId, ref: "Users" }],
+  user: {
+    type: String,
+    required: true,
+  },
   posts: [{ type: Schema.Types.ObjectId, ref: "Posts" }],
 });
 

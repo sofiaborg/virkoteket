@@ -47,14 +47,15 @@ router.get("/:id/getuserposts", async (req: Request, res: Response) => {
 //skapa rescencion
 router.post("/createreview", async (req: Request, res: Response) => {
   const newReview = new Reviews({
-    grade: req.body.grade,
+    rating: req.body.rating,
     comment: req.body.comment,
     image: req.body.image,
+    user: req.body.user,
   });
 
   await newReview.save();
   console.log(newReview);
-  res.send("skapad");
+  res.send(newReview);
 });
 
 export default router;
