@@ -47,7 +47,7 @@ router.post("/login", async (req: Request, res: Response) => {
       });
     } else {
       console.log("failed");
-      res.sendStatus(400);
+      res.status(400);
     }
   });
 });

@@ -39,7 +39,12 @@ export const LoginPage = () => {
       body: JSON.stringify({ email, password }),
     })
       .then((response) => response.json())
-      .then((data) => auth.login(data))
+      .then(
+        (data) => (
+          auth.login(data),
+          window.location.replace("http://localhost:3000/patterns")
+        )
+      )
       .catch((error) => console.error(error));
   };
 
