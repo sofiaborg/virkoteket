@@ -52,7 +52,9 @@ router.post("/login", async (req: Request, res: Response) => {
   });
 });
 
-//logga ut
-router.post("/logout", async (req: Request, res: Response) => {});
+//logga ut ska den användas?
+router.post("/logout", (req: Request, res: Response) => {
+  res.status(200);
+});
 
 export default router;

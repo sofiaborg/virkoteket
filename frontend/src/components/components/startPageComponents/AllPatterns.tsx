@@ -27,41 +27,6 @@ export const AllPatterns = (props: postsProps) => {
     fetchProducts();
   }, [props.category, props.filters]);
 
-  // ...
-
-  // useEffect(() => {
-  //   fetch("http://localhost:8000/posts/getposts", {
-  //     method: "GET",
-  //     headers: {
-  //       Accept: "application/json",
-  //       "Content-Type": "application/json",
-  //       mode: "no-cors",
-  //     },
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setPosts(data);
-  //     });
-  // }, []);
-
-  // //get posts and set in state when entering admin-page
-  // useEffect(() => {
-  //   const token = sessionStorage.getItem("token");
-  //   fetch("http://localhost:8000/posts/getposts", {
-  //     method: "GET",
-  //     headers: {
-  //       Accept: "application/json",
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${token}`,
-  //       mode: "no-cors",
-  //     },
-  //   })
-  //     .then((response) => console.log(response))
-  //     .then((data) => {
-  //       console.log(data);
-  //     });
-  // }, []);
-
   return (
     <>
       <div>

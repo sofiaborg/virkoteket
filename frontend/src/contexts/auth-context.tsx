@@ -33,6 +33,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
     // Remove the token from session storage
     sessionStorage.removeItem("user");
     setIsLoggedIn(false);
+    window.location.replace("http://localhost:3000/");
   };
 
   return (
