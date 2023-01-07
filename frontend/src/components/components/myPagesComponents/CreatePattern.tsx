@@ -8,7 +8,7 @@ export const CreatePattern = () => {
   const [title, setTitle] = useState<String>("");
   const [description, setDescription] = useState<String>("");
   const [image, setImage] = useState<string>("");
-  const [pattern, setPattern] = useState<String>("hej");
+  const [pattern, setPattern] = useState<string>("");
   const [category, setCategory] = useState<String>("");
   const [type, setType] = useState<String>("");
   const [difficulty, setDifficulty] = useState<String>("");
@@ -16,7 +16,7 @@ export const CreatePattern = () => {
   const [hook, setHook] = useState<String>("");
   const [needle, setNeedle] = useState<String>("");
 
-  const convertFile = (files: FileList | null) => {
+  const convertImgFile = (files: FileList | null) => {
     if (files) {
       const fileRef = files[0] || "";
       const fileType: String = fileRef.type || "";
@@ -26,6 +26,20 @@ export const CreatePattern = () => {
       reader.onload = (ev: any) => {
         // convert it to base64
         setImage(`data:${fileType};base64,${btoa(ev.target.result)}`);
+      };
+    }
+  };
+
+  const convertPdfFile = (files: FileList | null) => {
+    if (files) {
+      const fileRef = files[0] || "";
+      const fileType: String = fileRef.type || "";
+      console.log("This file upload is of type:", fileType);
+      const reader = new FileReader();
+      reader.readAsBinaryString(fileRef);
+      reader.onload = (ev: any) => {
+        // convert it to base64
+        setPattern(`data:${fileType};base64,${btoa(ev.target.result)}`);
       };
     }
   };
@@ -83,7 +97,7 @@ export const CreatePattern = () => {
           <input
             type="file"
             placeholder="IMAGE"
-            onChange={(e) => convertFile(e.target.files)}
+            onChange={(e) => convertImgFile(e.target.files)}
           />
           {image.indexOf("image/") > -1 && (
             <img src={image} alt="img" width={300} />
@@ -91,11 +105,9 @@ export const CreatePattern = () => {
           <input
             type="file"
             placeholder="PDF"
-            // onChange={(e) => convertFile(e.target.files)}
+            onChange={(e) => convertPdfFile(e.target.files)}
           />
-          {/* {filebase64.indexOf("application/pdf") > -1 && (
-            <embed src={filebase64} width="800px" height="2100px" />
-          )} */}
+
           <h3>KATEGORIER</h3>
           <label>Välj passande kategori:</label>
           <select name="x" id="x" onChange={(e) => setCategory(e.target.value)}>

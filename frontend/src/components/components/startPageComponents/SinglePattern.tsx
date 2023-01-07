@@ -22,7 +22,6 @@ export const SinglePattern = () => {
   });
   const [rating, setRating] = useState<Number>(0);
   const [comment, setComment] = useState<String>("");
-  const [image, setImage] = useState<String>("");
   const [addReview, setAddReview] = useState<Boolean>(false);
   const { id } = useParams();
 
@@ -62,7 +61,6 @@ export const SinglePattern = () => {
         body: JSON.stringify({
           rating,
           comment,
-          image,
           user: user.email,
         }),
       }
@@ -72,7 +70,6 @@ export const SinglePattern = () => {
       .catch((error) => console.error(error));
 
     setComment("");
-    setImage("");
     setRating(0);
 
     setAddReview(true);
@@ -85,7 +82,6 @@ export const SinglePattern = () => {
         <div>
           {post.reviews.map((review: IReview) => (
             <div key={review._id}>
-              <img src={review.image} alt={review.image} />
               <h3>{review.comment}</h3>
               <div>{review.rating}</div>
               <h5>{review.user}</h5>
@@ -97,7 +93,7 @@ export const SinglePattern = () => {
       <div className="pattern-wrapper">
         <h3>Mönster av {post.user}</h3>
         <h3>{post.title}</h3>
-        <img src={post.image} alt={post.image} />
+        <img src={post.image} alt="alttext" />
         <div>{post.description}</div>
         <div>{post.type}</div>
         <div>{post.difficulty}</div>
@@ -116,12 +112,6 @@ export const SinglePattern = () => {
             type="textarea"
             placeholder="Vad tyckte du om mönstret?"
             onChange={(e) => setComment(e.target.value)}
-          />
-
-          <input
-            type="file"
-            placeholder="Lägg till bild"
-            onChange={(e) => setImage(e.target.value)}
           />
 
           {/* behöver lägga till for="...." i varje rate  https://codepen.io/hesguru/pen/BaybqXv */}

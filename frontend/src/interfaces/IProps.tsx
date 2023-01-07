@@ -10,12 +10,12 @@ export interface categoryProps {
 }
 
 export interface filtersProps {
-  onFiltersClick: (filter: string) => void;
+  onFiltersClick: (filterTitle: string, filterOption: string) => void;
 }
 
 export interface postsProps {
   category: string;
-  filters: string[];
+  filters: IFilterObject[];
 }
 
 export interface IPost {
@@ -38,7 +38,6 @@ export interface IReview {
   _id: number;
   rating: number;
   comment: string;
-  image: string;
   user: string;
 }
 
@@ -65,6 +64,11 @@ export interface IOption {
 export interface IFilter {
   title: string;
   options: IOption[];
+}
+
+export interface IFilterObject {
+  title: string;
+  option: string;
 }
 
 export const filtersList: IFilter[] = [

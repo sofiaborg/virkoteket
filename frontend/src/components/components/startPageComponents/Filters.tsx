@@ -14,7 +14,7 @@ export const Filters = (props: filtersProps) => {
                 <li
                   key={option.title}
                   onClick={(e) => {
-                    props.onFiltersClick(option.title);
+                    props.onFiltersClick(filter.title, option.title);
                   }}
                 >
                   {option.title}

@@ -1,29 +1,35 @@
 import React, { useEffect, useState } from "react";
-import { useContext } from "react";
-import { AuthContext } from "../../contexts/auth-context";
 import { Categories } from "../components/startPageComponents/Categories";
 import { Filters } from "../components/startPageComponents/Filters";
 import { AllPatterns } from "../components/startPageComponents/AllPatterns";
-import { getCurrentUser } from "../../interfaces/IProps";
+import { IFilterObject } from "../../interfaces/IProps";
 
 export const Start = () => {
   const [chosenCategory, setChosenCategory] = useState("");
-  const [chosenFilters, setChosenFilters] = useState<string[]>([]);
-  const [sortedPosts, setSortedPosts] = useState("");
-  const auth = useContext(AuthContext);
-  console.log(auth.isLoggedIn);
+  const [chosenFilters, setChosenFilters] = useState<IFilterObject[]>([]);
 
-  const user = getCurrentUser();
+  console.log(chosenCategory, chosenFilters);
 
   const handleCategory = (category: string) => {
     setChosenCategory(category);
     console.log(chosenCategory);
   };
 
-  const handleFilters = (filters: string) => {
-    setChosenFilters([...chosenFilters, filters]);
+  const handleFilters = (filterTitle: string, filterOption: string) => {
+    const filterObject = { title: filterTitle, option: filterOption };
+    setChosenFilters([...chosenFilters, filterObject]);
     console.log(chosenFilters);
   };
+
+  //sort chosen filters into their main-filter
+  const filterObjects: { [key: string]: string[] } = {};
+
+  for (const item of chosenFilters) {
+    if (!filterObjects[item.title]) {
+      filterObjects[item.title] = [];
+    }
+    filterObjects[item.title].push(item.option);
+  }
 
   useEffect(() => {
     // const headers: Record<string, string> = {
@@ -47,6 +53,22 @@ export const Start = () => {
     <>
       <Categories onCategoryClick={handleCategory}></Categories>
       <Filters onFiltersClick={handleFilters}></Filters>
+      <div>
+        <h1>{chosenCategory}</h1>
+      </div>
+
+      <div>
+        {Object.keys(filterObjects).map((title) => (
+          <h2 key={title}>
+            {title}
+            <div>
+              {filterObjects[title].map((option) => (
+                <h6 key={option}>{option}</h6>
+              ))}
+            </div>
+          </h2>
+        ))}
+      </div>
       <AllPatterns
         filters={chosenFilters}
         category={chosenCategory}

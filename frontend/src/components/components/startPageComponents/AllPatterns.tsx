@@ -35,6 +35,12 @@ export const AllPatterns = (props: postsProps) => {
             <Link className="link" to={"/patterns/" + post._id}>
               <img src={post.image} alt={post.image} />
               <h3>{post.title}</h3>
+              <h5>{post.type}</h5>
+              <h5>{post.category}</h5>
+              <h5>{post.difficulty}</h5>
+              <h5>{post.hook}</h5>
+              <h5>{post.needle}</h5>
+              <h5>{post.yarn}</h5>
             </Link>
           </div>
         ))}
