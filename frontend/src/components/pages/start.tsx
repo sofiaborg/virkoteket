@@ -8,16 +8,20 @@ export const Start = () => {
   const [chosenCategory, setChosenCategory] = useState("");
   const [chosenFilters, setChosenFilters] = useState<IFilterObject[]>([]);
 
-  console.log(chosenCategory, chosenFilters);
-
+  //callback-functions to send to child-components
   const handleCategory = (category: string) => {
     setChosenCategory(category);
     console.log(chosenCategory);
   };
 
   const handleFilters = (filterTitle: string, filterOption: string) => {
-    const filterObject = { title: filterTitle, option: filterOption };
-    setChosenFilters([...chosenFilters, filterObject]);
+    const newFilters = chosenFilters.filter(
+      (item) => item.title !== filterTitle
+    );
+    setChosenFilters([
+      ...newFilters,
+      { title: filterTitle, option: filterOption },
+    ]);
     console.log(chosenFilters);
   };
 
@@ -30,6 +34,14 @@ export const Start = () => {
     }
     filterObjects[item.title].push(item.option);
   }
+
+  const deleteFilter = (filterTitle: string) => {
+    setChosenFilters(
+      chosenFilters.filter((item) => item.title !== filterTitle)
+    );
+  };
+
+  console.log(filterObjects);
 
   useEffect(() => {
     // const headers: Record<string, string> = {
@@ -59,11 +71,13 @@ export const Start = () => {
 
       <div>
         {Object.keys(filterObjects).map((title) => (
-          <h2 key={title}>
+          <h2 key={title} onClick={() => deleteFilter(title)}>
             {title}
             <div>
               {filterObjects[title].map((option) => (
-                <h6 key={option}>{option}</h6>
+                <h6 key={option} onClick={() => deleteFilter(option)}>
+                  {option}
+                </h6>
               ))}
             </div>
           </h2>
