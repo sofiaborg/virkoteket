@@ -3,6 +3,7 @@ import { Posts } from "../models/PostModel";
 const { ObjectId } = require("mongodb");
 import { Users } from "../models/UserModel";
 import { forceAuth } from "../middlewares/forceAuth";
+
 const router: Router = express.Router();
 
 //MINA SIDOR
@@ -110,9 +111,8 @@ router.post("/createpost", async (req: Request, res: Response) => {
     user: userID,
   });
 
-  await newPost.save();
-
   res.send(newPost);
+  await newPost.save();
 });
 
 export default router;

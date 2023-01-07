@@ -1,75 +1,88 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { getCurrentUser } from "../../../interfaces/IProps";
 
-export const CreatePattern = () => {
+//REMOVE IF NOT USED!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+export const FileUpload = () => {
+  const formRef = useRef<HTMLFormElement>(null);
+
+  // Initialize the state variables
   const [typeCrochet, setTypeCrochet] = useState<Boolean>(false);
   const [typeKnit, setTypeKnit] = useState<Boolean>(false);
 
-  const [title, setTitle] = useState<String>("");
-  const [description, setDescription] = useState<String>("");
-  const [image, setImage] = useState<string>("");
-  const [pattern, setPattern] = useState<String>("hej");
-  const [category, setCategory] = useState<String>("");
-  const [type, setType] = useState<String>("");
-  const [difficulty, setDifficulty] = useState<String>("");
-  const [yarn, setYarn] = useState<String>("");
-  const [hook, setHook] = useState<String>("");
-  const [needle, setNeedle] = useState<String>("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [image, setImage] = useState<File | null>(null);
+  const [pattern, setPattern] = useState<File | null>(null);
+  const [category, setCategory] = useState("");
+  const [type, setType] = useState("");
+  const [difficulty, setDifficulty] = useState("");
+  const [yarn, setYarn] = useState("");
+  const [hook, setHook] = useState("");
+  const [needle, setNeedle] = useState("");
 
-  const convertFile = (files: FileList | null) => {
-    if (files) {
-      const fileRef = files[0] || "";
-      const fileType: String = fileRef.type || "";
-      console.log("This file upload is of type:", fileType);
-      const reader = new FileReader();
-      reader.readAsBinaryString(fileRef);
-      reader.onload = (ev: any) => {
-        // convert it to base64
-        setImage(`data:${fileType};base64,${btoa(ev.target.result)}`);
-      };
+  function handleImageFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      setImage(files[0]);
     }
-  };
+  }
+
+  function handlePatternFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      setPattern(files[0]);
+    }
+  }
 
   const handleCreatePattern = async (e: any) => {
-    console.log({ image });
     const user = getCurrentUser();
-
     e.preventDefault();
+
+    // Create a new FormData object from the form element
+    const formData = new FormData(formRef.current!);
+
+    // Add the state variables to the FormData object
+
+    // formData.append(
+    //   "jsonData",
+    //   JSON.stringify({
+    //     title: title,
+    //     image: image,
+    //     pattern: pattern,
+    //     description: description,
+    //     type: type,
+    //     difficulty: difficulty,
+    //     yarn: yarn,
+    //     hook: hook,
+    //     needle: needle,
+    //     category: category,
+    //   })
+    // );
+    if (image) formData.append("image", image, image.name);
+    // if (pattern) formData.append("pattern", pattern, pattern.name);
+
     await fetch(
       "http://localhost:8000/user/createpost",
 
       {
         method: "POST",
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
           mode: "no-cors",
           user: user.id,
+          "Content-Type": "multipart/form-data",
         },
-
-        body: JSON.stringify({
-          title,
-          image,
-          pattern,
-          description,
-          type,
-          difficulty,
-          yarn,
-          hook,
-          needle,
-          category,
-        }),
+        body: formData,
       }
     )
       .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.error(error));
+      .then((data) => console.log("hej" + JSON.stringify(data)));
   };
 
   return (
     <>
       <div>
-        <form>
+        <form ref={formRef}>
           <input
             type="text"
             placeholder="Namn på mönster"
@@ -80,22 +93,23 @@ export const CreatePattern = () => {
             placeholder="Beskrivning"
             onChange={(e) => setDescription(e.target.value)}
           />
-          <input
+          <div>
+            <h5>ladda upp bild här</h5>
+          </div>
+          {/* <input
             type="file"
-            placeholder="IMAGE"
-            onChange={(e) => convertFile(e.target.files)}
-          />
-          {image.indexOf("image/") > -1 && (
-            <img src={image} alt="img" width={300} />
-          )}
-          <input
+            name="image"
+            placeholder="ladda upp bild"
+            onChange={handleImageFile}
+          /> */}
+          <div>
+            <h5>ladda upp pdf här</h5>
+          </div>
+          {/* <input
             type="file"
-            placeholder="PDF"
-            // onChange={(e) => convertFile(e.target.files)}
-          />
-          {/* {filebase64.indexOf("application/pdf") > -1 && (
-            <embed src={filebase64} width="800px" height="2100px" />
-          )} */}
+            placeholder="Ladda upp mönster som pdf"
+            onChange={handlePatternFile}
+          /> */}
           <h3>KATEGORIER</h3>
           <label>Välj passande kategori:</label>
           <select name="x" id="x" onChange={(e) => setCategory(e.target.value)}>
