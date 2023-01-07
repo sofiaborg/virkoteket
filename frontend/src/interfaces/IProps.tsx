@@ -47,13 +47,13 @@ export interface IUser {
 }
 
 export const categoryList = [
-  "dam",
-  "herr",
-  "barn",
-  "baby",
-  "djur",
-  "hem",
-  "högtider",
+  "Dam",
+  "Herr",
+  "Barn",
+  "Baby",
+  "Djur",
+  "Hem",
+  "Högtider",
 ];
 
 //filter and options

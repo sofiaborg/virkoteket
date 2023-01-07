@@ -11,9 +11,10 @@ export const Start = () => {
   //callback-functions to send to child-components
   const handleCategory = (category: string) => {
     setChosenCategory(category);
-    console.log(chosenCategory);
   };
 
+  // This function first filters out the existing option for the given filter title, if one exists, and then adds the new option to the list of filters.
+  // This will allow the user to choose only one option for each filter title.
   const handleFilters = (filterTitle: string, filterOption: string) => {
     const newFilters = chosenFilters.filter(
       (item) => item.title !== filterTitle
@@ -22,7 +23,6 @@ export const Start = () => {
       ...newFilters,
       { title: filterTitle, option: filterOption },
     ]);
-    console.log(chosenFilters);
   };
 
   //sort chosen filters into their main-filter
@@ -41,23 +41,22 @@ export const Start = () => {
     );
   };
 
-  console.log(filterObjects);
-
   useEffect(() => {
     // const headers: Record<string, string> = {
     //   Authorization: sessionStorage.getItem(user.token) as string,
     // };
 
     fetch(
-      `http://localhost:8000/posts/getposts/?filters=${encodeURIComponent(
-        JSON.stringify(chosenCategory)
-      )}`
+      `http://localhost:8000/posts/getposts?category=${encodeURIComponent(
+        chosenCategory
+      )}&filters=${encodeURIComponent(JSON.stringify(chosenFilters))}`
+
       // {
       //   headers,
       // }
     )
       .then((response) => response.json())
-      .then((data) => data)
+      .then((data) => console.log(data))
       .catch((error) => console.error(error));
   }, [chosenFilters, chosenCategory]);
 
