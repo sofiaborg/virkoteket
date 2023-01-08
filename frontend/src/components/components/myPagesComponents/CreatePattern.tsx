@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getCurrentUser } from "../../../interfaces/IProps";
 
 export const CreatePattern = () => {
@@ -45,7 +45,6 @@ export const CreatePattern = () => {
   };
 
   const handleCreatePattern = async (e: any) => {
-    console.log({ image });
     const user = getCurrentUser();
 
     e.preventDefault();
@@ -86,12 +85,12 @@ export const CreatePattern = () => {
         <form>
           <input
             type="text"
-            placeholder="Namn på mönster"
+            placeholder="Pattern title"
             onChange={(e) => setTitle(e.target.value)}
           />
           <input
             type="text"
-            placeholder="Beskrivning"
+            placeholder="Description"
             onChange={(e) => setDescription(e.target.value)}
           />
           <input
@@ -108,31 +107,31 @@ export const CreatePattern = () => {
             onChange={(e) => convertPdfFile(e.target.files)}
           />
 
-          <h3>KATEGORIER</h3>
-          <label>Välj passande kategori:</label>
+          <h3>Categories</h3>
+          <label>Choose category:</label>
           <select name="x" id="x" onChange={(e) => setCategory(e.target.value)}>
             <option selected disabled>
-              Kategori
+              Category
             </option>
-            <option value="Dam">Dam</option>
-            <option value="Herr">Herr</option>
-            <option value="Barn">Barn</option>
+            <option value="Women">Women</option>
+            <option value="Men">Men</option>
+            <option value="Kids">Kids</option>
             <option value="Baby">Baby</option>
-            <option value="Djur">Djur</option>
-            <option value="Hem">Hem</option>
-            <option value="Högtider">Högtider</option>
+            <option value="Pets">Pets</option>
+            <option value="Home">Home</option>
+            <option value="Holidays">Holidays</option>
           </select>
 
           <h3>FILTER</h3>
 
-          <label>Huvudfilter:</label>
+          <label>Main filter:</label>
           <select
             onChange={(e) => {
-              if (e.target.value === "Virka") {
+              if (e.target.value === "Crochet") {
                 setTypeCrochet(true);
                 setTypeKnit(false);
                 setType(e.target.value);
-              } else if (e.target.value === "Sticka") {
+              } else if (e.target.value === "Knit") {
                 setTypeCrochet(false);
                 setTypeKnit(true);
                 setType(e.target.value);
@@ -140,10 +139,10 @@ export const CreatePattern = () => {
             }}
           >
             <option selected disabled>
-              Typ
+              Type
             </option>
-            <option value="Virka">Virka</option>
-            <option value="Sticka">Sticka</option>
+            <option value="Crochet">Crochet</option>
+            <option value="Knit">Knit</option>
           </select>
 
           {typeCrochet && (
@@ -154,15 +153,15 @@ export const CreatePattern = () => {
                 onChange={(e) => setDifficulty(e.target.value)}
               >
                 <option selected disabled>
-                  Svårighetsgrad
+                  Difficulty
                 </option>
-                <option value="Nybörjare">Nybörjare</option>
-                <option value="Normal">Normal</option>
-                <option value="Erfaren">Erfaren</option>
+                <option value="Beginner">Beginner</option>
+                <option value="Interemediate">Interemediate</option>
+                <option value="Experienced">Experienced</option>
               </select>
               <select name="x" id="x" onChange={(e) => setHook(e.target.value)}>
                 <option selected disabled>
-                  Virknål
+                  Hook
                 </option>
                 <option value="2-2.5 mm">2-2.5 mm</option>
                 <option value="3-3.5 mm">3-3.5 mm</option>
@@ -175,11 +174,11 @@ export const CreatePattern = () => {
 
               <select name="x" id="x" onChange={(e) => setYarn(e.target.value)}>
                 <option selected disabled>
-                  Garntyp
+                  Yarn
                 </option>
                 <option value="Mohair">Mohair</option>
-                <option value="Fin bomull">Fin bomull</option>
-                <option value="Ull">Ull</option>
+                <option value="Fine cotton">Fine cotton</option>
+                <option value="Wool">Wool</option>
               </select>
             </div>
           )}
@@ -192,11 +191,11 @@ export const CreatePattern = () => {
                 onChange={(e) => setDifficulty(e.target.value)}
               >
                 <option selected disabled>
-                  Svårighetsgrad
+                  Difficulty
                 </option>
-                <option value="Nybörjare">Nybörjare</option>
-                <option value="Normal">Normal</option>
-                <option value="Erfaren">Erfaren</option>
+                <option value="Beginner">Beginner</option>
+                <option value="Interemediate">Interemediate</option>
+                <option value="Experienced">Experienced</option>
               </select>
               <select
                 name="x"
@@ -204,7 +203,7 @@ export const CreatePattern = () => {
                 onChange={(e) => setNeedle(e.target.value)}
               >
                 <option selected disabled>
-                  Stickfasthet
+                  Needle
                 </option>
                 <option value="2-2.5 mm">2-2.5 mm</option>
                 <option value="2.5-3.5 mm">.25-3.5 mm</option>
@@ -218,16 +217,16 @@ export const CreatePattern = () => {
 
               <select name="x" id="x" onChange={(e) => setYarn(e.target.value)}>
                 <option selected disabled>
-                  Garntyp
+                  Yarn
                 </option>
                 <option value="Mohair">Mohair</option>
-                <option value="Fin bomull">Fin bomull</option>
-                <option value="Ull">Ull</option>
+                <option value="Fine cotton">Fine cotton</option>
+                <option value="Wool">Wool</option>
               </select>
             </div>
           )}
         </form>
-        <button onClick={handleCreatePattern}>Ladda upp mönster</button>
+        <button onClick={handleCreatePattern}>Upload pattern</button>
       </div>
 
       <div></div>

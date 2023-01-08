@@ -47,13 +47,13 @@ export interface IUser {
 }
 
 export const categoryList = [
-  "Dam",
-  "Herr",
-  "Barn",
+  "Women",
+  "Men",
+  "Kids",
   "Baby",
-  "Djur",
-  "Hem",
-  "Högtider",
+  "Pets",
+  "Home",
+  "Holidays",
 ];
 
 //filter and options
@@ -73,19 +73,19 @@ export interface IFilterObject {
 
 export const filtersList: IFilter[] = [
   {
-    title: "Typ",
-    options: [{ title: "Virka" }, { title: "Sticka" }],
+    title: "type",
+    options: [{ title: "Crochet" }, { title: "Knit" }],
   },
   {
-    title: "Svårighetsgrad",
+    title: "difficulty",
     options: [
-      { title: "Nybörjare" },
-      { title: "Mellan" },
-      { title: "Erfaren" },
+      { title: "Beginner" },
+      { title: "Interemediate" },
+      { title: "Experienced" },
     ],
   },
   {
-    title: "Stickfasthet",
+    title: "needle",
     options: [
       { title: "2-2.5 mm" },
       { title: "2.5-3.5 mm" },
@@ -98,7 +98,7 @@ export const filtersList: IFilter[] = [
     ],
   },
   {
-    title: "Virknål",
+    title: "hook",
     options: [
       { title: "2-2.5 mm" },
       { title: "3-3.5 mm" },
@@ -110,7 +110,7 @@ export const filtersList: IFilter[] = [
     ],
   },
   {
-    title: "Garntyp",
-    options: [{ title: "Mohair" }, { title: "Fin bomull" }, { title: "Ull" }],
+    title: "yarn",
+    options: [{ title: "Mohair" }, { title: "Fine cotton" }, { title: "Wool" }],
   },
 ];
