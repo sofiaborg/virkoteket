@@ -49,43 +49,54 @@ export const LoginPage = () => {
   };
 
   return (
-    <>
-      <p>{loginError}</p>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="form-element">
-          <label htmlFor="email">E-post</label>
-          <input
-            id="email"
-            type="email"
-            placeholder="jane.doe@example.com"
-            {...register("email")}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <p>{errors.email?.message}</p>
-        </div>
+    <div className="bg-hero">
+      <div className="w-full p-4">
+        <p>{loginError}</p>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="form-element">
+            <label htmlFor="email">E-post</label>
+            <input
+              id="email"
+              type="email"
+              placeholder="jane.doe@example.com"
+              {...register("email")}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <p>{errors.email?.message}</p>
+          </div>
 
-        <div className="form-element">
-          <label htmlFor="password">Lösenord</label>
-          <input
-            id="password"
-            type="password"
-            placeholder="*********"
-            {...register("password")}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <p>{errors.password?.message}</p>
-        </div>
+          <div className="form-element">
+            <label htmlFor="password">Lösenord</label>
+            <input
+              id="password"
+              type="password"
+              placeholder="*********"
+              {...register("password")}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <p>{errors.password?.message}</p>
+          </div>
 
-        <button type="submit">Logga in</button>
-      </form>
-      <div>
-        {" "}
-        <button className="registerButton" type="submit">
-          <Link className="link" to="/register">
-            Registrera konto
-          </Link>
-        </button>
+          <div className="flex space-x-2 space-y-2 flex-wrap justify-center items-baseline">
+            <button
+              className="rounded-lg px-4 py-2 bg-green-700 text-green-100 hover:bg-green-800 duration-300"
+              type="submit"
+            >
+              Log in
+            </button>
+          </div>
+        </form>
+        <div className="flex space-x-2 space-y-2 flex-wrap justify-center items-baseline">
+          <button
+            className="rounded-lg px-4 py-2 bg-green-700 text-green-100 hover:bg-green-800 duration-300"
+            type="submit"
+          >
+            <Link className="link" to="/register">
+              Register
+            </Link>
+          </button>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
