@@ -10,6 +10,7 @@ export const Start = () => {
 
   //callback-functions to send to child-components
   const handleCategory = (category: string) => {
+    setChosenFilters([]);
     setChosenCategory(category);
   };
 
@@ -65,7 +66,7 @@ export const Start = () => {
       <Categories onCategoryClick={handleCategory}></Categories>
       <Filters onFiltersClick={handleFilters}></Filters>
       <div>
-        <h1>{chosenCategory}</h1>
+        <h1 onClick={() => setChosenCategory("")}>{chosenCategory} </h1>
       </div>
 
       <div>

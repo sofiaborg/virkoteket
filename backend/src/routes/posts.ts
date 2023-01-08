@@ -8,26 +8,40 @@ const router: Router = express.Router();
 
 //hämta alla inlägg
 router.get("/getposts", async (req: Request, res: Response) => {
-  let category: any = {};
-  let filters: any = {};
+  let query: any = {};
 
-  if (req.query.category) {
-    category = { category: req.query.category };
-    console.log(category);
+  if (req.query && req.query.category) {
+    query = { category: req.query.category };
+    console.log(query);
   }
 
-  // if (req.query.filters) {
-  //   const filterToString = JSON.stringify(req.query.filters);
-  //   let filters = JSON.parse(decodeURIComponent(filterToString));
-  //   console.log(filters);
-  //   for (const key in filters) {
-  //     filters[key] = { $in: filters[key] };
-  //   }
-  // }
+  if (req.query && req.query.filters) {
+    let filtersArr = JSON.parse(req.query.filters as string);
 
-  const posts = await Posts.find(category).lean();
+    const query: { [key: string]: string } = {};
+
+    filtersArr.forEach((filter: { title: string; option: string }) => {
+      query[filter.title] = filter.option;
+      console.log(query);
+    });
+  }
+
+  const posts = await Posts.find(query).lean();
 
   res.send(posts);
+
+  // for (const filter of filtersArr) {
+  //   const { title, option } = filter;
+  //   console.log(title, option);
+  // }
+
+  // const filterToString = JSON.stringify(req.query.filters);
+  // console.log(filterToString);
+  // let filters = JSON.parse(decodeURIComponent(filterToString));
+  // console.log(filters);
+  // for (const key in filters) {
+  //   filters[key] = { $in: filters[key] };
+  // }
 
   // let category = {};
   // let filters = {};
