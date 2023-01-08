@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { Wrapper } from "../components/StyledComponents/StyledWrappers";
 import { CreatePattern } from "../components/myPagesComponents/CreatePattern";
 import { MyPatterns } from "../components/myPagesComponents/MyPatterns";
 import { MyAccount } from "../components/myPagesComponents/MyAccount";
@@ -34,7 +33,7 @@ export const Mypages = () => {
 
   return (
     <>
-      <Wrapper>
+      <div>
         <h1>Mina sidor</h1>
         <div className="sidebar-wrapper">
           <div>
@@ -71,7 +70,7 @@ export const Mypages = () => {
 
           <div className="myaccount-wrapper"></div>
         </div>
-      </Wrapper>
+      </div>
     </>
   );
 };

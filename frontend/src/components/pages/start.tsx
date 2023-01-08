@@ -3,6 +3,7 @@ import { Categories } from "../components/startPageComponents/Categories";
 import { Filters } from "../components/startPageComponents/Filters";
 import { AllPatterns } from "../components/startPageComponents/AllPatterns";
 import { IFilterObject } from "../../interfaces/IProps";
+import "../../index.css";
 
 export const Start = () => {
   const [chosenCategory, setChosenCategory] = useState("");
@@ -62,7 +63,7 @@ export const Start = () => {
   }, [chosenFilters, chosenCategory]);
 
   return (
-    <>
+    <div>
       <Categories onCategoryClick={handleCategory}></Categories>
       <Filters onFiltersClick={handleFilters}></Filters>
       <div>
@@ -87,6 +88,6 @@ export const Start = () => {
         filters={chosenFilters}
         category={chosenCategory}
       ></AllPatterns>
-    </>
+    </div>
   );
 };

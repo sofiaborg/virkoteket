@@ -6,6 +6,9 @@ import { Start } from "./components/pages/Start";
 import { RegisterPage } from "./components/pages/RegisterZod";
 import { LoginPage } from "./components/pages/LoginZod";
 import { SinglePattern } from "./components/components/startPageComponents/SinglePattern";
+import "./App.css";
+import "./index.css";
+
 // import {
 //   postsContext,
 //   IPostsContext,
@@ -13,19 +16,23 @@ import { SinglePattern } from "./components/components/startPageComponents/Singl
 // } from "./contexts/products-context";
 
 export const App = () => {
-  // const [postsState, setPostsState] = useState<IPostsContext>(defaultValue);
   return (
-    // <postsContext.Provider value={postsState}>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route path="/" element={<LoginPage />}></Route>
-          <Route path="/register" element={<RegisterPage />}></Route>
-          <Route path="/mypages/*" element={<Mypages />}></Route>
-          <Route path="/patterns" element={<Start />}></Route>
-          <Route path="/patterns/:id" element={<SinglePattern />}></Route>
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <div>
+      <h1 className="text-3xl font-bold underline text-red-600">
+        Simple React Typescript Tailwind Sample
+      </h1>
+
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route path="/" element={<LoginPage />}></Route>
+            <Route path="/register" element={<RegisterPage />}></Route>
+            <Route path="/mypages/*" element={<Mypages />}></Route>
+            <Route path="/patterns" element={<Start />}></Route>
+            <Route path="/patterns/:id" element={<SinglePattern />}></Route>
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 };
