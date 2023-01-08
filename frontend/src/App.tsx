@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "./components/layout/layout";
+import { StartLayout } from "./components/layout/StartLayout";
 import { Mypages } from "./components/pages/MyPages";
 import { Start } from "./components/pages/Start";
 import { RegisterPage } from "./components/pages/RegisterZod";
@@ -20,9 +21,11 @@ export const App = () => {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Layout />}>
+          <Route path="/" element={<StartLayout />}>
             <Route path="/" element={<LoginPage />}></Route>
             <Route path="/register" element={<RegisterPage />}></Route>
+          </Route>
+          <Route path="/" element={<Layout />}>
             <Route path="/mypages/*" element={<Mypages />}></Route>
             <Route path="/patterns" element={<Start />}></Route>
             <Route path="/patterns/:id" element={<SinglePattern />}></Route>

@@ -7,8 +7,8 @@ import { useContext } from "react";
 import { AuthContext } from "../../contexts/auth-context";
 
 const createSessionSchema = object({
-  email: string().min(1, "E-post krävs"),
-  password: string().min(1, "Lösenord krävs"),
+  email: string().min(1, "Please enter email"),
+  password: string().min(1, "Please enter password"),
 });
 
 type CreateSessionInput = TypeOf<typeof createSessionSchema>;
@@ -49,54 +49,65 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="bg-hero">
-      <div className="w-full p-4">
-        <p>{loginError}</p>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="form-element">
-            <label htmlFor="email">E-post</label>
-            <input
-              id="email"
-              type="email"
-              placeholder="jane.doe@example.com"
-              {...register("email")}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <p>{errors.email?.message}</p>
-          </div>
+    <div className="w-full h-full flex justify-center items-center">
+      <p>{loginError}</p>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="form-element bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+      >
+        <div className="mb-4">
+          <label
+            htmlFor="email"
+            className="block text-gray-700 text-sm font-bold mb-2"
+          >
+            Email
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="email"
+            type="email"
+            placeholder="jane.doe@example.com"
+            {...register("email")}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <p>{errors.email?.message}</p>
 
-          <div className="form-element">
-            <label htmlFor="password">Lösenord</label>
-            <input
-              id="password"
-              type="password"
-              placeholder="*********"
-              {...register("password")}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <p>{errors.password?.message}</p>
-          </div>
+        <div className="form-element mb-6">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="password"
+          >
+            Password
+          </label>
+          <input
+            className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+            id="password"
+            type="password"
+            placeholder="*********"
+            {...register("password")}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <p className="text-red-500 text-xs italic">
+            {errors.password?.message}
+          </p>
+        </div>
 
-          <div className="flex space-x-2 space-y-2 flex-wrap justify-center items-baseline">
-            <button
-              className="rounded-lg px-4 py-2 bg-green-700 text-green-100 hover:bg-green-800 duration-300"
-              type="submit"
-            >
-              Log in
-            </button>
-          </div>
-        </form>
-        <div className="flex space-x-2 space-y-2 flex-wrap justify-center items-baseline">
+        <div className="flex items-center justify-between">
           <button
-            className="rounded-lg px-4 py-2 bg-green-700 text-green-100 hover:bg-green-800 duration-300"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
           >
-            <Link className="link" to="/register">
-              Register
-            </Link>
+            Log in
           </button>
+          <a
+            className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+            href="/register"
+          >
+            Register here
+          </a>
         </div>
-      </div>
+      </form>
     </div>
   );
 };
