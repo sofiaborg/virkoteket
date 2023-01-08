@@ -46,8 +46,7 @@ router.post("/login", async (req: Request, res: Response) => {
         token: accessToken,
       });
     } else {
-      console.log("failed");
-      res.status(400);
+      res.status(400).send("Failed");
     }
   });
 });
