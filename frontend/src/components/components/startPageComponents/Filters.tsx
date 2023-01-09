@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { filtersList } from "../../../interfaces/IProps";
+import { mainFiltersList } from "../../../interfaces/IProps";
 import { filtersProps } from "../../../interfaces/IProps";
 
 export const Filters = (props: filtersProps) => {
@@ -7,14 +8,22 @@ export const Filters = (props: filtersProps) => {
 
   return (
     <div>
-      <div className="flex flex-col lg:flex-row justify-start gap-6 py-6 text-sm">
-        <div className="px-4 py-2 cursor-pointer font-sans font-family: Arial  bg-[#F6F0F0] hover:bg-[#E9CCCC]">
-          CROCHET
-        </div>
-        <div className="px-4 py-2 cursor-pointer font-sans font-family: Arial bg-[#F6F0F0] hover:bg-[#E9CCCC]">
-          KNIT
-        </div>
-      </div>
+      {mainFiltersList.map((filter, i) => {
+        return (
+          <div className="flex flex-col lg:flex-row justify-start gap-6 py-6 text-sm">
+            {filter.options.map((option) => (
+              <div
+                className="uppercase px-4 py-2 cursor-pointer font-sans font-family: Arial  bg-[#F6F0F0] hover:bg-[#E9CCCC]"
+                onClick={(e) => {
+                  props.onFiltersClick(filter.title, option.title);
+                }}
+              >
+                {option.title}
+              </div>
+            ))}
+          </div>
+        );
+      })}
 
       <div className="bg-white max-w-xl mx-auto border border-gray-200">
         <ul className="shadow-box flex flex-col gap-0.5 ">

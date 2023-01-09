@@ -1,12 +1,17 @@
 import { useState, useEffect } from "react";
-import { IPost } from "../../../interfaces/IProps";
+import { IPost, IReview } from "../../../interfaces/IProps";
 import { Link } from "react-router-dom";
 import { postsProps } from "../../../interfaces/IProps";
 import { getCurrentUser } from "../../../interfaces/IProps";
 
 export const AllPatterns = (props: postsProps) => {
   const [posts, setPosts] = useState([]);
-  const user = getCurrentUser();
+  const [rating, setRating] = useState<number>(0);
+  const [ratingOne, setRatingOne] = useState<Boolean>(false);
+  const [ratingTwo, setRatingTwo] = useState<Boolean>(false);
+  const [ratingThree, setRatingThree] = useState<Boolean>(false);
+  const [ratingFour, setRatingFour] = useState<Boolean>(false);
+  const [ratingFive, setRatingFive] = useState<Boolean>(false);
 
   useEffect(() => {
     // const headers: Record<string, string> = {
@@ -27,6 +32,32 @@ export const AllPatterns = (props: postsProps) => {
     fetchProducts();
   }, [props.category, props.filters]);
 
+  //set rating in correct state
+  useEffect(() => {
+    if (rating === 0) {
+      setRatingOne(false);
+      setRatingTwo(false);
+      setRatingThree(false);
+      setRatingFour(false);
+      setRatingFive(false);
+    }
+    if (rating === 1) {
+      setRatingOne(true);
+    }
+    if (rating === 2) {
+      setRatingTwo(true);
+    }
+    if (rating === 3) {
+      setRatingThree(true);
+    }
+    if (rating === 4) {
+      setRatingFour(true);
+    }
+    if (rating === 5) {
+      setRatingFive(true);
+    }
+  }, [rating]);
+
   return (
     <>
       <div className="container mx-auto">
@@ -40,14 +71,43 @@ export const AllPatterns = (props: postsProps) => {
                   src={post.image}
                   alt={post.image}
                 />
-                <h3>{post.title}</h3>
-                <h5>{post.type}</h5>
-                <h5>{post.category}</h5>
-                <h5>{post.difficulty}</h5>
-                <h5>{post.hook}</h5>
-                <h5>{post.needle}</h5>
-                <h5>{post.yarn}</h5>
               </Link>
+
+              <h3>{post.title}</h3>
+              {/* {post.reviews.map((review: IReview) => {
+                setRating(review.rating);
+                return (
+                  <div key={review._id}>
+                    <ul className="flex">
+                      {ratingOne ? (
+                        <li className="text-green-600">1</li>
+                      ) : (
+                        <li className="text-gray-600">1</li>
+                      )}
+                      {ratingTwo ? (
+                        <li className="text-green-600">2</li>
+                      ) : (
+                        <li className="text-gray-600">2</li>
+                      )}
+                      {ratingThree ? (
+                        <li className="text-green-600">3</li>
+                      ) : (
+                        <li className="text-gray-600">3</li>
+                      )}
+                      {ratingFour ? (
+                        <li className="text-green-600">4</li>
+                      ) : (
+                        <li className="text-gray-600">4</li>
+                      )}
+                      {ratingFive ? (
+                        <li className="text-green-600">5</li>
+                      ) : (
+                        <li className="text-gray-600">5</li>
+                      )}
+                    </ul>
+                  </div>
+                );
+              })} */}
             </div>
           ))}
         </div>

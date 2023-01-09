@@ -6,7 +6,7 @@ export const getCurrentUser = () => {
 };
 
 export interface categoryProps {
-  onCategoryClick: (category: string) => void;
+  onCategoryClick: (category: string, description: string) => void;
 }
 
 export interface filtersProps {
@@ -46,14 +46,41 @@ export interface IUser {
   email: string;
 }
 
-export const categoryList = [
-  "Women",
-  "Men",
-  "Kids",
-  "Baby",
-  "Pets",
-  "Home",
-  "Holidays",
+//categories
+export interface ICategory {
+  title: string;
+  description: string;
+}
+
+export const categoryList: ICategory[] = [
+  {
+    title: "Women",
+    description: "Lorem ipsum dolores set, amet initiales dolum",
+  },
+  {
+    title: "Men",
+    description: "Lorem ipsum dolores set, amet initiales dolum",
+  },
+  {
+    title: "Kids",
+    description: "Lorem ipsum dolores set, amet initiales dolum",
+  },
+  {
+    title: "Baby",
+    description: "Lorem ipsum dolores set, amet initiales dolum",
+  },
+  {
+    title: "Pets",
+    description: "Lorem ipsum dolores set, amet initiales dolum",
+  },
+  {
+    title: "Home",
+    description: "Lorem ipsum dolores set, amet initiales dolum",
+  },
+  {
+    title: "Holiday",
+    description: "Lorem ipsum dolores set, amet initiales dolum",
+  },
 ];
 
 //filter and options
@@ -70,6 +97,13 @@ export interface IFilterObject {
   title: string;
   option: string;
 }
+
+export const mainFiltersList: IFilter[] = [
+  {
+    title: "type",
+    options: [{ title: "Crochet" }, { title: "Knit" }],
+  },
+];
 
 export const filtersList: IFilter[] = [
   {

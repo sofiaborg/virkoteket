@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-import { useContext } from "react";
 import { categoryList } from "../../../interfaces/IProps";
 import { categoryProps } from "../../../interfaces/IProps";
 
@@ -15,12 +13,12 @@ export const Categories = (props: categoryProps) => {
             <li
               className="uppercase font-sans font-family: Arial text-sm pb-3 cursor-pointer hover:font-bold focus:font-bold"
               key={i}
-              value={category}
+              value={category.title}
               onClick={(e) => {
-                props.onCategoryClick(category);
+                props.onCategoryClick(category.title, category.description);
               }}
             >
-              {category}
+              {category.title}
             </li>
           ))}
         </ul>
