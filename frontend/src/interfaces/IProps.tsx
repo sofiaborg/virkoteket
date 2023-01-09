@@ -73,10 +73,6 @@ export interface IFilterObject {
 
 export const filtersList: IFilter[] = [
   {
-    title: "type",
-    options: [{ title: "Crochet" }, { title: "Knit" }],
-  },
-  {
     title: "difficulty",
     options: [
       { title: "Beginner" },

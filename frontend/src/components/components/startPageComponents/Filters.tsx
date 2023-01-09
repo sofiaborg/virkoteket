@@ -6,44 +6,66 @@ export const Filters = (props: filtersProps) => {
   const [expandedItems, setExpandedItems] = useState<string[]>([]);
 
   return (
-    <div className="bg-white max-w-xl mx-auto border border-gray-200">
-      <ul className="shadow-box">
-        {filtersList.map((filter, i) => (
-          <li
-            onClick={() => {
-              // Toggle the item's open/closed state
-              if (expandedItems.includes(filter.title)) {
-                setExpandedItems(
-                  expandedItems.filter((i) => i !== filter.title)
-                );
-              } else {
-                setExpandedItems([...expandedItems, filter.title]);
-              }
-            }}
-            className="cursor-pointer relative border-b border-gray-200 w-full  text-left"
-          >
-            {filter.title}
+    <div>
+      <div className="flex flex-col lg:flex-row justify-start gap-6 py-6 text-sm">
+        <div className="px-4 py-2 cursor-pointer font-sans font-family: Arial  bg-[#F6F0F0] hover:bg-[#E9CCCC]">
+          CROCHET
+        </div>
+        <div className="px-4 py-2 cursor-pointer font-sans font-family: Arial bg-[#F6F0F0] hover:bg-[#E9CCCC]">
+          KNIT
+        </div>
+      </div>
 
-            <ul
-              className={`relative overflow-hidden transition-all duration-700 ${
-                expandedItems.includes(filter.title) ? "max-h-none" : "max-h-0"
-              }`}
-            >
-              {filter.options.map((option) => (
-                <li
-                  className="cursor-pointer"
-                  key={option.title}
-                  onClick={(e) => {
-                    props.onFiltersClick(filter.title, option.title);
-                  }}
+      <div className="bg-white max-w-xl mx-auto border border-gray-200">
+        <ul className="shadow-box flex flex-col gap-0.5 ">
+          {filtersList.map((filter, i) => {
+            return (
+              <li
+                key={filter.title}
+                onClick={() => {
+                  // Toggle the item's open/closed state
+                  if (expandedItems.includes(filter.title)) {
+                    setExpandedItems(
+                      expandedItems.filter((i) => i !== filter.title)
+                    );
+                  } else {
+                    setExpandedItems([...expandedItems, filter.title]);
+                  }
+                }}
+                className="cursor-pointer relative  bg-[#F6F0F0]  hover:bg-[#E5DADA] w-full  text-left  text-sm"
+              >
+                <p className="py-2.5 pl-3 uppercase font-sans font-family: Arial">
+                  {" "}
+                  {filter.title}
+                </p>
+
+                <ul
+                  className={` relative overflow-hidden transition-all duration-700 ${
+                    expandedItems.includes(filter.title)
+                      ? "max-h-none"
+                      : "max-h-0"
+                  }`}
                 >
-                  {option.title}
-                </li>
-              ))}
-            </ul>
-          </li>
-        ))}
-      </ul>
+                  {filter.options.map((option) => (
+                    <li
+                      className="cursor-pointer bg-[#F6F0F0]  hover:bg-[#E5DADA]"
+                      key={option.title}
+                      onClick={(e) => {
+                        props.onFiltersClick(filter.title, option.title);
+                      }}
+                    >
+                      <p className="py-1 pl-4 font-sans font-family: Arial  text-xs">
+                        {" "}
+                        {option.title}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </div>
   );
 };
