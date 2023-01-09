@@ -77,88 +77,122 @@ export const SinglePattern = () => {
 
   return (
     <>
-      <div className="reviews-wrapper">
-        <h3>Recensioner</h3>
-        <div>
-          {post.reviews.map((review: IReview) => (
-            <div key={review._id}>
-              <h3>{review.comment}</h3>
-              <div>{review.rating}</div>
-              <h5>{review.user}</h5>
+      <div className="flex justify-center ">
+        <div className=" w-3/4 py-20 flex gap-6 ">
+          <div className=" w-3/12  ">
+            <h3 className="font-sans font-family: Arial ">Recensioner</h3>
+            <div>
+              {post.reviews.map((review: IReview) => (
+                <div key={review._id}>
+                  <h3>{review.comment}</h3>
+                  <div>{review.rating}</div>
+                  <h5>{review.user}</h5>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="pattern-wrapper">
-        <h3>Mönster av {post.user}</h3>
-        <h3>{post.title}</h3>
-        <img src={post.image} alt="alttext" />
-        <div>{post.description}</div>
-        <div>{post.type}</div>
-        <div>{post.difficulty}</div>
-        <div>{post.category}</div>
-        <div>{post.hook}</div>
-        <div>{post.needle}</div>
-        <div>{post.yarn}</div>
-        <a href={post.pattern} attributes-list>
-          Hämta mönster som pdf
-        </a>
-      </div>
-
-      <div className="comment-wrapper">
-        <form onSubmit={handleSubmit}>
-          <input
-            type="textarea"
-            placeholder="Vad tyckte du om mönstret?"
-            onChange={(e) => setComment(e.target.value)}
-          />
-
-          {/* behöver lägga till for="...." i varje rate  https://codepen.io/hesguru/pen/BaybqXv */}
-          <div className="rate">
-            <input
-              type="radio"
-              id="rate5"
-              name="rate"
-              value="5"
-              onChange={handleRatingChange}
-            />
-            <label title="text">5</label>
-            <input
-              type="radio"
-              id="rate4"
-              name="rate"
-              value="4"
-              onChange={handleRatingChange}
-            />
-            <label title="text">4</label>
-            <input
-              type="radio"
-              id="rate3"
-              name="rate"
-              value="3"
-              onChange={handleRatingChange}
-            />
-            <label title="text">3</label>
-            <input
-              type="radio"
-              id="rate2"
-              name="rate"
-              value="2"
-              onChange={handleRatingChange}
-            />
-            <label title="text">2</label>
-            <input
-              type="radio"
-              id="rate1"
-              name="rate"
-              value="1"
-              onChange={handleRatingChange}
-            />
-            <label title="text">1</label>
           </div>
-          <button>Skicka</button>
-        </form>
+
+          <div className=" w-9/12 ">
+            <div>
+              <h1 className="text-xl ">{post.title}</h1>
+              <p className="text-xs">Mönster av {post.user}</p>
+              <p className="pt-7 text-sm">{post.description}</p>
+
+              <ul className="pt-7 text-sm">
+                <li>Type of project: {post.type}</li>
+                <li>Category: {post.category}</li>
+                <li>Yarn used in pattern: {post.yarn}</li>
+                <li>
+                  Needle/hook size: {post.needle} {post.hook}
+                </li>
+              </ul>
+
+              <div className="pt-7">
+                <a href={post.pattern} attributes-list>
+                  Get pattern
+                </a>
+              </div>
+
+              <div className="flex pt-7 gap-4 justify-center">
+                <img
+                  className="h-full w-48 object-cover"
+                  src={post.image}
+                  alt="alttext"
+                />
+                <img
+                  className="h-full w-48 object-cover"
+                  src={post.image}
+                  alt="alttext"
+                />
+                <img
+                  className="h-full w-48 object-cover"
+                  src={post.image}
+                  alt="alttext"
+                />
+              </div>
+            </div>
+
+            <div className="flex justify-center">
+              <form
+                className="w-full flex flex-col justify-center items-center pt-7"
+                onSubmit={handleSubmit}
+              >
+                <input
+                  className="w-3/5 p-4 h-60"
+                  type="textarea"
+                  placeholder="What did you think of the pattern?"
+                  onChange={(e) => setComment(e.target.value)}
+                />
+
+                {/* behöver lägga till for="...." i varje rate  https://codepen.io/hesguru/pen/BaybqXv */}
+                <div className="rate">
+                  <input
+                    type="radio"
+                    id="rate5"
+                    name="rate"
+                    value="5"
+                    onChange={handleRatingChange}
+                  />
+                  <label title="text">5</label>
+                  <input
+                    type="radio"
+                    id="rate4"
+                    name="rate"
+                    value="4"
+                    onChange={handleRatingChange}
+                  />
+                  <label title="text">4</label>
+                  <input
+                    type="radio"
+                    id="rate3"
+                    name="rate"
+                    value="3"
+                    onChange={handleRatingChange}
+                  />
+                  <label title="text">3</label>
+                  <input
+                    type="radio"
+                    id="rate2"
+                    name="rate"
+                    value="2"
+                    onChange={handleRatingChange}
+                  />
+                  <label title="text">2</label>
+                  <input
+                    type="radio"
+                    id="rate1"
+                    name="rate"
+                    value="1"
+                    onChange={handleRatingChange}
+                  />
+                  <label title="text">1</label>
+                </div>
+                <button>Send</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <a href="/patterns">Back</a>
       </div>
     </>
   );
