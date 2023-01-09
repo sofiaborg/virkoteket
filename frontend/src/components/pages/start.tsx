@@ -76,8 +76,8 @@ export const Start = () => {
 
         <div className=" w-9/12">
           <div>
-            <h1>{chosenCategory} </h1>
-            <p>{categoryDescription}</p>
+            <h1 className="text-xl">{chosenCategory} </h1>
+            <p className="italic">{categoryDescription}</p>
           </div>
 
           <div className=" flex gap-4 flex-wrap py-4">
