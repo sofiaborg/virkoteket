@@ -71,22 +71,25 @@ export const Start = () => {
         </div>
 
         <div className="border-double border-4 border-pink-600 w-9/12">
-          <div>
-            <h1 onClick={() => setChosenCategory("")}>{chosenCategory} </h1>
+          <div className="border-double border-4 border-green-600">
+            <h1>{chosenCategory} </h1>
           </div>
 
-          <div>
+          <div className="border-double border-4 border-pink-600 flex gap-6">
             {Object.keys(filterObjects).map((title) => (
-              <h2 key={title} onClick={() => deleteFilter(title)}>
-                {title}
-                <div>
-                  {filterObjects[title].map((option) => (
-                    <h6 key={option} onClick={() => deleteFilter(option)}>
-                      {option}
-                    </h6>
-                  ))}
-                </div>
-              </h2>
+              <div
+                className="flex bg-violet-500 gap-2"
+                key={title}
+                onClick={() => deleteFilter(title)}
+              >
+                {title}:
+                {filterObjects[title].map((option) => (
+                  <h6 key={option} onClick={() => deleteFilter(option)}>
+                    {option}
+                  </h6>
+                ))}
+                <span className="cursor-pointer">x</span>
+              </div>
             ))}
           </div>
           <AllPatterns

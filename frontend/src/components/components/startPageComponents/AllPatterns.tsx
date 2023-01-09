@@ -29,21 +29,28 @@ export const AllPatterns = (props: postsProps) => {
 
   return (
     <>
-      <div className="flex flex-wrap justify-start w-full gap-4">
-        {posts.map((post: IPost) => (
-          <div className="item bg-white m-2 flex-[0_0_26%]" key={post._id}>
-            <Link className="link" to={"/patterns/" + post._id}>
-              <img src={post.image} alt={post.image} />
-              <h3>{post.title}</h3>
-              <h5>{post.type}</h5>
-              <h5>{post.category}</h5>
-              <h5>{post.difficulty}</h5>
-              <h5>{post.hook}</h5>
-              <h5>{post.needle}</h5>
-              <h5>{post.yarn}</h5>
-            </Link>
-          </div>
-        ))}
+      <div className="container mx-auto">
+        {/* <!-- Column --> */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {posts.map((post: IPost) => (
+            <div className="bg-white " key={post._id}>
+              <Link className="link" to={"/patterns/" + post._id}>
+                <img
+                  className="h-60 w-full object-cover"
+                  src={post.image}
+                  alt={post.image}
+                />
+                <h3>{post.title}</h3>
+                <h5>{post.type}</h5>
+                <h5>{post.category}</h5>
+                <h5>{post.difficulty}</h5>
+                <h5>{post.hook}</h5>
+                <h5>{post.needle}</h5>
+                <h5>{post.yarn}</h5>
+              </Link>
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );

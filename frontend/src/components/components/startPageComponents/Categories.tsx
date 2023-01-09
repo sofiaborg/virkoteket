@@ -13,7 +13,7 @@ export const Categories = (props: categoryProps) => {
         <ul>
           {categoryList.map((category, i) => (
             <li
-              className="uppercase font-sans font-family: Arial text-sm pb-3"
+              className="uppercase font-sans font-family: Arial text-sm pb-3 cursor-pointer hover:font-bold focus:font-bold"
               key={i}
               value={category}
               onClick={(e) => {
