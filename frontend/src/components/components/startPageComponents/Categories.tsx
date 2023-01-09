@@ -7,9 +7,13 @@ export const Categories = (props: categoryProps) => {
   return (
     <>
       <div className="category-wrapper">
+        <h2 className="uppercase font-sans font-family: Arial pb-3">
+          Category
+        </h2>
         <ul>
           {categoryList.map((category, i) => (
             <li
+              className="uppercase font-sans font-family: Arial text-sm pb-3"
               key={i}
               value={category}
               onClick={(e) => {

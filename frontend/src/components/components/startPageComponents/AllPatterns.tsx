@@ -29,9 +29,9 @@ export const AllPatterns = (props: postsProps) => {
 
   return (
     <>
-      <div>
+      <div className="flex flex-wrap justify-start w-full gap-4">
         {posts.map((post: IPost) => (
-          <div key={post._id}>
+          <div className="item bg-white m-2 flex-[0_0_26%]" key={post._id}>
             <Link className="link" to={"/patterns/" + post._id}>
               <img src={post.image} alt={post.image} />
               <h3>{post.title}</h3>

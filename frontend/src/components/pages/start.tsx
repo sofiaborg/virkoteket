@@ -63,31 +63,38 @@ export const Start = () => {
   }, [chosenFilters, chosenCategory]);
 
   return (
-    <div>
-      <Categories onCategoryClick={handleCategory}></Categories>
-      <Filters onFiltersClick={handleFilters}></Filters>
-      <div>
-        <h1 onClick={() => setChosenCategory("")}>{chosenCategory} </h1>
-      </div>
+    <div className="border-double border-4 border-indigo-600 flex justify-center">
+      <div className="border-double border-4 border-pink-600 w-3/4 py-20 flex gap-6">
+        <div className="border-double border-4 border-indigo-600 w-3/12">
+          <Categories onCategoryClick={handleCategory}></Categories>
+          <Filters onFiltersClick={handleFilters}></Filters>
+        </div>
 
-      <div>
-        {Object.keys(filterObjects).map((title) => (
-          <h2 key={title} onClick={() => deleteFilter(title)}>
-            {title}
-            <div>
-              {filterObjects[title].map((option) => (
-                <h6 key={option} onClick={() => deleteFilter(option)}>
-                  {option}
-                </h6>
-              ))}
-            </div>
-          </h2>
-        ))}
+        <div className="border-double border-4 border-pink-600 w-9/12">
+          <div>
+            <h1 onClick={() => setChosenCategory("")}>{chosenCategory} </h1>
+          </div>
+
+          <div>
+            {Object.keys(filterObjects).map((title) => (
+              <h2 key={title} onClick={() => deleteFilter(title)}>
+                {title}
+                <div>
+                  {filterObjects[title].map((option) => (
+                    <h6 key={option} onClick={() => deleteFilter(option)}>
+                      {option}
+                    </h6>
+                  ))}
+                </div>
+              </h2>
+            ))}
+          </div>
+          <AllPatterns
+            filters={chosenFilters}
+            category={chosenCategory}
+          ></AllPatterns>
+        </div>
       </div>
-      <AllPatterns
-        filters={chosenFilters}
-        category={chosenCategory}
-      ></AllPatterns>
     </div>
   );
 };

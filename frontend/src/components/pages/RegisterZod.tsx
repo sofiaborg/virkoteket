@@ -61,12 +61,22 @@ export const RegisterPage = () => {
   console.log({ errors });
 
   return (
-    <>
+    <div className="w-full h-full flex justify-center items-center">
       <p>{registerError}</p>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="form-element">
-          <label htmlFor="email">Email</label>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="form-element bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+      >
+        <div className="text-center">LOGO</div>
+        <div className="form-element mb-4">
+          <label
+            htmlFor="email"
+            className="block text-gray-700 text-sm font-bold mb-2"
+          >
+            Email
+          </label>
           <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="email"
             type="email"
             placeholder="jane.doe@example.com"
@@ -76,31 +86,54 @@ export const RegisterPage = () => {
           <p>{errors.email?.message}</p>
         </div>
 
-        <div className="form-element">
-          <label htmlFor="password">Password</label>
+        <div className="form-element mb-6">
+          <label
+            htmlFor="password"
+            className="block text-gray-700 text-sm font-bold mb-2"
+          >
+            Password
+          </label>
           <input
+            className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
             id="password"
             type="password"
             placeholder="*********"
             {...register("password")}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <p>{errors.password?.message}</p>
+          <p className="text-red-500 text-xs italic">
+            {errors.password?.message}
+          </p>
         </div>
 
-        <div className="form-element">
-          <label htmlFor="passwordConfirmation">Confirm password</label>
+        <div className="form-element mb-6">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="passwordConfirmation"
+          >
+            Confirm password
+          </label>
           <input
+            className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
             id="passwordConfirmation"
             type="password"
             placeholder="*********"
             {...register("confirmPassword")}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
-          <p>{errors.confirmPassword?.message}</p>
+          <p className="text-red-500 text-xs italic">
+            {errors.confirmPassword?.message}
+          </p>
         </div>
-        <button type="submit">SUBMIT</button>
+        <div className="flex items-center justify-center">
+          <button
+            className="bg-pink-400 hover:bg-pink-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="submit"
+          >
+            SUBMIT
+          </button>
+        </div>
       </form>
-    </>
+    </div>
   );
 };
