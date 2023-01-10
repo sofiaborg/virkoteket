@@ -84,13 +84,32 @@ export const SinglePattern = () => {
           <div className=" w-3/12  ">
             <h3 className="font-sans font-family: Arial ">Recensioner</h3>
             <div>
-              {post.reviews.map((review: IReview) => (
-                <div key={review._id}>
-                  <h3>{review.comment}</h3>
-                  <div>{review.rating}</div>
-                  <h5>{review.user}</h5>
-                </div>
-              ))}
+              {post.reviews
+                .slice()
+                .reverse()
+                .map((review: IReview) => (
+                  <div className="pt-7" key={review._id}>
+                    <h3 className="text-xs italic">{review.comment}</h3>
+                    <div>
+                      {[...Array(5)].map((star, index) => {
+                        index += 1;
+                        return (
+                          <span
+                            key={index}
+                            className={`text-xl ${
+                              index <= review.rating
+                                ? "text-[#e9bcbc]"
+                                : "text-gray-200"
+                            }`}
+                          >
+                            &#10084;
+                          </span>
+                        );
+                      })}
+                    </div>
+                    <h5 className="text-xs">{review.user}</h5>
+                  </div>
+                ))}
             </div>
           </div>
 
@@ -100,32 +119,26 @@ export const SinglePattern = () => {
               <p className="text-xs">Mönster av {post.user}</p>
               <p className="pt-7 text-sm">{post.description}</p>
 
-              <ul className="pt-7 text-sm">
-                <li>Type of project: {post.type}</li>
-                <li>Category: {post.category}</li>
-                <li>Yarn used in pattern: {post.yarn}</li>
-                <li>
-                  Needle/hook size: {post.needle} {post.hook}
-                </li>
-              </ul>
+              <div className="flex flex-col md:flex-row justify-between w-full">
+                <ul className="pt-7 text-sm w-3/6">
+                  <li>Type of project: {post.type}</li>
+                  <li>Category: {post.category}</li>
+                  <li>Yarn used in pattern: {post.yarn}</li>
+                  <li>
+                    Needle/hook size: {post.needle} {post.hook}
+                  </li>
+                </ul>
 
-              <div className="pt-7">
-                <a href={post.pattern} attributes-list>
-                  Get pattern
-                </a>
+                <div className="pt-7 flex justify-center items-center w-3/6">
+                  <div className="bg-red-500 rounded-full h-28 w-28 flex justify-center items-center">
+                    <a href={post.pattern} attributes-list>
+                      Get pattern
+                    </a>
+                  </div>
+                </div>
               </div>
 
               <div className="flex pt-7 gap-4 justify-center">
-                <img
-                  className="h-full w-48 object-cover"
-                  src={post.image}
-                  alt="alttext"
-                />
-                <img
-                  className="h-full w-48 object-cover"
-                  src={post.image}
-                  alt="alttext"
-                />
                 <img
                   className="h-full w-48 object-cover"
                   src={post.image}
@@ -141,17 +154,10 @@ export const SinglePattern = () => {
               >
                 <textarea
                   id="message"
-                  // rows="4"
                   className="block p-2.5 w-3/5 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Write your review here..."
                   onChange={(e) => setComment(e.target.value)}
                 ></textarea>
-                {/* <input
-                  className="w-3/5 p-4 h-60"
-                  type="textarea"
-                  placeholder="What did you think of the pattern?"
-            
-                /> */}
 
                 <div className="star-rating pt-5">
                   {[...Array(5)].map((star, index) => {
