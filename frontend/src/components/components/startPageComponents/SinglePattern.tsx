@@ -81,36 +81,33 @@ export const SinglePattern = () => {
     <>
       <div className="flex justify-center ">
         <div className=" w-3/4 py-20 flex gap-6 ">
-          <div className=" w-3/12  ">
-            <h3 className="font-sans font-family: Arial ">Recensioner</h3>
-            <div>
-              {post.reviews
-                .slice()
-                .reverse()
-                .map((review: IReview) => (
-                  <div className="pt-7" key={review._id}>
-                    <h3 className="text-xs italic">{review.comment}</h3>
-                    <div>
-                      {[...Array(5)].map((star, index) => {
-                        index += 1;
-                        return (
-                          <span
-                            key={index}
-                            className={`text-xl ${
-                              index <= review.rating
-                                ? "text-[#e9bcbc]"
-                                : "text-gray-200"
-                            }`}
-                          >
-                            &#10084;
-                          </span>
-                        );
-                      })}
-                    </div>
-                    <h5 className="text-xs">{review.user}</h5>
+          <div className=" w-3/12 bg-[#F6F0F0] h-4/5 pb-7 px-5 overflow-y-scroll ">
+            {post.reviews
+              .slice()
+              .reverse()
+              .map((review: IReview) => (
+                <div className="pt-7" key={review._id}>
+                  <h3 className="text-xs italic">{review.comment}</h3>
+                  <div>
+                    {[...Array(5)].map((star, index) => {
+                      index += 1;
+                      return (
+                        <span
+                          key={index}
+                          className={`text-xl ${
+                            index <= review.rating
+                              ? "text-[#e9bcbc]"
+                              : "text-gray-200"
+                          }`}
+                        >
+                          &#10084;
+                        </span>
+                      );
+                    })}
                   </div>
-                ))}
-            </div>
+                  <h5 className="text-xs">{review.user}</h5>
+                </div>
+              ))}
           </div>
 
           <div className=" w-9/12 ">
@@ -122,6 +119,7 @@ export const SinglePattern = () => {
               <div className="flex flex-col md:flex-row justify-between w-full">
                 <ul className="pt-7 text-sm w-3/6">
                   <li>Type of project: {post.type}</li>
+                  <li>Level: {post.difficulty}</li>
                   <li>Category: {post.category}</li>
                   <li>Yarn used in pattern: {post.yarn}</li>
                   <li>
@@ -147,9 +145,12 @@ export const SinglePattern = () => {
               </div>
             </div>
 
-            <div className="flex justify-center">
+            <div className="pt-7 flex flex-col items-center justify-center">
+              <h1>
+                Have you used this pattern? Please tell us what you think!
+              </h1>
               <form
-                className="w-full flex flex-col justify-center items-center pt-7"
+                className="w-full flex flex-col justify-center items-center "
                 onSubmit={handleSubmit}
               >
                 <textarea
