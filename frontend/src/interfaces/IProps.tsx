@@ -34,6 +34,8 @@ export interface IPost {
   reviews: [];
 }
 
+export const ReviewNumbers: string[] = ["1", "2", "3", "4", "5"];
+
 export interface IReview {
   _id: number;
   rating: number;

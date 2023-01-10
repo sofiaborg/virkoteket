@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import { IPost } from "../../../interfaces/IProps";
 import { IReview } from "../../../interfaces/IProps";
 import { getCurrentUser } from "../../../interfaces/IProps";
+import { ReviewNumbers } from "../../../interfaces/IProps";
 
 export const SinglePattern = () => {
   const [post, setPost] = useState<IPost>({
@@ -20,7 +21,8 @@ export const SinglePattern = () => {
     user: "",
     reviews: [],
   });
-  const [rating, setRating] = useState<Number>(0);
+  const [rating, setRating] = useState<number>(0);
+  const [ratingHover, setRatingHover] = useState(0);
   const [comment, setComment] = useState<String>("");
   const [addReview, setAddReview] = useState<Boolean>(false);
   const { id } = useParams();
@@ -137,57 +139,47 @@ export const SinglePattern = () => {
                 className="w-full flex flex-col justify-center items-center pt-7"
                 onSubmit={handleSubmit}
               >
-                <input
+                <textarea
+                  id="message"
+                  // rows="4"
+                  className="block p-2.5 w-3/5 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Write your review here..."
+                  onChange={(e) => setComment(e.target.value)}
+                ></textarea>
+                {/* <input
                   className="w-3/5 p-4 h-60"
                   type="textarea"
                   placeholder="What did you think of the pattern?"
-                  onChange={(e) => setComment(e.target.value)}
-                />
+            
+                /> */}
 
-                {/* behöver lägga till for="...." i varje rate  https://codepen.io/hesguru/pen/BaybqXv */}
-                <div className="rate">
-                  <input
-                    type="radio"
-                    id="rate5"
-                    name="rate"
-                    value="5"
-                    onChange={handleRatingChange}
-                  />
-                  <label title="text">5</label>
-                  <input
-                    type="radio"
-                    id="rate4"
-                    name="rate"
-                    value="4"
-                    onChange={handleRatingChange}
-                  />
-                  <label title="text">4</label>
-                  <input
-                    type="radio"
-                    id="rate3"
-                    name="rate"
-                    value="3"
-                    onChange={handleRatingChange}
-                  />
-                  <label title="text">3</label>
-                  <input
-                    type="radio"
-                    id="rate2"
-                    name="rate"
-                    value="2"
-                    onChange={handleRatingChange}
-                  />
-                  <label title="text">2</label>
-                  <input
-                    type="radio"
-                    id="rate1"
-                    name="rate"
-                    value="1"
-                    onChange={handleRatingChange}
-                  />
-                  <label title="text">1</label>
+                <div className="star-rating pt-5">
+                  {[...Array(5)].map((star, index) => {
+                    index += 1;
+                    return (
+                      <button
+                        type="button"
+                        key={index}
+                        className={`${
+                          index <= (ratingHover || rating)
+                            ? "text-[#e9bcbc]"
+                            : "text-gray-200"
+                        } bg-transparent text-xl`}
+                        onClick={() => setRating(index)}
+                        onMouseEnter={() => setRatingHover(index)}
+                        onMouseLeave={() => setRatingHover(rating)}
+                      >
+                        <span className="star">&#10084;</span>
+                      </button>
+                    );
+                  })}
                 </div>
-                <button>Send</button>
+
+                <div className="pt-5">
+                  <button className="bg-[#ed9999] hover:bg-[#da9090] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Send
+                  </button>
+                </div>
               </form>
             </div>
           </div>
