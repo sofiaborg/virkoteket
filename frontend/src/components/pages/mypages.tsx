@@ -33,42 +33,40 @@ export const Mypages = () => {
 
   return (
     <>
-      <div>
-        <h1>Mina sidor</h1>
-        <div className="sidebar-wrapper">
-          <div>
-            <Link to="/mypages/createpattern">
-              <h2>Skapa mönster</h2>
-            </Link>
-
+      <div className="w-full flex justify-center items-center">
+        <div className="border-2 border-indigo-600 flex w-3/5">
+          <div className="border-2 border-pink-600 w-1/4">
             <div>
-              <div>
-                <Link to="/mypages/mypatterns">
-                  <h2>Mina mönster</h2>
-                </Link>
-              </div>
-              <div>
-                <Link to="/mypages/myaccount">
-                  <h2>Mitt konto</h2>
-                </Link>
-              </div>
-              <div>
-                <button onClick={auth.logout}>Logga ut</button>
-              </div>
+              <Link to="/mypages/createpattern">
+                <h2>Skapa mönster</h2>
+              </Link>
+            </div>
+            <div>
+              <Link to="/mypages/mypatterns">
+                <h2>Mina mönster</h2>
+              </Link>
+            </div>
+            <div>
+              <Link to="/mypages/myaccount">
+                <h2>Mitt konto</h2>
+              </Link>
+            </div>
+            <div>
+              <button onClick={auth.logout}>Logga ut</button>
             </div>
           </div>
-        </div>
 
-        <div className="mainbar-wrapper">
-          <div className="patterns-wrapper">
-            {location.pathname === "/mypages/createpattern" && (
-              <CreatePattern />
-            )}
-            {location.pathname === "/mypages/mypatterns" && <MyPatterns />}
-            {location.pathname === "/mypages/myaccount" && <MyAccount />}
+          <div className="border-2 border-green-600 w-3/4">
+            <div className="patterns-wrapper">
+              {location.pathname === "/mypages/createpattern" && (
+                <CreatePattern />
+              )}
+              {location.pathname === "/mypages/mypatterns" && <MyPatterns />}
+              {location.pathname === "/mypages/myaccount" && <MyAccount />}
+            </div>
+
+            <div className="myaccount-wrapper"></div>
           </div>
-
-          <div className="myaccount-wrapper"></div>
         </div>
       </div>
     </>

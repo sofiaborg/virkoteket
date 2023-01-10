@@ -80,36 +80,65 @@ export const CreatePattern = () => {
   };
 
   return (
-    <>
-      <div>
-        <form>
+    <div className="w-full h-full flex justify-center items-center bg-[#F6F0F0]">
+      <div className="w-3/5 py-20 ">
+        <form className="flex flex-col gap-4">
           <input
+            className="p-1 w-full text-sm text-gray-900 bg-gray-50"
             type="text"
             placeholder="Pattern title"
             onChange={(e) => setTitle(e.target.value)}
           />
-          <input
-            type="text"
-            placeholder="Description"
-            onChange={(e) => setDescription(e.target.value)}
-          />
-          <input
-            type="file"
-            placeholder="IMAGE"
-            onChange={(e) => convertImgFile(e.target.files)}
-          />
-          {image.indexOf("image/") > -1 && (
-            <img src={image} alt="img" width={300} />
-          )}
-          <input
-            type="file"
-            placeholder="PDF"
-            onChange={(e) => convertPdfFile(e.target.files)}
-          />
 
-          <h3>Categories</h3>
-          <label>Choose category:</label>
-          <select name="x" id="x" onChange={(e) => setCategory(e.target.value)}>
+          <textarea
+            id="message"
+            className="block p-1 w-full text-sm text-gray-900 bg-gray-50"
+            placeholder="Description..."
+            onChange={(e) => setDescription(e.target.value)}
+          ></textarea>
+
+          <div>
+            <p
+              className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+              id="file_input_help"
+            >
+              Choose image. PNG, JPG or JPG (MAX. 0.5MB).
+            </p>
+            <input
+              className=" block p-1 w-full text-sm text-gray-900"
+              aria-describedby="file_input_help"
+              id="file_input"
+              type="file"
+              placeholder="IMAGE"
+              onChange={(e) => convertImgFile(e.target.files)}
+            />
+
+            {image.indexOf("image/") > -1 && (
+              <img src={image} alt="img" width={200} />
+            )}
+          </div>
+
+          <div>
+            <p
+              className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+              id="file_input_help"
+            >
+              Choose file. PDF (MAX. 0.5MB).
+            </p>
+            <input
+              className="block p-1 w-full text-sm text-gray-900"
+              aria-describedby="file_input_help"
+              id="file_input"
+              type="file"
+              placeholder="PDF"
+              onChange={(e) => convertPdfFile(e.target.files)}
+            />
+          </div>
+
+          <select
+            className="p-1 w-full cursor-pointer text-sm text-gray-900 bg-gray-50 "
+            onChange={(e) => setCategory(e.target.value)}
+          >
             <option selected disabled>
               Category
             </option>
@@ -122,10 +151,8 @@ export const CreatePattern = () => {
             <option value="Holidays">Holidays</option>
           </select>
 
-          <h3>FILTER</h3>
-
-          <label>Main filter:</label>
           <select
+            className="p-1 w-full cursor-pointer text-sm text-gray-900 bg-gray-50 "
             onChange={(e) => {
               if (e.target.value === "Crochet") {
                 setTypeCrochet(true);
@@ -148,8 +175,7 @@ export const CreatePattern = () => {
           {typeCrochet && (
             <div>
               <select
-                name="x"
-                id="x"
+                className="p-1 cursor-pointer w-full text-sm text-gray-900 bg-gray-50 "
                 onChange={(e) => setDifficulty(e.target.value)}
               >
                 <option selected disabled>
@@ -159,7 +185,10 @@ export const CreatePattern = () => {
                 <option value="Interemediate">Interemediate</option>
                 <option value="Experienced">Experienced</option>
               </select>
-              <select name="x" id="x" onChange={(e) => setHook(e.target.value)}>
+              <select
+                className="p-1 w-full cursor-pointer  text-sm text-gray-900 bg-gray-50  "
+                onChange={(e) => setHook(e.target.value)}
+              >
                 <option selected disabled>
                   Hook
                 </option>
@@ -172,7 +201,10 @@ export const CreatePattern = () => {
                 <option value="12-20 mm">12-20 mm</option>
               </select>
 
-              <select name="x" id="x" onChange={(e) => setYarn(e.target.value)}>
+              <select
+                className="p-1 w-full cursor-pointer text-sm text-gray-900 bg-gray-50  "
+                onChange={(e) => setYarn(e.target.value)}
+              >
                 <option selected disabled>
                   Yarn
                 </option>
@@ -186,8 +218,7 @@ export const CreatePattern = () => {
           {typeKnit && (
             <div>
               <select
-                name="x"
-                id="x"
+                className="p-1 w-full cursor-pointer text-sm text-gray-900 bg-gray-50"
                 onChange={(e) => setDifficulty(e.target.value)}
               >
                 <option selected disabled>
@@ -198,8 +229,7 @@ export const CreatePattern = () => {
                 <option value="Experienced">Experienced</option>
               </select>
               <select
-                name="x"
-                id="x"
+                className="p-1 w-full cursor-pointer text-sm text-gray-900 bg-gray-50  "
                 onChange={(e) => setNeedle(e.target.value)}
               >
                 <option selected disabled>
@@ -215,7 +245,10 @@ export const CreatePattern = () => {
                 <option value="12-20 mm">12-20 mm</option>
               </select>
 
-              <select name="x" id="x" onChange={(e) => setYarn(e.target.value)}>
+              <select
+                className="p-1 w-full cursor-pointer  text-sm text-gray-900 bg-gray-50 "
+                onChange={(e) => setYarn(e.target.value)}
+              >
                 <option selected disabled>
                   Yarn
                 </option>
@@ -226,10 +259,16 @@ export const CreatePattern = () => {
             </div>
           )}
         </form>
-        <button onClick={handleCreatePattern}>Upload pattern</button>
-      </div>
 
-      <div></div>
-    </>
+        <div className="flex justify-center items-center pt-5">
+          <button
+            className="bg-[#ed9999] hover:bg-[#da9090] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            onClick={handleCreatePattern}
+          >
+            Upload pattern
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };
