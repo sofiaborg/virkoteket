@@ -82,32 +82,40 @@ export const SinglePattern = () => {
       <div className="flex justify-center ">
         <div className=" w-3/4 py-20 flex gap-6 ">
           <div className=" w-3/12 bg-[#F6F0F0] h-4/5 pb-7 px-5 overflow-y-scroll ">
-            {post.reviews
-              .slice()
-              .reverse()
-              .map((review: IReview) => (
-                <div className="pt-7" key={review._id}>
-                  <h3 className="text-xs italic">{review.comment}</h3>
-                  <div>
-                    {[...Array(5)].map((star, index) => {
-                      index += 1;
-                      return (
-                        <span
-                          key={index}
-                          className={`text-xl ${
-                            index <= review.rating
-                              ? "text-[#e9bcbc]"
-                              : "text-gray-200"
-                          }`}
-                        >
-                          &#10084;
-                        </span>
-                      );
-                    })}
-                  </div>
-                  <h5 className="text-xs">{review.user}</h5>
-                </div>
-              ))}
+            {post.reviews.length > 0 ? (
+              <div>
+                {post.reviews
+                  .slice()
+                  .reverse()
+                  .map((review: IReview) => (
+                    <div className="pt-7" key={review._id}>
+                      <h3 className="text-xs italic">{review.comment}</h3>
+                      <div>
+                        {[...Array(5)].map((star, index) => {
+                          index += 1;
+                          return (
+                            <span
+                              key={index}
+                              className={`text-xl ${
+                                index <= review.rating
+                                  ? "text-[#e9bcbc]"
+                                  : "text-gray-200"
+                              }`}
+                            >
+                              &#10084;
+                            </span>
+                          );
+                        })}
+                      </div>
+                      <h5 className="text-xs">{review.user}</h5>
+                    </div>
+                  ))}
+              </div>
+            ) : (
+              <ul>
+                <li>No reviews yet.</li>
+              </ul>
+            )}
           </div>
 
           <div className=" w-9/12 ">
