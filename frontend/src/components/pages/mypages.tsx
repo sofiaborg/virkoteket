@@ -34,8 +34,8 @@ export const Mypages = () => {
   return (
     <>
       <div className="w-full flex justify-center items-center">
-        <div className="border-2 border-indigo-600 flex w-3/5">
-          <div className="border-2 border-pink-600 w-1/4">
+        <div className="pt-10 flex w-3/5">
+          <div className=" w-1/4 bg-[#e39a9a]">
             <div>
               <Link to="/mypages/createpattern">
                 <h2>Skapa mönster</h2>
@@ -56,7 +56,7 @@ export const Mypages = () => {
             </div>
           </div>
 
-          <div className="border-2 border-green-600 w-3/4">
+          <div className="w-3/4">
             <div className="patterns-wrapper">
               {location.pathname === "/mypages/createpattern" && (
                 <CreatePattern />

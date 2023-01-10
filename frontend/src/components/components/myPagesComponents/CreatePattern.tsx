@@ -77,6 +77,8 @@ export const CreatePattern = () => {
       .then((response) => response.json())
       .then((data) => console.log(data))
       .catch((error) => console.error(error));
+
+    window.location.href = "http://localhost:3000/mypages/mypatterns";
   };
 
   return (
@@ -173,12 +175,12 @@ export const CreatePattern = () => {
           </select>
 
           {typeCrochet && (
-            <div>
+            <div className="flex flex-col gap-1">
               <select
                 className="p-1 cursor-pointer w-full text-sm text-gray-900 bg-gray-50 "
                 onChange={(e) => setDifficulty(e.target.value)}
               >
-                <option selected disabled>
+                <option className="py-7" selected disabled>
                   Difficulty
                 </option>
                 <option value="Beginner">Beginner</option>
@@ -216,7 +218,7 @@ export const CreatePattern = () => {
           )}
 
           {typeKnit && (
-            <div>
+            <div className="flex flex-col gap-1">
               <select
                 className="p-1 w-full cursor-pointer text-sm text-gray-900 bg-gray-50"
                 onChange={(e) => setDifficulty(e.target.value)}

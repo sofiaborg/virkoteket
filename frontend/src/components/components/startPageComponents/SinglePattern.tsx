@@ -75,6 +75,7 @@ export const SinglePattern = () => {
     setRating(0);
 
     setAddReview(true);
+    window.location.reload();
   };
 
   return (
