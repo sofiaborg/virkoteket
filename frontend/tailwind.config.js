@@ -6,6 +6,10 @@ module.exports = {
       backgroundImage: (theme) => ({
         hero: "url('images/knit.jfif')",
       }),
+      fontFamily: {
+        della: ['"Della Respira"'],
+        open: ['"Open Sans"'],
+      },
     },
   },
   plugins: [],

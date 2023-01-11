@@ -10,10 +10,10 @@ export const Filters = (props: filtersProps) => {
     <div>
       {mainFiltersList.map((filter, i) => {
         return (
-          <div className="flex flex-col lg:flex-row justify-start gap-6 py-6 text-sm">
+          <div className="flex flex-col lg:flex-row justify-start gap-6 py-6 text-xs">
             {filter.options.map((option) => (
               <div
-                className="uppercase px-4 py-2 cursor-pointer font-sans font-family: Arial  bg-[#F6F0F0] hover:bg-[#E9CCCC]"
+                className="uppercase px-4 py-2 cursor-pointer font-sans font-family: sans-open  bg-[#F6F0F0]"
                 onClick={(e) => {
                   props.onFiltersClick(filter.title, option.title);
                 }}
@@ -41,15 +41,33 @@ export const Filters = (props: filtersProps) => {
                     setExpandedItems([...expandedItems, filter.title]);
                   }
                 }}
-                className="cursor-pointer relative  bg-[#F6F0F0]  hover:bg-[#E5DADA] w-full  text-left  text-sm"
+                className="cursor-pointer relative  bg-[#F6F0F0] w-full text-lef text-xs"
               >
-                <p className="py-2.5 pl-3 uppercase font-sans font-family: Arial">
-                  {" "}
-                  {filter.title}
-                </p>
+                <div className="flex justify-between items-center">
+                  <p className="py-2.5 pl-3 uppercase font-sans font-family: sans-open">
+                    {" "}
+                    {filter.title}
+                  </p>
+                  <p className="flex justify-center items-center pr-3">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-3 h-3"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                      />
+                    </svg>
+                  </p>
+                </div>
 
                 <ul
-                  className={` relative overflow-hidden transition-all duration-700 ${
+                  className={` relative overflow-hidden  transition-all duration-700 ${
                     expandedItems.includes(filter.title)
                       ? "max-h-none"
                       : "max-h-0"
@@ -57,14 +75,13 @@ export const Filters = (props: filtersProps) => {
                 >
                   {filter.options.map((option) => (
                     <li
-                      className="cursor-pointer bg-[#F6F0F0]  hover:bg-[#E5DADA]"
+                      className="cursor-pointer bg-[#f4e2e2] hover:font-medium"
                       key={option.title}
                       onClick={(e) => {
                         props.onFiltersClick(filter.title, option.title);
                       }}
                     >
-                      <p className="py-1 pl-4 font-sans font-family: Arial  text-xs">
-                        {" "}
+                      <p className="py-1 pl-4 font-sans font-family: sans-open  text-xs">
                         {option.title}
                       </p>
                     </li>
