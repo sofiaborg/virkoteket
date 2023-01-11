@@ -13,7 +13,7 @@ export const Filters = (props: filtersProps) => {
           <div className="flex flex-col lg:flex-row justify-start gap-6 py-6 text-xs">
             {filter.options.map((option) => (
               <div
-                className="uppercase px-4 py-2 cursor-pointer font-sans font-family: sans-open  bg-[#F6F0F0]"
+                className="uppercase px-4 py-2 cursor-pointer font-sans font-family: sans-open  bg-[#F6F0F0] hover:bg-[#f3e8e8]"
                 onClick={(e) => {
                   props.onFiltersClick(filter.title, option.title);
                 }}
@@ -25,7 +25,7 @@ export const Filters = (props: filtersProps) => {
         );
       })}
 
-      <div className="bg-white max-w-xl mx-auto border border-gray-200">
+      <div className="bg-white max-w-xl mx-auto">
         <ul className="shadow-box flex flex-col gap-0.5  ">
           {filtersList.map((filter, i) => {
             return (
@@ -75,7 +75,7 @@ export const Filters = (props: filtersProps) => {
                 >
                   {filter.options.map((option) => (
                     <li
-                      className="cursor-pointer bg-[#f4e2e2] hover:font-medium"
+                      className="cursor-pointer bg-[#f3e8e8] hover:font-medium"
                       key={option.title}
                       onClick={(e) => {
                         props.onFiltersClick(filter.title, option.title);

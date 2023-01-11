@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: (theme) => ({
-        hero: "url('images/knit.jfif')",
+        hero: "url('assets/knit.jfif')",
       }),
       fontFamily: {
         della: ['"Della Respira"'],

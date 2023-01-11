@@ -70,12 +70,14 @@ export const AllPatterns = (props: postsProps) => {
                   <img
                     className="h-60 w-full object-cover hover:scale-110 transition duration-700 ease-in-out"
                     src={post.image}
-                    alt={post.image}
+                    alt="bild"
                   />
                 </div>
               </Link>
 
-              <h3>{post.title}</h3>
+              <h3 className="font-sans font-family: sans-open text-xs pt-1">
+                {post.title}
+              </h3>
               {/* {post.reviews.map((review: IReview) => {
                 setRating(review.rating);
                 return (

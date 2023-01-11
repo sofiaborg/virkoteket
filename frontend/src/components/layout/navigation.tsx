@@ -6,9 +6,7 @@ export const Navigation = () => {
     <div className=" flex justify-center w-full border-b-4 border-black-100 h-32">
       <div className="flex h-full w-10/12 justify-between">
         <div className=" flex justify-center items-center">
-          <Link to={"/patterns"}>
-            <h1>LOGO</h1>
-          </Link>
+          <div className="image-logo">LOGO</div>
         </div>
 
         <div className="flex justify-center items-center gap-4">
