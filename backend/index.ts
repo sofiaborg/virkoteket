@@ -6,12 +6,14 @@ import AuthRoute from "./src/routes/auth";
 import cors from "cors";
 import bodyParser from "body-parser";
 const jwt = require("jsonwebtoken");
+const path = require("path");
 require("dotenv").config();
 
 require("./services/database.ts");
 
 const app: Application = express();
 
+app.use(express.static("./files"));
 app.use(express.json({ limit: "25mb" }));
 app.use(express.urlencoded({ limit: "25mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "25mb", extended: true }));

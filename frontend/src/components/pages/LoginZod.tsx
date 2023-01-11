@@ -38,14 +38,22 @@ export const LoginPage = () => {
       },
       body: JSON.stringify({ email, password }),
     })
-      .then((response) => response.json())
-      .then(
-        (data) => (
-          auth.login(data),
-          window.location.replace("http://localhost:3000/patterns")
-        )
-      )
-      .catch((error) => console.error(error));
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          return response;
+        }
+      })
+      .then((data) => {
+        if (data.token) {
+          auth.login(data);
+          window.location.replace("http://localhost:3000/patterns");
+        } else {
+          setLoginError(data);
+        }
+      })
+      .catch((error) => setLoginError(error));
   };
 
   return (

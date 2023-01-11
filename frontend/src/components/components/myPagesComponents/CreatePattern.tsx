@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { getCurrentUser } from "../../../interfaces/IProps";
+import storage from "../../../firebase/firebaseConfig";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 export const CreatePattern = () => {
   const [typeCrochet, setTypeCrochet] = useState<Boolean>(false);
@@ -16,6 +18,8 @@ export const CreatePattern = () => {
   const [hook, setHook] = useState<String>("");
   const [needle, setNeedle] = useState<String>("");
 
+  const [file, setFile] = useState<File>();
+
   const convertImgFile = (files: FileList | null) => {
     if (files) {
       const fileRef = files[0] || "";
@@ -30,19 +34,32 @@ export const CreatePattern = () => {
     }
   };
 
-  const convertPdfFile = (files: FileList | null) => {
-    if (files) {
-      const fileRef = files[0] || "";
-      const fileType: String = fileRef.type || "";
-      console.log("This file upload is of type:", fileType);
-      const reader = new FileReader();
-      reader.readAsBinaryString(fileRef);
-      reader.onload = (ev: any) => {
-        // convert it to base64
-        setPattern(`data:${fileType};base64,${btoa(ev.target.result)}`);
-      };
+  // Handle file upload event and update pattern-state
+  function handleChange(event: any) {
+    setFile(event.target.files[0]);
+  }
+
+  useEffect(() => {
+    // if (!file) {
+    //   alert("Please upload an image first!");
+    // }
+
+    if (file) {
+      const storageRef = ref(storage, `/files/${file.name}`); // progress can be paused and resumed. It also exposes progress updates. // Receives the storage reference and the file to upload.
+      const uploadTask = uploadBytesResumable(storageRef, file);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {},
+        (err) => console.log(err),
+        () => {
+          // download url
+          getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+            setPattern(url);
+          });
+        }
+      );
     }
-  };
+  }, [file]);
 
   const handleCreatePattern = async (e: any) => {
     const user = getCurrentUser();
@@ -91,14 +108,12 @@ export const CreatePattern = () => {
             placeholder="Pattern title"
             onChange={(e) => setTitle(e.target.value)}
           />
-
           <textarea
             id="message"
             className="block p-1 w-full text-sm text-gray-900 bg-gray-50"
             placeholder="Description..."
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>
-
           <div>
             <p
               className="mt-1 text-sm text-gray-500 dark:text-gray-300"
@@ -127,16 +142,8 @@ export const CreatePattern = () => {
             >
               Choose file. PDF (MAX. 0.5MB).
             </p>
-            <input
-              className="block p-1 w-full text-sm text-gray-900"
-              aria-describedby="file_input_help"
-              id="file_input"
-              type="file"
-              placeholder="PDF"
-              onChange={(e) => convertPdfFile(e.target.files)}
-            />
+            <input type="file" onChange={handleChange} accept="" />
           </div>
-
           <select
             className="p-1 w-full cursor-pointer text-sm text-gray-900 bg-gray-50 "
             onChange={(e) => setCategory(e.target.value)}
@@ -152,7 +159,6 @@ export const CreatePattern = () => {
             <option value="Home">Home</option>
             <option value="Holidays">Holidays</option>
           </select>
-
           <select
             className="p-1 w-full cursor-pointer text-sm text-gray-900 bg-gray-50 "
             onChange={(e) => {
@@ -173,7 +179,6 @@ export const CreatePattern = () => {
             <option value="Crochet">Crochet</option>
             <option value="Knit">Knit</option>
           </select>
-
           {typeCrochet && (
             <div className="flex flex-col gap-1">
               <select
@@ -216,7 +221,6 @@ export const CreatePattern = () => {
               </select>
             </div>
           )}
-
           {typeKnit && (
             <div className="flex flex-col gap-1">
               <select
@@ -261,7 +265,6 @@ export const CreatePattern = () => {
             </div>
           )}
         </form>
-
         <div className="flex justify-center items-center pt-5">
           <button
             className="bg-[#ed9999] hover:bg-[#da9090] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"

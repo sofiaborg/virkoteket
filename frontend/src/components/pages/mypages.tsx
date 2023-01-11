@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { CreatePattern } from "../components/myPagesComponents/CreatePattern";
+
 import { MyPatterns } from "../components/myPagesComponents/MyPatterns";
 import { MyAccount } from "../components/myPagesComponents/MyAccount";
 import { useLocation } from "react-router-dom";
@@ -9,27 +10,6 @@ import { AuthContext } from "../../contexts/auth-context";
 export const Mypages = () => {
   const auth = useContext(AuthContext);
   const location = useLocation();
-
-  //OBS denna funkar ej. Fixa
-  // const handleLogout = async () => {
-  //   await fetch("http://localhost:8000/auth/logout", {
-  //     method: "POST",
-  //     headers: {
-  //       Accept: "application/json",
-  //       "Content-Type": "application/json",
-  //       mode: "no-cors",
-  //     },
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       if (data.status === 200) {
-  //         auth.logout();
-  //         console.log("yay");
-  //       } else {
-  //         console.log("funkade ej");
-  //       }
-  //     });
-  // };
 
   return (
     <>

@@ -7,53 +7,60 @@ require("dotenv").config();
 
 //registrera användare
 router.post("/register", async (req: Request, res: Response) => {
-  const { email, password, confirmPassword } = req.body;
-  console.log(email);
-  console.log(password);
-  console.log(confirmPassword);
+  try {
+    const { email, password, confirmPassword } = req.body;
+    console.log(email);
+    console.log(password);
+    console.log(confirmPassword);
 
-  Users.findOne(
-    { email: req.body.email },
-    async (err: any, emailExists: string) => {
-      if (emailExists) {
-        res.sendStatus(400);
-      } else {
-        const newUser = new Users({
-          email,
-          password: hashPassword(password),
-        });
-        await newUser.save();
-        res.send(newUser);
+    Users.findOne(
+      { email: req.body.email },
+      async (err: any, emailExists: string) => {
+        if (emailExists) {
+          res.sendStatus(400);
+        } else {
+          const newUser = new Users({
+            email,
+            password: hashPassword(password),
+          });
+          await newUser.save();
+          res.send(newUser);
+        }
       }
-    }
-  );
+    );
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Registration failed.");
+  }
 });
 
 // logga in
 router.post("/login", async (req: Request, res: Response) => {
-  const { email, password } = req.body;
-
-  Users.findOne({ email }, (err: any, user: any) => {
-    if (user && comparePassword(password, user.password)) {
-      console.log("inloggad");
-      // Logged in
-      const userData = { userId: user._id };
-      const accessToken = jwt.sign(userData, process.env.JWTSECRET);
-
-      res.status(200).send({
-        id: user._id,
-        email: user.email,
-        token: accessToken,
-      });
+  try {
+    const { email, password } = req.body;
+    const user = await Users.findOne({ email });
+    if (!user) {
+      res.status(404).send({ error: "User not found" });
     } else {
-      res.status(400).send("Failed");
+      const passwordMatch = await comparePassword(password, user.password);
+      if (!passwordMatch) {
+        res.status(401).send({ error: "Invalid Password" });
+      } else {
+        console.log("logged in");
+        //logged in
+        const userData = { userId: user._id };
+        const accessToken = jwt.sign(userData, process.env.JWTSECRET);
+        res.status(200).send({
+          id: user._id,
+          email: user.email,
+          token: accessToken,
+        });
+      }
     }
-  });
-});
-
-//logga ut ska den användas?
-router.post("/logout", (req: Request, res: Response) => {
-  res.status(200);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Login failed.");
+  }
 });
 
 export default router;

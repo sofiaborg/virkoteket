@@ -26,7 +26,7 @@ export const Filters = (props: filtersProps) => {
       })}
 
       <div className="bg-white max-w-xl mx-auto border border-gray-200">
-        <ul className="shadow-box flex flex-col gap-0.5 ">
+        <ul className="shadow-box flex flex-col gap-0.5  ">
           {filtersList.map((filter, i) => {
             return (
               <li

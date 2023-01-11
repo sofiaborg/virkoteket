@@ -48,7 +48,7 @@ export const MyPatterns = () => {
 
   if (posts.length > 0) {
     return (
-      <>
+      <div className="w-full h-full flex justify-center items-center bg-[#F6F0F0]">
         <div>
           <h3>Mina mönster</h3>
 
@@ -66,11 +66,11 @@ export const MyPatterns = () => {
         </div>
 
         <div></div>
-      </>
+      </div>
     );
   } else {
     return (
-      <>
+      <div>
         <div>
           <h3>Mina mönster</h3>
 
@@ -78,7 +78,7 @@ export const MyPatterns = () => {
         </div>
 
         <div></div>
-      </>
+      </div>
     );
   }
 };

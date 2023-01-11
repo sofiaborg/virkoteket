@@ -23,7 +23,7 @@ export const MyAccount = () => {
     fetchInfo();
   }, [user]);
   return (
-    <>
+    <div className="w-full h-full flex justify-center items-center bg-[#F6F0F0]">
       <div>
         <h3>Mitt konto</h3>
 
@@ -35,6 +35,6 @@ export const MyAccount = () => {
       </div>
 
       <div></div>
-    </>
+    </div>
   );
 };
