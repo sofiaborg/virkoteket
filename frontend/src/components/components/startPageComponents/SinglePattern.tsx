@@ -138,7 +138,12 @@ export const SinglePattern = () => {
 
                 <div className="pt-7 flex justify-center items-center w-3/6">
                   <div className="bg-red-500 rounded-full h-28 w-28 flex justify-center items-center">
-                    <a href={post.pattern} attributes-list>
+                    <a
+                      href={post.pattern}
+                      target="_blank"
+                      rel="noreferrer"
+                      attributes-list
+                    >
                       Get pattern
                     </a>
                   </div>
