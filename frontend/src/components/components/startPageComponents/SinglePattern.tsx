@@ -108,12 +108,16 @@ export const SinglePattern = () => {
                   .reverse()
                   .map((review: IReview) => (
                     <div className="pt-7" key={review._id}>
-                      <div>
+                      <div className="w-full">
                         {" "}
-                        <img src={review.image} alt="Review" />{" "}
+                        <img
+                          className="h-50 w-full object-cover"
+                          src={review.image}
+                          alt="Review"
+                        />{" "}
                       </div>
-                      <h3 className="text-xs italic">{review.comment}</h3>
-                      <div>
+                      <h3 className="text-xs italic pt-3">{review.comment}</h3>
+                      <div className="pt-3">
                         {[...Array(5)].map((star, index) => {
                           index += 1;
                           return (
