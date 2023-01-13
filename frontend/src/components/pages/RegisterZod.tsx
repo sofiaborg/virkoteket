@@ -27,7 +27,7 @@ export const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [loginFailed, setLoginFailed] = useState(false);
   const {
     register,
     handleSubmit,
@@ -36,14 +36,7 @@ export const RegisterPage = () => {
     resolver: zodResolver(validationSchema),
   });
 
-  const onSubmit: SubmitHandler<ValidationSchema> = async (validationData) => {
-    setUsername(validationData.username);
-    setEmail(validationData.email);
-    setPassword(validationData.password);
-    fetchData();
-  };
-
-  const fetchData = async () => {
+  const onSubmit: SubmitHandler<ValidationSchema> = async () => {
     await fetch("http://localhost:8000/auth/register", {
       method: "POST",
       headers: {
@@ -58,7 +51,7 @@ export const RegisterPage = () => {
         if (data.status === 200) {
           window.location.replace("http://localhost:3000/");
         } else if (data.status === 400) {
-          console.log("Denna mail används redan");
+          setLoginFailed(true);
         }
       });
   };
@@ -82,6 +75,7 @@ export const RegisterPage = () => {
             id="email"
             type="email"
             {...register("email")}
+            onChange={(e) => setEmail(e.target.value)}
           />
           {errors.email && (
             <p className="text-xs italic text-red-500 mt-2">
@@ -103,6 +97,7 @@ export const RegisterPage = () => {
             id="username"
             type="text"
             {...register("username")}
+            onChange={(e) => setUsername(e.target.value)}
           />
           {errors.username && (
             <p className="text-xs italic text-red-500 mt-2">
@@ -110,6 +105,8 @@ export const RegisterPage = () => {
               {errors.username?.message}
             </p>
           )}
+
+          {loginFailed ? <p>This username aldready exists</p> : <div></div>}
         </div>
 
         <div className="form-element mb-6">
@@ -124,6 +121,7 @@ export const RegisterPage = () => {
             id="password"
             type="password"
             {...register("password")}
+            onChange={(e) => setPassword(e.target.value)}
           />
           {errors.password && (
             <p className="text-xs italic text-red-500 mt-2">

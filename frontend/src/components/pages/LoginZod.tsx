@@ -27,13 +27,7 @@ export const LoginPage = () => {
     resolver: zodResolver(validationSchema),
   });
 
-  const onSubmit: SubmitHandler<ValidationSchema> = async (validationData) => {
-    setUsername(validationData.username);
-    setPassword(validationData.password);
-    fetchData();
-  };
-
-  const fetchData = async () => {
+  const onSubmit: SubmitHandler<ValidationSchema> = async () => {
     await fetch("http://localhost:8000/auth/login", {
       method: "POST",
       credentials: "same-origin",
@@ -82,6 +76,7 @@ export const LoginPage = () => {
             id="username"
             type="username"
             {...register("username")}
+            onChange={(e) => setUsername(e.target.value)}
           />
         </div>
         {errors.username && (
@@ -103,6 +98,7 @@ export const LoginPage = () => {
             id="password"
             type="password"
             {...register("password")}
+            onChange={(e) => setPassword(e.target.value)}
           />
           {errors.password && (
             <p className="text-xs italic text-red-500 mt-2">
