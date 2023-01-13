@@ -10,19 +10,15 @@ export interface IReview {
 export const ReviewSchema = new Schema({
   rating: {
     type: Number,
-    required: true,
   },
   comment: {
     type: String,
-    required: true,
   },
   image: {
     type: String,
-    required: false,
   },
   user: {
     type: String,
-    required: true,
   },
 });
 

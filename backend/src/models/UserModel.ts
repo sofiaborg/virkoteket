@@ -5,7 +5,7 @@ export interface IUser {
   email: string;
   password: string;
   confirmPassword: string;
-  name: string;
+  username: string;
   posts: [];
 }
 
@@ -20,9 +20,8 @@ export const UserSchema: Schema<IUser> = new Schema({
   confirmPassword: {
     type: String,
   },
-  name: {
+  username: {
     type: String,
-    default: "",
   },
   posts: [{ type: Schema.Types.ObjectId, ref: "Posts" }],
 });

@@ -30,6 +30,9 @@ export const SinglePattern = () => {
 
   //fetch pattern
   useEffect(() => {
+    const user = getCurrentUser();
+    console.log(user.name);
+
     async function fetchProduct() {
       const response = await fetch(
         `http://localhost:8000/posts/${id}/getsinglepost`
@@ -63,6 +66,7 @@ export const SinglePattern = () => {
   //submit comment + rating
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     const user = getCurrentUser();
+    console.log(user.name);
 
     event.preventDefault();
     await fetch(
@@ -79,7 +83,7 @@ export const SinglePattern = () => {
         body: JSON.stringify({
           rating,
           comment,
-          user: user.email,
+          user: user.name,
           image: image,
         }),
       }
@@ -130,7 +134,7 @@ export const SinglePattern = () => {
                           );
                         })}
                       </div>
-                      <h5 className="text-xs">{review.user}</h5>
+                      <h5 className="text-xs">{review.user} hellå</h5>
                     </div>
                   ))}
               </div>
@@ -144,7 +148,7 @@ export const SinglePattern = () => {
           <div className=" w-9/12 ">
             <div>
               <h1 className="text-xl ">{post.title}</h1>
-              <p className="text-xs">Mönster av {post.user}</p>
+              <p className="text-xs">Mönster av FIXA</p>
               <p className="pt-7 text-sm">{post.description}</p>
 
               <div className="flex flex-col md:flex-row justify-between w-full">

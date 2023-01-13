@@ -62,7 +62,7 @@ export const Start = () => {
       // }
     )
       .then((response) => response.json())
-      .then((data) => console.log(data))
+      .then((data) => console.log("posts fetched"))
       .catch((error) => console.error(error));
   }, [chosenFilters, chosenCategory]);
 

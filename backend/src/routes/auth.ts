@@ -8,17 +8,17 @@ require("dotenv").config();
 //registrera användare
 router.post("/register", async (req: Request, res: Response) => {
   try {
-    const { email, name, password } = req.body;
+    const { email, username, password } = req.body;
 
     Users.findOne(
-      { email: req.body.email },
-      async (err: any, emailExists: string) => {
-        if (emailExists) {
+      { username: req.body.username },
+      async (err: any, usernameExists: string) => {
+        if (usernameExists) {
           res.sendStatus(400);
         } else {
           const newUser = new Users({
             email,
-            name,
+            username,
             password: hashPassword(password),
           });
           await newUser.save();
@@ -35,8 +35,8 @@ router.post("/register", async (req: Request, res: Response) => {
 // logga in
 router.post("/login", async (req: Request, res: Response) => {
   try {
-    const { email, password } = req.body;
-    const user = await Users.findOne({ email });
+    const { username, password } = req.body;
+    const user = await Users.findOne({ username });
     if (!user) {
       res.status(404).send({ error: "User not found" });
     } else {
@@ -45,12 +45,13 @@ router.post("/login", async (req: Request, res: Response) => {
         res.status(401).send({ error: "Invalid Password" });
       } else {
         console.log("logged in");
+        console.log(user);
         //logged in
         const userData = { userId: user._id };
         const accessToken = jwt.sign(userData, process.env.JWTSECRET);
         res.status(200).send({
           id: user._id,
-          email: user.email,
+          username: user.username,
           token: accessToken,
         });
       }

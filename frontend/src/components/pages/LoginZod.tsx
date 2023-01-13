@@ -6,9 +6,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../contexts/auth-context";
 
 const validationSchema = z.object({
-  email: z.string().min(1, { message: "Email is required" }).email({
-    message: "Not a valid email",
-  }),
+  username: z.string().min(1, { message: "Username is required" }),
   password: z
     .string()
     .min(6, { message: "Your password is at least 6 characters" }),
@@ -18,7 +16,7 @@ type ValidationSchema = z.infer<typeof validationSchema>;
 
 export const LoginPage = () => {
   const auth = useContext(AuthContext);
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginFailed, setLoginFailed] = useState<Boolean>(false);
   const {
@@ -30,7 +28,7 @@ export const LoginPage = () => {
   });
 
   const onSubmit: SubmitHandler<ValidationSchema> = async (validationData) => {
-    setEmail(validationData.email);
+    setUsername(validationData.username);
     setPassword(validationData.password);
     fetchData();
   };
@@ -42,10 +40,9 @@ export const LoginPage = () => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-
         mode: "no-cors",
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ username, password }),
     })
       .then((response) => {
         if (response.status === 200) {
@@ -75,22 +72,22 @@ export const LoginPage = () => {
         <div className="text-center">LOGO</div>
         <div className="mb-4">
           <label
-            htmlFor="email"
+            htmlFor="username"
             className="block text-gray-700 text-sm font-bold mb-2"
           >
-            Email
+            Username
           </label>
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="email"
-            type="email"
-            {...register("email")}
+            id="username"
+            type="username"
+            {...register("username")}
           />
         </div>
-        {errors.email && (
+        {errors.username && (
           <p className="text-xs italic text-red-500 mt-2">
             {" "}
-            {errors.email?.message}
+            {errors.username?.message}
           </p>
         )}
 
@@ -117,7 +114,7 @@ export const LoginPage = () => {
 
         {loginFailed ? (
           <p className="pb-4 text-xs italic text-red-500 mt-2">
-            No user with that email, please register first!
+            No user with that username, please register first!
           </p>
         ) : (
           <div></div>

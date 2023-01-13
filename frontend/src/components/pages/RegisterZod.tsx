@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 
 const validationSchema = z
   .object({
-    name: z.string().min(1, { message: "Firstname is required" }),
+    username: z.string().min(1, { message: "Username is required" }),
     email: z.string().min(1, { message: "Email is required" }).email({
       message: "Must be a valid email",
     }),
@@ -25,7 +25,7 @@ type ValidationSchema = z.infer<typeof validationSchema>;
 
 export const RegisterPage = () => {
   const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const {
@@ -37,7 +37,7 @@ export const RegisterPage = () => {
   });
 
   const onSubmit: SubmitHandler<ValidationSchema> = async (validationData) => {
-    setName(validationData.name);
+    setUsername(validationData.username);
     setEmail(validationData.email);
     setPassword(validationData.password);
     fetchData();
@@ -51,7 +51,7 @@ export const RegisterPage = () => {
         "Content-Type": "application/json",
         mode: "no-cors",
       },
-      body: JSON.stringify({ email, name, password }),
+      body: JSON.stringify({ email, username, password }),
     })
       .then((response) => response)
       .then((data) => {
@@ -93,21 +93,21 @@ export const RegisterPage = () => {
 
         <div className="form-element mb-4">
           <label
-            htmlFor="name"
+            htmlFor="username"
             className="block text-gray-700 text-sm font-bold mb-2"
           >
-            Name
+            Username
           </label>
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="name"
+            id="username"
             type="text"
-            {...register("name")}
+            {...register("username")}
           />
-          {errors.name && (
+          {errors.username && (
             <p className="text-xs italic text-red-500 mt-2">
               {" "}
-              {errors.name?.message}
+              {errors.username?.message}
             </p>
           )}
         </div>
@@ -157,7 +157,7 @@ export const RegisterPage = () => {
             className="bg-pink-400 hover:bg-pink-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
           >
-            Register
+            SUBMIT
           </button>
         </div>
       </form>
