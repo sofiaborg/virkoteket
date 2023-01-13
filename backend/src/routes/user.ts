@@ -2,9 +2,6 @@ import express, { Router, Request, Response } from "express";
 import { Posts } from "../models/PostModel";
 const { ObjectId } = require("mongodb");
 import { Users } from "../models/UserModel";
-import { forceAuth } from "../middlewares/forceAuth";
-import { UploadedFile } from "express-fileupload";
-const multer = require("multer");
 
 const router: Router = express.Router();
 
@@ -114,8 +111,7 @@ router.post("/:id/updatepattern", async (req, res) => {
 //OK - DELETE a pattern from logged in user
 router.post("/:id/deletepost", async (req, res) => {
   try {
-    const id = req.params.id;
-    await Posts.findOneAndDelete({ _id: id });
+    await Posts.deleteOne({ _id: req.params.id });
     res.status(200).send(Posts);
   } catch (error) {
     console.error(error);
