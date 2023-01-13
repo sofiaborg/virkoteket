@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Link } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { object, string, TypeOf, z } from "zod";
+import { z } from "zod";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/auth-context";
 
@@ -21,6 +20,7 @@ export const LoginPage = () => {
   const auth = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loginFailed, setLoginFailed] = useState<Boolean>(false);
   const {
     register,
     handleSubmit,
@@ -59,6 +59,7 @@ export const LoginPage = () => {
           auth.login(data);
           window.location.replace("http://localhost:3000/patterns");
         } else {
+          setLoginFailed(true);
           console.log(data);
         }
       })
@@ -113,6 +114,14 @@ export const LoginPage = () => {
             </p>
           )}
         </div>
+
+        {loginFailed ? (
+          <p className="pb-4 text-xs italic text-red-500 mt-2">
+            No user with that email, please register first!
+          </p>
+        ) : (
+          <div></div>
+        )}
 
         <div className="flex items-center justify-between">
           <button
