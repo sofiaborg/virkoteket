@@ -26,6 +26,7 @@ export const SinglePattern = () => {
   const [comment, setComment] = useState<String>("");
   const [addReview, setAddReview] = useState<Boolean>(false);
   const { id } = useParams();
+  const [image, setImage] = useState<string>("");
 
   //fetch pattern
   useEffect(() => {
@@ -39,9 +40,24 @@ export const SinglePattern = () => {
     fetchProduct();
   }, [addReview]);
 
-  //set rating state
-  const handleRatingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRating(Number(event.target.value));
+  // //set rating state
+  // const handleRatingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setRating(Number(event.target.value));
+  // };
+
+  //convert img
+  const convertImgFile = (files: FileList | null) => {
+    if (files) {
+      const fileRef = files[0] || "";
+      const fileType: String = fileRef.type || "";
+      console.log("This file upload is of type:", fileType);
+      const reader = new FileReader();
+      reader.readAsBinaryString(fileRef);
+      reader.onload = (ev: any) => {
+        // convert it to base64
+        setImage(`data:${fileType};base64,${btoa(ev.target.result)}`);
+      };
+    }
   };
 
   //submit comment + rating
@@ -64,6 +80,7 @@ export const SinglePattern = () => {
           rating,
           comment,
           user: user.email,
+          image: image,
         }),
       }
     )
@@ -73,6 +90,7 @@ export const SinglePattern = () => {
 
     setComment("");
     setRating(0);
+    setImage("");
 
     setAddReview(true);
     window.location.reload();
@@ -90,6 +108,10 @@ export const SinglePattern = () => {
                   .reverse()
                   .map((review: IReview) => (
                     <div className="pt-7" key={review._id}>
+                      <div>
+                        {" "}
+                        <img src={review.image} alt="Review" />{" "}
+                      </div>
                       <h3 className="text-xs italic">{review.comment}</h3>
                       <div>
                         {[...Array(5)].map((star, index) => {
@@ -186,6 +208,15 @@ export const SinglePattern = () => {
                   placeholder="Write your review here..."
                   onChange={(e) => setComment(e.target.value)}
                 ></textarea>
+
+                <input
+                  className=" block p-1 w-full text-sm text-gray-900"
+                  aria-describedby="file_input_help"
+                  id="file_input"
+                  type="file"
+                  placeholder="IMAGE"
+                  onChange={(e) => convertImgFile(e.target.files)}
+                />
 
                 <div className="star-rating pt-5">
                   {[...Array(5)].map((star, index) => {

@@ -78,40 +78,6 @@ export const AllPatterns = (props: postsProps) => {
               <h3 className="font-sans font-family: sans-open text-xs pt-1">
                 {post.title}
               </h3>
-              {/* {post.reviews.map((review: IReview) => {
-                setRating(review.rating);
-                return (
-                  <div key={review._id}>
-                    <ul className="flex">
-                      {ratingOne ? (
-                        <li className="text-green-600">1</li>
-                      ) : (
-                        <li className="text-gray-600">1</li>
-                      )}
-                      {ratingTwo ? (
-                        <li className="text-green-600">2</li>
-                      ) : (
-                        <li className="text-gray-600">2</li>
-                      )}
-                      {ratingThree ? (
-                        <li className="text-green-600">3</li>
-                      ) : (
-                        <li className="text-gray-600">3</li>
-                      )}
-                      {ratingFour ? (
-                        <li className="text-green-600">4</li>
-                      ) : (
-                        <li className="text-gray-600">4</li>
-                      )}
-                      {ratingFive ? (
-                        <li className="text-green-600">5</li>
-                      ) : (
-                        <li className="text-gray-600">5</li>
-                      )}
-                    </ul>
-                  </div>
-                );
-              })} */}
             </div>
           ))}
         </div>

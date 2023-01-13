@@ -1,44 +1,49 @@
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { object, string, TypeOf } from "zod";
+import { object, string, TypeOf, z } from "zod";
 import { useState, useEffect } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
 
-const createUserSchema = object({
-  password: string().min(6, "Lösenordet måste vara minst 6 tecken").nonempty({
-    message: "Lösenord krävs",
-  }),
-  confirmPassword: string().nonempty({
-    message: "Bekräfta lösenordet",
-  }),
-  email: string({
-    required_error: "E-post krävs",
-  })
-    .email("Denna e-post är ej giltlig")
-    .nonempty({
-      message: "Lösenord krävs",
+const validationSchema = z
+  .object({
+    name: z.string().min(1, { message: "Firstname is required" }),
+    email: z.string().min(1, { message: "Email is required" }).email({
+      message: "Must be a valid email",
     }),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "Lösenorden matchar inte",
-  path: ["passwordConfirmation"],
-});
+    password: z
+      .string()
+      .min(6, { message: "Password must be atleast 6 characters" }),
+    confirmPassword: z
+      .string()
+      .min(1, { message: "Confirm Password is required" }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    path: ["confirmPassword"],
+    message: "Password don't match",
+  });
 
-type CreateUserInput = TypeOf<typeof createUserSchema>;
+type ValidationSchema = z.infer<typeof validationSchema>;
 
 export const RegisterPage = () => {
-  const [registerError, setRegisterError] = useState("");
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const {
     register,
-    formState: { errors },
     handleSubmit,
-  } = useForm<CreateUserInput>({
-    resolver: zodResolver(createUserSchema),
+    formState: { errors },
+  } = useForm<ValidationSchema>({
+    resolver: zodResolver(validationSchema),
   });
 
-  const onSubmit = async () => {
+  const onSubmit: SubmitHandler<ValidationSchema> = async (validationData) => {
+    setName(validationData.name);
+    setEmail(validationData.email);
+    setPassword(validationData.password);
+    fetchData();
+  };
+
+  const fetchData = async () => {
     await fetch("http://localhost:8000/auth/register", {
       method: "POST",
       headers: {
@@ -46,23 +51,20 @@ export const RegisterPage = () => {
         "Content-Type": "application/json",
         mode: "no-cors",
       },
-      body: JSON.stringify({ email, password, confirmPassword }),
+      body: JSON.stringify({ email, name, password }),
     })
       .then((response) => response)
       .then((data) => {
         if (data.status === 200) {
           window.location.replace("http://localhost:3000/");
         } else if (data.status === 400) {
-          setRegisterError("Denna mail används redan");
+          console.log("Denna mail används redan");
         }
       });
   };
 
-  console.log({ errors });
-
   return (
     <div className="w-full h-full flex justify-center items-center">
-      <p>{registerError}</p>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="form-element bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
@@ -79,11 +81,35 @@ export const RegisterPage = () => {
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="email"
             type="email"
-            placeholder="jane.doe@example.com"
             {...register("email")}
-            onChange={(e) => setEmail(e.target.value)}
           />
-          <p>{errors.email?.message}</p>
+          {errors.email && (
+            <p className="text-xs italic text-red-500 mt-2">
+              {" "}
+              {errors.email?.message}
+            </p>
+          )}
+        </div>
+
+        <div className="form-element mb-4">
+          <label
+            htmlFor="name"
+            className="block text-gray-700 text-sm font-bold mb-2"
+          >
+            Name
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="name"
+            type="text"
+            {...register("name")}
+          />
+          {errors.name && (
+            <p className="text-xs italic text-red-500 mt-2">
+              {" "}
+              {errors.name?.message}
+            </p>
+          )}
         </div>
 
         <div className="form-element mb-6">
@@ -97,40 +123,41 @@ export const RegisterPage = () => {
             className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
             id="password"
             type="password"
-            placeholder="*********"
             {...register("password")}
-            onChange={(e) => setPassword(e.target.value)}
           />
-          <p className="text-red-500 text-xs italic">
-            {errors.password?.message}
-          </p>
+          {errors.password && (
+            <p className="text-xs italic text-red-500 mt-2">
+              {" "}
+              {errors.password?.message}
+            </p>
+          )}
         </div>
 
         <div className="form-element mb-6">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="passwordConfirmation"
+            htmlFor="confirmPassword"
           >
             Confirm password
           </label>
           <input
             className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-            id="passwordConfirmation"
+            id="confirmPassword"
             type="password"
-            placeholder="*********"
             {...register("confirmPassword")}
-            onChange={(e) => setConfirmPassword(e.target.value)}
           />
-          <p className="text-red-500 text-xs italic">
-            {errors.confirmPassword?.message}
-          </p>
+          {errors.confirmPassword && (
+            <p className="text-xs italic text-red-500 mt-2">
+              {errors.confirmPassword?.message}
+            </p>
+          )}
         </div>
         <div className="flex items-center justify-center">
           <button
             className="bg-pink-400 hover:bg-pink-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
           >
-            SUBMIT
+            Register
           </button>
         </div>
       </form>

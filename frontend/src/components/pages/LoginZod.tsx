@@ -1,32 +1,41 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { object, string, TypeOf } from "zod";
+import { object, string, TypeOf, z } from "zod";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/auth-context";
 
-const createSessionSchema = object({
-  email: string().min(1, "Please enter email"),
-  password: string().min(1, "Please enter password"),
+const validationSchema = z.object({
+  email: z.string().min(1, { message: "Email is required" }).email({
+    message: "Not a valid email",
+  }),
+  password: z
+    .string()
+    .min(6, { message: "Your password is at least 6 characters" }),
 });
 
-type CreateSessionInput = TypeOf<typeof createSessionSchema>;
+type ValidationSchema = z.infer<typeof validationSchema>;
 
 export const LoginPage = () => {
   const auth = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loginError, setLoginError] = useState(null);
   const {
     register,
-    formState: { errors },
     handleSubmit,
-  } = useForm<CreateSessionInput>({
-    resolver: zodResolver(createSessionSchema),
+    formState: { errors },
+  } = useForm<ValidationSchema>({
+    resolver: zodResolver(validationSchema),
   });
 
-  const onSubmit = async () => {
+  const onSubmit: SubmitHandler<ValidationSchema> = async (validationData) => {
+    setEmail(validationData.email);
+    setPassword(validationData.password);
+    fetchData();
+  };
+
+  const fetchData = async () => {
     await fetch("http://localhost:8000/auth/login", {
       method: "POST",
       credentials: "same-origin",
@@ -50,15 +59,14 @@ export const LoginPage = () => {
           auth.login(data);
           window.location.replace("http://localhost:3000/patterns");
         } else {
-          setLoginError(data);
+          console.log(data);
         }
       })
-      .catch((error) => setLoginError(error));
+      .catch((error) => console.log(error));
   };
 
   return (
     <div className="w-full h-full flex justify-center items-center">
-      <p>{loginError}</p>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="form-element bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
@@ -75,12 +83,15 @@ export const LoginPage = () => {
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="email"
             type="email"
-            placeholder="jane.doe@example.com"
             {...register("email")}
-            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <p>{errors.email?.message}</p>
+        {errors.email && (
+          <p className="text-xs italic text-red-500 mt-2">
+            {" "}
+            {errors.email?.message}
+          </p>
+        )}
 
         <div className="form-element mb-6">
           <label
@@ -93,13 +104,14 @@ export const LoginPage = () => {
             className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
             id="password"
             type="password"
-            placeholder="*********"
             {...register("password")}
-            onChange={(e) => setPassword(e.target.value)}
           />
-          <p className="text-red-500 text-xs italic">
-            {errors.password?.message}
-          </p>
+          {errors.password && (
+            <p className="text-xs italic text-red-500 mt-2">
+              {" "}
+              {errors.password?.message}
+            </p>
+          )}
         </div>
 
         <div className="flex items-center justify-between">

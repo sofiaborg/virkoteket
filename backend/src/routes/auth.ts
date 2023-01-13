@@ -8,10 +8,7 @@ require("dotenv").config();
 //registrera användare
 router.post("/register", async (req: Request, res: Response) => {
   try {
-    const { email, password, confirmPassword } = req.body;
-    console.log(email);
-    console.log(password);
-    console.log(confirmPassword);
+    const { email, name, password } = req.body;
 
     Users.findOne(
       { email: req.body.email },
@@ -21,6 +18,7 @@ router.post("/register", async (req: Request, res: Response) => {
         } else {
           const newUser = new Users({
             email,
+            name,
             password: hashPassword(password),
           });
           await newUser.save();
