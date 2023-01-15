@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Categories } from "../components/startPageComponents/Categories";
 import { Filters } from "../components/startPageComponents/Filters";
 import { AllPatterns } from "../components/startPageComponents/AllPatterns";
@@ -7,6 +7,8 @@ import { ICategory } from "../../interfaces/IProps";
 import "../../index.css";
 
 export const Start = () => {
+  const [toggleSidebar, setToggleSidebar] = useState(false);
+
   const [chosenCategory, setChosenCategory] = useState("");
   const [categoryDescription, setCategoryDescription] = useState("");
 
@@ -68,13 +70,23 @@ export const Start = () => {
 
   return (
     <div className=" flex justify-center">
-      <div className=" w-3/4 py-20 flex gap-6">
-        <div className=" w-3/12">
+      <div className="w-3/4 py-20 flex gap-6">
+        <div
+          className={`sidebar w-3/4 absolute bg-[#ffffffef] sm:bg-transparent px-6 py-6 z-10 sm:static sm:z-0 sm:block sm:w-3/12 ${
+            toggleSidebar ? "block" : "hidden"
+          }`}
+        >
           <Categories onCategoryClick={handleCategory}></Categories>
           <Filters onFiltersClick={handleFilters}></Filters>
         </div>
 
-        <div className=" w-9/12">
+        <div className="w-full relative sm:static sm:w-9/12">
+          <div
+            onClick={() => setToggleSidebar(!toggleSidebar)}
+            className="sm:hidden bg-pink-600"
+          >
+            show filters
+          </div>
           <div>
             <h1 className="text-xl">{chosenCategory} </h1>
             <p className="italic">{categoryDescription}</p>

@@ -111,7 +111,7 @@ router.post("/:id/updatepattern", async (req, res) => {
 //OK - DELETE a pattern from logged in user
 router.post("/:id/deletepost", async (req, res) => {
   try {
-    await Posts.deleteOne({ _id: req.params.id });
+    await Posts.remove({ _id: req.params.id });
     res.status(200).send(Posts);
   } catch (error) {
     console.error(error);

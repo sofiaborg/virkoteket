@@ -66,9 +66,9 @@ export const AllPatterns = (props: postsProps) => {
           {posts.map((post: IPost) => (
             <div className="bg-white " key={post._id}>
               <Link className="link" to={"/patterns/" + post._id}>
-                <div className="relative overflow-hidden bg-no-repeat bg-cover max-w-xs">
+                <div className="relative overflow-hidden bg-no-repeat bg-cover sm:max-w-xs">
                   <img
-                    className="h-60 w-full object-cover hover:scale-110 transition duration-700 ease-in-out"
+                    className="h full sm:h-60 w-full object-cover hover:scale-110 transition duration-700 ease-in-out"
                     src={post.image}
                     alt="bild"
                   />

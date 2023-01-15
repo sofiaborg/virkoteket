@@ -7,6 +7,7 @@ import { Start } from "./components/pages/Start";
 import { RegisterPage } from "./components/pages/RegisterZod";
 import { LoginPage } from "./components/pages/LoginZod";
 import { SinglePattern } from "./components/components/startPageComponents/SinglePattern";
+import { FAQ } from "./components/pages/FAQ";
 import "./App.css";
 import "./index.css";
 
@@ -26,6 +27,7 @@ export const App = () => {
             <Route path="/register" element={<RegisterPage />}></Route>
           </Route>
           <Route path="/" element={<Layout />}>
+            <Route path="/faq" element={<FAQ />}></Route>
             <Route path="/mypages/*" element={<Mypages />}></Route>
             <Route path="/patterns" element={<Start />}></Route>
             <Route path="/patterns/:id" element={<SinglePattern />}></Route>

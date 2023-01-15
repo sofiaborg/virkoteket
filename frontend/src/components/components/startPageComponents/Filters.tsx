@@ -10,7 +10,7 @@ export const Filters = (props: filtersProps) => {
     <div>
       {mainFiltersList.map((filter, i) => {
         return (
-          <div className="flex flex-col lg:flex-row justify-start gap-6 py-6 text-xs">
+          <div className="flex flex-col lg:flex-row justify-start gap-2 lg:gap-6 py-6 text-xs">
             {filter.options.map((option) => (
               <div
                 className="uppercase px-4 py-2 cursor-pointer font-sans font-family: sans-open  bg-[#F6F0F0] hover:bg-[#f3e8e8]"
