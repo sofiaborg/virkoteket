@@ -3,6 +3,7 @@ import { IPost, IReview } from "../../../interfaces/IProps";
 import { Link } from "react-router-dom";
 import { postsProps } from "../../../interfaces/IProps";
 import { getCurrentUser } from "../../../interfaces/IProps";
+import ReactPaginate from "react-paginate";
 
 export const AllPatterns = (props: postsProps) => {
   const [posts, setPosts] = useState([]);
@@ -12,6 +13,8 @@ export const AllPatterns = (props: postsProps) => {
   const [ratingThree, setRatingThree] = useState<Boolean>(false);
   const [ratingFour, setRatingFour] = useState<Boolean>(false);
   const [ratingFive, setRatingFive] = useState<Boolean>(false);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [perPage] = useState(12); // Number of items per page
 
   useEffect(() => {
     // const headers: Record<string, string> = {
@@ -58,12 +61,22 @@ export const AllPatterns = (props: postsProps) => {
     }
   }, [rating]);
 
+  const handlePageClick = (data: any) => {
+    setCurrentPage(data.selected);
+  };
+
+  // Use slice method to get the items for the current page
+  const currentItems = posts.slice(
+    currentPage * perPage,
+    (currentPage + 1) * perPage
+  );
+
   return (
     <>
       <div className="container mx-auto">
-        {posts.length > 0 ? (
+        {currentItems.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {posts.map((post: IPost) => (
+            {currentItems.map((post: IPost) => (
               <div className="bg-white " key={post._id}>
                 <Link className="link" to={"/patterns/" + post._id}>
                   <div className="relative overflow-hidden bg-no-repeat bg-cover sm:max-w-xs">
@@ -86,6 +99,25 @@ export const AllPatterns = (props: postsProps) => {
             There's no patterns with theese filters...
           </div>
         )}
+      </div>
+      <div className="w-full pt-16">
+        <ReactPaginate
+          previousLabel={"prev"}
+          previousClassName={"hover:font-bold"}
+          nextLabel={"next"}
+          nextClassName={"hover:font-bold"}
+          breakLabel={"..."}
+          breakClassName={"break-me"}
+          pageCount={Math.ceil(posts.length / perPage)}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={5}
+          onPageChange={handlePageClick}
+          containerClassName={"flex justify-center gap-12 "}
+          // subContainerClassName={"pages pagination"}
+          activeClassName={
+            "bg-[#e9bcbc] rounded-full w-8 h-8 flex justify-center items-center"
+          }
+        />
       </div>
     </>
   );

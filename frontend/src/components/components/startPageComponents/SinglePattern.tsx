@@ -231,7 +231,7 @@ export const SinglePattern = () => {
                         key={index}
                         className={`${
                           index <= (ratingHover || rating)
-                            ? "text-[#e9bcbc]"
+                            ? "text-[]"
                             : "text-gray-200"
                         } bg-transparent text-xl`}
                         onClick={() => setRating(index)}
