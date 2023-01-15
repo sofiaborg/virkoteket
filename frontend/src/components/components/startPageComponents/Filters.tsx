@@ -41,7 +41,7 @@ export const Filters = (props: filtersProps) => {
                     setExpandedItems([...expandedItems, filter.title]);
                   }
                 }}
-                className="cursor-pointer relative  bg-[#F6F0F0] w-full text-lef text-xs"
+                className="cursor-pointer relative  bg-[#F6F0F0] w-full text-xs"
               >
                 <div className="flex justify-between items-center">
                   <p className="py-2.5 pl-3 uppercase font-sans font-family: sans-open">

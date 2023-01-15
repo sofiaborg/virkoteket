@@ -69,73 +69,93 @@ export const Start = () => {
   }, [chosenFilters, chosenCategory]);
 
   return (
-    <div className=" flex justify-center">
-      <div className="w-3/4 py-20 flex gap-6">
-        <div
-          className={`sidebar w-3/4 absolute bg-[#ffffffef] sm:bg-transparent px-6 py-6 z-10 sm:static sm:z-0 sm:block sm:w-3/12 ${
-            toggleSidebar ? "block" : "hidden"
-          }`}
-        >
-          <Categories onCategoryClick={handleCategory}></Categories>
-          <Filters onFiltersClick={handleFilters}></Filters>
-        </div>
-
-        <div className="w-full relative sm:static sm:w-9/12">
-          <div
-            onClick={() => setToggleSidebar(!toggleSidebar)}
-            className="sm:hidden bg-pink-600"
+    <div>
+      <div
+        onClick={() => setToggleSidebar(!toggleSidebar)}
+        className="sm:hidden flex justify-center bg-[#F6F0F0]"
+      >
+        <p className="font-sans font-family: sans-open text-sm px-3 py-3">
+          Search by filters
+        </p>
+        <p className="flex justify-center items-center pr-3 cursor-pointer">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-3 h-3"
           >
-            show filters
-          </div>
-          <div>
-            <h1 className="text-xl">{chosenCategory} </h1>
-            <p className="italic">{categoryDescription}</p>
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+            />
+          </svg>
+        </p>
+      </div>
+      <div className=" flex justify-center">
+        <div className="w-3/4 py-20 flex gap-6">
+          <div
+            className={`transition-all w-3/4 absolute bg-[#ffffffef] sm:bg-transparent px-6 py-6 z-10 sm:static sm:z-0 sm:block sm:w-3/12 ${
+              toggleSidebar ? "block " : "hidden"
+            }`}
+          >
+            <Categories onCategoryClick={handleCategory}></Categories>
+            <Filters onFiltersClick={handleFilters}></Filters>
           </div>
 
-          <div className=" flex gap-4 flex-wrap py-4">
-            {Object.keys(filterObjects).map((title) => (
-              <div
-                className="flex bg-[#E9CCCC] gap-1 "
-                key={title}
-                onClick={() => deleteFilter(title)}
-              >
-                <p className="flex text-xs py-2 px-2">
-                  {title}
+          <div className="w-full relative sm:static sm:w-9/12">
+            <div>
+              <h1 className="text-xl">{chosenCategory} </h1>
+              <p className="italic">{categoryDescription}</p>
+            </div>
 
-                  {filterObjects[title].map((option) => (
-                    <h6
-                      className="flex"
-                      key={option}
-                      onClick={() => deleteFilter(option)}
+            <div className=" flex gap-4 flex-wrap py-4">
+              {Object.keys(filterObjects).map((title) => (
+                <div
+                  className="flex bg-[#E9CCCC] gap-1 "
+                  key={title}
+                  onClick={() => deleteFilter(title)}
+                >
+                  <p className="flex text-xs py-2 px-2">
+                    {title}
+
+                    {filterObjects[title].map((option) => (
+                      <h6
+                        className="flex"
+                        key={option}
+                        onClick={() => deleteFilter(option)}
+                      >
+                        : {option}
+                      </h6>
+                    ))}
+                  </p>
+
+                  <div className="flex items-center pr-2">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-3 h-3 cursor-pointer"
                     >
-                      : {option}
-                    </h6>
-                  ))}
-                </p>
-
-                <div className="flex items-center pr-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-3 h-3 cursor-pointer"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+            <AllPatterns
+              filters={chosenFilters}
+              category={chosenCategory}
+            ></AllPatterns>
           </div>
-          <AllPatterns
-            filters={chosenFilters}
-            category={chosenCategory}
-          ></AllPatterns>
         </div>
       </div>
     </div>
