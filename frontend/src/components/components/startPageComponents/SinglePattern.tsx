@@ -148,7 +148,7 @@ export const SinglePattern = () => {
           <div className=" w-9/12 ">
             <div>
               <h1 className="text-xl ">{post.title}</h1>
-              <p className="text-xs">Mönster av FIXA</p>
+              <p className="text-xs">Pattern by FIXA</p>
               <p className="pt-7 text-sm">{post.description}</p>
 
               <div className="flex flex-col md:flex-row justify-between w-full">

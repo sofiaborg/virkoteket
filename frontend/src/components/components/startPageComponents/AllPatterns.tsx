@@ -61,26 +61,31 @@ export const AllPatterns = (props: postsProps) => {
   return (
     <>
       <div className="container mx-auto">
-        {/* <!-- Column --> */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {posts.map((post: IPost) => (
-            <div className="bg-white " key={post._id}>
-              <Link className="link" to={"/patterns/" + post._id}>
-                <div className="relative overflow-hidden bg-no-repeat bg-cover sm:max-w-xs">
-                  <img
-                    className="h full sm:h-60 w-full object-cover hover:scale-110 transition duration-700 ease-in-out"
-                    src={post.image}
-                    alt="bild"
-                  />
-                </div>
-              </Link>
+        {posts.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {posts.map((post: IPost) => (
+              <div className="bg-white " key={post._id}>
+                <Link className="link" to={"/patterns/" + post._id}>
+                  <div className="relative overflow-hidden bg-no-repeat bg-cover sm:max-w-xs">
+                    <img
+                      className="h full sm:h-60 w-full object-cover hover:scale-110 transition duration-700 ease-in-out"
+                      src={post.image}
+                      alt="bild"
+                    />
+                  </div>
+                </Link>
 
-              <h3 className="font-sans font-family: sans-open text-xs pt-1">
-                {post.title}
-              </h3>
-            </div>
-          ))}
-        </div>
+                <h3 className="font-sans font-family: sans-open text-xs pt-1">
+                  {post.title}
+                </h3>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center">
+            There's no patterns with theese filters...
+          </div>
+        )}
       </div>
     </>
   );

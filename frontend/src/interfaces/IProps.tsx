@@ -59,31 +59,32 @@ export interface ICategory {
 export const categoryList: ICategory[] = [
   {
     title: "Women",
-    description: "Lorem ipsum dolores set, amet initiales dolum",
+    description: "Knitted and crochet pattern for women.",
   },
   {
     title: "Men",
-    description: "Lorem ipsum dolores set, amet initiales dolum",
+    description: "Knitted and crochet pattern for men.",
   },
   {
     title: "Kids",
-    description: "Lorem ipsum dolores set, amet initiales dolum",
+    description: "Knitted and crochet pattern for kids.",
   },
   {
     title: "Baby",
-    description: "Lorem ipsum dolores set, amet initiales dolum",
+    description:
+      "Knitted and crochet pattern for baby. Sizes is between nreborn to 16 months.",
   },
   {
     title: "Pets",
-    description: "Lorem ipsum dolores set, amet initiales dolum",
+    description: "Knitted and crochet pattern for your pets.",
   },
   {
     title: "Home",
-    description: "Lorem ipsum dolores set, amet initiales dolum",
+    description: "Knitted and crochet pattern for your home.",
   },
   {
     title: "Holiday",
-    description: "Lorem ipsum dolores set, amet initiales dolum",
+    description: "Knitted and crochet pattern for holiday occations.",
   },
 ];
 
