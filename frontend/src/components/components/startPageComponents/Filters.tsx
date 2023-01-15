@@ -67,9 +67,9 @@ export const Filters = (props: filtersProps) => {
                 </div>
 
                 <ul
-                  className={` relative overflow-hidden  transition-all duration-700 ${
+                  className={`relative overflow-hidden transition-all duration-700 ${
                     expandedItems.includes(filter.title)
-                      ? "max-h-none"
+                      ? "max-h-56"
                       : "max-h-0"
                   }`}
                 >
