@@ -3,7 +3,6 @@ import { useParams } from "react-router";
 import { IPost } from "../../../interfaces/IProps";
 import { IReview } from "../../../interfaces/IProps";
 import { getCurrentUser } from "../../../interfaces/IProps";
-import { ReviewNumbers } from "../../../interfaces/IProps";
 
 export const SinglePattern = () => {
   const [post, setPost] = useState<IPost>({
@@ -23,10 +22,36 @@ export const SinglePattern = () => {
   });
   const [rating, setRating] = useState<number>(0);
   const [ratingHover, setRatingHover] = useState(0);
-  const [comment, setComment] = useState<String>("");
+  const [comment, setComment] = useState<string>("");
   const [addReview, setAddReview] = useState<Boolean>(false);
   const { id } = useParams();
   const [image, setImage] = useState<string>("");
+
+  const [commentError, setCommentError] = useState<string>("");
+  const [ratingError, setRatingError] = useState<string>("");
+
+  function validateForm() {
+    let error = false;
+
+    if (comment.trim() === "" || null) {
+      setCommentError("Comment is required");
+      error = true;
+    } else {
+      setCommentError("");
+    }
+    if (rating === 0 || null) {
+      setRatingError("Rating needs to be at least 1...");
+      error = true;
+    } else {
+      setRatingError("");
+    }
+
+    if (!error) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   //fetch pattern
   useEffect(() => {
@@ -40,17 +65,11 @@ export const SinglePattern = () => {
     fetchProduct();
   }, [addReview]);
 
-  // //set rating state
-  // const handleRatingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setRating(Number(event.target.value));
-  // };
-
   //convert img
   const convertImgFile = (files: FileList | null) => {
     if (files) {
       const fileRef = files[0] || "";
       const fileType: String = fileRef.type || "";
-      console.log("This file upload is of type:", fileType);
       const reader = new FileReader();
       reader.readAsBinaryString(fileRef);
       reader.onload = (ev: any) => {
@@ -65,35 +84,40 @@ export const SinglePattern = () => {
     const user = getCurrentUser();
 
     event.preventDefault();
-    await fetch(
-      `http://localhost:8000/posts/${id}/createreview`,
+    if (validateForm()) {
+      try {
+        await fetch(
+          `http://localhost:8000/posts/${id}/createreview`,
 
-      {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          mode: "no-cors",
-        },
+          {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              mode: "no-cors",
+            },
 
-        body: JSON.stringify({
-          rating,
-          comment,
-          user: user.username,
-          image: image,
-        }),
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.error(error));
+            body: JSON.stringify({
+              rating,
+              comment,
+              user: user.username,
+              image: image,
+            }),
+          }
+        ).then((response) => {
+          if (response.status === 200) {
+            setComment("");
+            setRating(0);
+            setRatingHover(0);
+            setImage("");
 
-    setComment("");
-    setRating(0);
-    setImage("");
-
-    setAddReview(true);
-    window.location.reload();
+            setAddReview(true);
+          } else if (response.status === 500) {
+          }
+        });
+      } catch {}
+    } else {
+    }
   };
 
   return (
@@ -210,8 +234,10 @@ export const SinglePattern = () => {
                   id="message"
                   className="block p-2.5 w-3/5 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Write your review here..."
+                  value={comment}
                   onChange={(e) => setComment(e.target.value)}
                 ></textarea>
+                <p>{commentError}</p>
 
                 <input
                   className=" block p-1 w-full text-sm text-gray-900"
@@ -228,6 +254,7 @@ export const SinglePattern = () => {
                     return (
                       <button
                         type="button"
+                        value={ratingHover}
                         key={index}
                         className={`${
                           index <= (ratingHover || rating)
@@ -242,6 +269,7 @@ export const SinglePattern = () => {
                       </button>
                     );
                   })}
+                  <p>{ratingError}</p>
                 </div>
 
                 <div className="pt-5">

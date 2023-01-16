@@ -36,35 +36,6 @@ router.get("/getposts", async (req: Request, res: Response) => {
   }
 });
 
-// router.get("/getposts", async (req: Request, res: Response) => {
-//   try {
-//     let query: any = {};
-
-//     if (req.query && req.query.category) {
-//       query = { category: req.query.category };
-//     }
-
-//     if (req.query && req.query.filters) {
-//       let filtersArr = JSON.parse(req.query.filters as string);
-
-//       const filters: { [key: string]: string } = {};
-
-//       filtersArr.forEach((filter: { title: string; option: string }) => {
-//         filters[filter.title] = filter.option;
-//       });
-//       query = { ...query, ...filters };
-//     }
-
-//     const categoryAndFilter = [query];
-//     console.log(categoryAndFilter);
-//     const posts = await Posts.find({ $and: categoryAndFilter }).lean();
-//     res.status(200).send(posts);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send({ message: "Error getting the posts" });
-//   }
-// });
-
 //get single pattern
 router.get("/:id/getsinglepost", async (req: Request, res: Response) => {
   try {
@@ -112,9 +83,8 @@ router.post("/:id/createreview", async (req: Request, res: Response) => {
 
     post?.save();
 
-    res.send(post);
+    res.status(200).send(post);
   } catch (error) {
-    console.log(error);
     res.status(500).send("An error occurred while trying to create review.");
   }
 });

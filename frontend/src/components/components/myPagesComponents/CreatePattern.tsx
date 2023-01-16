@@ -3,27 +3,14 @@ import {
   getCurrentUser,
   categoryList,
   mainFiltersList,
-  startFilter,
-  crochetFilter,
-  knitFilter,
 } from "../../../interfaces/IProps";
 import storage from "../../../firebase/firebaseConfig";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { useNavigate } from "react-router-dom";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
-const validationSchema = z.object({
-  title: z.string().min(5, { message: "Title is required" }),
-  description: z.string().min(25, { message: "Description is required" }),
-  image: z.string().min(25, { message: "Image is required" }),
-  pattern: z.string().min(25, { message: "Pattern file is required" }),
-  category: z.string().min(25, { message: "Category is required" }),
-});
-
-type ValidationSchema = z.infer<typeof validationSchema>;
-
 export const CreatePattern = () => {
+  const navigate = useNavigate();
+
   const [typeCrochet, setTypeCrochet] = useState<Boolean>(false);
   const [typeKnit, setTypeKnit] = useState<Boolean>(false);
 
@@ -38,15 +25,19 @@ export const CreatePattern = () => {
   const [hook, setHook] = useState<String>("");
   const [needle, setNeedle] = useState<String>("");
 
-  const [file, setFile] = useState<File>();
+  const [titleError, setTitleError] = useState("");
+  const [descriptionError, setDescriptionError] = useState("");
+  const [imageError, setImageError] = useState("");
+  const [patternError, setPatternError] = useState("");
+  const [categoryError, setCategoryError] = useState("");
+  const [typeError, setTypeError] = useState("");
+  const [difficultyError, setDifficultyError] = useState("");
+  const [yarnError, setYarnError] = useState("");
+  const [hookError, setHookError] = useState("");
+  const [needleError, setNeedleError] = useState("");
+  const [validationFail, setValidationFail] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<ValidationSchema>({
-    resolver: zodResolver(validationSchema),
-  });
+  const [file, setFile] = useState<File>();
 
   const convertImgFile = (files: FileList | null) => {
     if (files) {
@@ -60,6 +51,74 @@ export const CreatePattern = () => {
       };
     }
   };
+
+  //VALIDATION
+
+  function validateForm() {
+    let error = false;
+
+    if (title.trim() === "" || null) {
+      setTitleError("Title is required");
+      error = true;
+    } else {
+      setTitleError("");
+    }
+
+    if (description.trim() === "" || null) {
+      setDescriptionError("Description is required");
+      error = true;
+    } else {
+      setDescriptionError("");
+    }
+
+    if (image.trim() === "" || null) {
+      setImageError("An image is required");
+      error = true;
+    } else {
+      setImageError("");
+    }
+
+    if (pattern.trim() === "" || null) {
+      setPatternError("Please add a pattern");
+      error = true;
+    } else {
+      setPatternError("");
+    }
+
+    if (category.trim() === "" || null) {
+      setCategoryError("Category is required");
+      error = true;
+    } else {
+      setCategoryError("");
+    }
+
+    if (type.trim() === "" || null) {
+      setTypeError("Type is required");
+      error = true;
+    } else {
+      setTypeError("");
+    }
+
+    if (difficulty.trim() === "" || null) {
+      setDifficultyError("Difficulty is required");
+      error = true;
+    } else {
+      setDifficultyError("");
+    }
+
+    if (yarn.trim() === "" || null) {
+      setYarnError("Yarn is required");
+      error = true;
+    } else {
+      setYarnError("");
+    }
+
+    if (!error) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   // Handle file upload event and update pattern-state
   function handleChange(event: any) {
@@ -84,85 +143,66 @@ export const CreatePattern = () => {
     }
   }, [file]);
 
-  const onSubmit: SubmitHandler<ValidationSchema> = async () => {
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
     const user = getCurrentUser();
-    await fetch(
-      "http://localhost:8000/user/createpost",
 
-      {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          mode: "no-cors",
-          user: user.id,
-        },
+    if (validateForm()) {
+      await fetch(
+        "http://localhost:8000/user/createpost",
 
-        body: JSON.stringify({
-          title,
-          image,
-          pattern,
-          description,
-          type,
-          difficulty,
-          yarn,
-          hook,
-          needle,
-          category,
-        }),
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.error(error));
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            mode: "no-cors",
+            user: user.id,
+          },
 
-    window.location.href = "http://localhost:3000/mypages/mypatterns";
+          body: JSON.stringify({
+            title,
+            image,
+            pattern,
+            description,
+            type,
+            difficulty,
+            yarn,
+            hook,
+            needle,
+            category,
+          }),
+        }
+      ).then((response) => {
+        if (response.status === 200) {
+          navigate("/mypages/mypatterns");
+        } else if (response.status === 500) {
+          console.log("fail");
+        }
+      });
+    } else {
+      console.log("gick ej hallå");
+    }
   };
 
   return (
     <div className="w-full h-full flex justify-center items-center bg-[#F6F0F0]">
       <div className="w-3/5 py-20 ">
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
-            <label
-              htmlFor="title"
-              className="block text-gray-700 text-sm font-bold mb-2"
-            >
-              Title
-            </label>
             <input
-              id="title"
               className="p-1 w-full text-sm text-gray-900 bg-gray-50"
               type="text"
-              {...register("title")}
               onChange={(e) => setTitle(e.target.value)}
             />
-            {errors.title && (
-              <p className="text-xs italic text-red-500 mt-2">
-                {" "}
-                {errors.title?.message}
-              </p>
-            )}
+            <p>{titleError}</p>
           </div>
           <div>
-            <label
-              htmlFor="description"
-              className="block text-gray-700 text-sm font-bold mb-2"
-            >
-              Description
-            </label>
             <textarea
-              id="description"
               className="block p-1 w-full text-sm text-gray-900 bg-gray-50"
-              {...register("description")}
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
-            {errors.description && (
-              <p className="text-xs italic text-red-500 mt-2">
-                {" "}
-                {errors.description?.message}
-              </p>
-            )}
+            <p>{descriptionError}</p>
           </div>
           <div>
             <p
@@ -176,19 +216,13 @@ export const CreatePattern = () => {
               aria-describedby="file_input_help"
               id="file_input"
               type="file"
-              {...register("image")}
               onChange={(e) => convertImgFile(e.target.files)}
             />
 
+            <p>{imageError}</p>
+
             {image.indexOf("image/") > -1 && (
               <img src={image} alt="img" width={200} />
-            )}
-
-            {errors.image && (
-              <p className="text-xs italic text-red-500 mt-2">
-                {" "}
-                {errors.image?.message}
-              </p>
             )}
           </div>
 
@@ -199,24 +233,13 @@ export const CreatePattern = () => {
             >
               Choose file. PDF (MAX. 0.5MB).
             </p>
-            <input
-              type="file"
-              {...register("pattern")}
-              onChange={handleChange}
-              accept=""
-            />
-            {errors.pattern && (
-              <p className="text-xs italic text-red-500 mt-2">
-                {" "}
-                {errors.pattern?.message}
-              </p>
-            )}
+            <input type="file" onChange={handleChange} accept="" />
+            <p>{patternError}</p>
           </div>
 
           <div>
             <select
               className="p-1 w-full cursor-pointer text-sm text-gray-900 bg-gray-50 "
-              {...register("category")}
               onChange={(e) => setCategory(e.target.value)}
             >
               <option selected disabled>
@@ -228,20 +251,12 @@ export const CreatePattern = () => {
                 </option>
               ))}
             </select>
-
-            {errors.category && (
-              <p className="text-xs italic text-red-500 mt-2">
-                {" "}
-                {errors.category?.message}
-              </p>
-            )}
+            <p>{categoryError}</p>
           </div>
 
           <div>
             {mainFiltersList.map((type) => (
               <div key={type.title}>
-                <label>{type.title}</label>
-
                 <select
                   className="p-1 w-full cursor-pointer text-sm text-gray-900 bg-gray-50 "
                   onChange={(e) => {
@@ -267,74 +282,125 @@ export const CreatePattern = () => {
                 </select>
               </div>
             ))}
+            <p>{typeError}</p>
           </div>
 
-          <div>
-            {startFilter.map((filter) => (
-              <div key={filter.title}>
+          {typeCrochet && (
+            <div className="flex flex-col gap-1">
+              <div>
                 <select
                   className="p-1 cursor-pointer w-full text-sm text-gray-900 bg-gray-50 "
                   onChange={(e) => setDifficulty(e.target.value)}
                 >
                   <option className="py-7" selected disabled>
-                    {filter.title}
+                    Difficulty
                   </option>
-                  {filter.options.map((option) => (
-                    <option key={option.title} value={option.title}>
-                      {option.title}
-                    </option>
-                  ))}
+                  <option value="Beginner">Beginner</option>
+                  <option value="Interemediate">Interemediate</option>
+                  <option value="Experienced">Experienced</option>
                 </select>
+                <p>{difficultyError}</p>
               </div>
-            ))}
-          </div>
 
-          {typeCrochet && (
-            <div className="flex flex-col gap-1">
+              <div>
+                <select
+                  className="p-1 w-full cursor-pointer  text-sm text-gray-900 bg-gray-50  "
+                  onChange={(e) => setHook(e.target.value)}
+                >
+                  <option selected disabled>
+                    Hook
+                  </option>
+                  <option value="2-2.5 mm">2-2.5 mm</option>
+                  <option value="3-3.5 mm">3-3.5 mm</option>
+                  <option value="4-4.5 mm">4-4.5 mm</option>
+                  <option value="6-6.5 mm">6-6.5 mm</option>
+                  <option value="7-8 mm">7-8 mm</option>
+                  <option value="9-10 mm">9-10 mm</option>
+                  <option value="12-20 mm">12-20 mm</option>
+                </select>
+                <p>{hookError}</p>
+              </div>
+
               <select
-                className="p-1 w-full cursor-pointer  text-sm text-gray-900 bg-gray-50  "
-                onChange={(e) => setHook(e.target.value)}
+                className="p-1 w-full cursor-pointer text-sm text-gray-900 bg-gray-50  "
+                onChange={(e) => setYarn(e.target.value)}
               >
                 <option selected disabled>
-                  Hook
+                  Yarn
                 </option>
-
-                {crochetFilter.map((filter) => (
-                  <option key={filter.title} value={filter.title}>
-                    {filter.title}
-                  </option>
-                ))}
+                <option value="Mohair">Mohair</option>
+                <option value="Fine cotton">Fine cotton</option>
+                <option value="Wool">Wool</option>
               </select>
+              <p>{yarnError}</p>
             </div>
           )}
           {typeKnit && (
             <div className="flex flex-col gap-1">
-              <select
-                className="p-1 w-full cursor-pointer text-sm text-gray-900 bg-gray-50  "
-                onChange={(e) => setNeedle(e.target.value)}
-              >
-                <option selected disabled>
-                  Needle
-                </option>
-                {knitFilter.map((filter) => (
-                  <option key={filter.title} value={filter.title}>
-                    {filter.title}
+              <div>
+                <select
+                  className="p-1 w-full cursor-pointer text-sm text-gray-900 bg-gray-50"
+                  onChange={(e) => setDifficulty(e.target.value)}
+                >
+                  <option selected disabled>
+                    Difficulty
                   </option>
-                ))}
-              </select>
+                  <option value="Beginner">Beginner</option>
+                  <option value="Interemediate">Interemediate</option>
+                  <option value="Experienced">Experienced</option>
+                </select>
+                <p>{difficultyError}</p>
+              </div>
+              <div>
+                <select
+                  className="p-1 w-full cursor-pointer text-sm text-gray-900 bg-gray-50  "
+                  onChange={(e) => setNeedle(e.target.value)}
+                >
+                  <option selected disabled>
+                    Needle
+                  </option>
+                  <option value="2-2.5 mm">2-2.5 mm</option>
+                  <option value="2.5-3.5 mm">.25-3.5 mm</option>
+                  <option value="3.5-4 mm">3.5-4 mm</option>
+                  <option value="4-4.5 mm">4-4.5 mm</option>
+                  <option value="5-5.5 mm">5-5.5 mm</option>
+                  <option value="6-7 mm">6-7 mm</option>
+                  <option value="8-10-20 mm">8-10 mm</option>
+                  <option value="12-20 mm">12-20 mm</option>
+                </select>
+
+                <p>{needleError}</p>
+              </div>
+
+              <div>
+                <select
+                  className="p-1 w-full cursor-pointer  text-sm text-gray-900 bg-gray-50 "
+                  onChange={(e) => setYarn(e.target.value)}
+                >
+                  <option selected disabled>
+                    Yarn
+                  </option>
+                  <option value="Mohair">Mohair</option>
+                  <option value="Fine cotton">Fine cotton</option>
+                  <option value="Wool">Wool</option>
+                </select>
+                <p>{yarnError}</p>
+              </div>
             </div>
           )}
 
-          <div>
-            {" "}
-            <button
-              className="bg-[#ed9999] hover:bg-[#da9090] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="submit"
-            >
-              Upload pattern
-            </button>
-          </div>
+          <button
+            className="bg-[#ed9999] hover:bg-[#da9090] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="submit"
+          >
+            Upload pattern
+          </button>
         </form>
+        {validationFail ? (
+          <h1>Failed to upload pattern, please try again</h1>
+        ) : (
+          <div></div>
+        )}
 
         <div className="flex justify-center items-center pt-5"></div>
       </div>
