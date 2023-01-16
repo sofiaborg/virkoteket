@@ -1,18 +1,21 @@
 import { useState } from "react";
-import { filtersList } from "../../../interfaces/IProps";
-import { mainFiltersList } from "../../../interfaces/IProps";
-import { filtersProps } from "../../../interfaces/IProps";
-import { IFilter } from "../../../interfaces/IProps";
+import {
+  startFilter,
+  knitFilter,
+  crochetFilter,
+  mainFiltersList,
+  filtersProps,
+} from "../../../interfaces/IProps";
 
 export const Filters = (props: filtersProps) => {
   const [expandedItems, setExpandedItems] = useState<string[]>([]);
-  const [filters, setFilters] = useState(filtersList);
+  const [filters, setFilter] = useState(startFilter);
 
   const handleMainFilterClick = (mainFilterOption: string) => {
     if (mainFilterOption === "Crochet") {
-      setFilters(filtersList.filter((filter) => filter.title !== "needle"));
+      setFilter(crochetFilter);
     } else if (mainFilterOption === "Knit") {
-      setFilters(filtersList.filter((filter) => filter.title !== "hook"));
+      setFilter(knitFilter);
     }
   };
 

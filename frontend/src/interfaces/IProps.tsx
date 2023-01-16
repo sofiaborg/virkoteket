@@ -110,7 +110,7 @@ export const mainFiltersList: IFilter[] = [
   },
 ];
 
-export const filtersList: IFilter[] = [
+export const startFilter: IFilter[] = [
   {
     title: "difficulty",
     options: [
@@ -120,17 +120,23 @@ export const filtersList: IFilter[] = [
     ],
   },
   {
-    title: "needle",
+    title: "yarn",
+    options: [{ title: "Mohair" }, { title: "Fine cotton" }, { title: "Wool" }],
+  },
+];
+
+export const crochetFilter: IFilter[] = [
+  {
+    title: "difficulty",
     options: [
-      { title: "2-2.5 mm" },
-      { title: "2.5-3.5 mm" },
-      { title: "3.5-4 mm" },
-      { title: "4-4.5 mm" },
-      { title: "5-5.5 mm" },
-      { title: "6-7 mm" },
-      { title: "8-10 mm" },
-      { title: "12-20 mm" },
+      { title: "Beginner" },
+      { title: "Interemediate" },
+      { title: "Experienced" },
     ],
+  },
+  {
+    title: "yarn",
+    options: [{ title: "Mohair" }, { title: "Fine cotton" }, { title: "Wool" }],
   },
   {
     title: "hook",
@@ -144,8 +150,32 @@ export const filtersList: IFilter[] = [
       { title: "12-20 mm" },
     ],
   },
+];
+
+export const knitFilter: IFilter[] = [
+  {
+    title: "difficulty",
+    options: [
+      { title: "Beginner" },
+      { title: "Interemediate" },
+      { title: "Experienced" },
+    ],
+  },
   {
     title: "yarn",
     options: [{ title: "Mohair" }, { title: "Fine cotton" }, { title: "Wool" }],
+  },
+  {
+    title: "needle",
+    options: [
+      { title: "2-2.5 mm" },
+      { title: "2.5-3.5 mm" },
+      { title: "3.5-4 mm" },
+      { title: "4-4.5 mm" },
+      { title: "5-5.5 mm" },
+      { title: "6-7 mm" },
+      { title: "8-10 mm" },
+      { title: "12-20 mm" },
+    ],
   },
 ];
