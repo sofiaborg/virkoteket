@@ -2,9 +2,19 @@ import { useState } from "react";
 import { filtersList } from "../../../interfaces/IProps";
 import { mainFiltersList } from "../../../interfaces/IProps";
 import { filtersProps } from "../../../interfaces/IProps";
+import { IFilter } from "../../../interfaces/IProps";
 
 export const Filters = (props: filtersProps) => {
   const [expandedItems, setExpandedItems] = useState<string[]>([]);
+  const [filters, setFilters] = useState(filtersList);
+
+  const handleMainFilterClick = (mainFilterOption: string) => {
+    if (mainFilterOption === "Crochet") {
+      setFilters(filtersList.filter((filter) => filter.title !== "needle"));
+    } else if (mainFilterOption === "Knit") {
+      setFilters(filtersList.filter((filter) => filter.title !== "hook"));
+    }
+  };
 
   return (
     <div>
@@ -16,6 +26,7 @@ export const Filters = (props: filtersProps) => {
                 className="uppercase px-4 py-2 cursor-pointer font-sans font-family: sans-open  bg-[#F6F0F0] hover:bg-[#f3e8e8]"
                 onClick={(e) => {
                   props.onFiltersClick(filter.title, option.title);
+                  handleMainFilterClick(option.title);
                 }}
               >
                 {option.title}
@@ -27,7 +38,7 @@ export const Filters = (props: filtersProps) => {
 
       <div className="bg-white max-w-xl mx-auto">
         <ul className="shadow-box flex flex-col gap-0.5  ">
-          {filtersList.map((filter, i) => {
+          {filters.map((filter, i) => {
             return (
               <li
                 key={filter.title}

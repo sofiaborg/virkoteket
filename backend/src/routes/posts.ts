@@ -13,30 +13,56 @@ router.get("/getposts", async (req: Request, res: Response) => {
 
     if (req.query && req.query.category) {
       query = { category: req.query.category };
-      console.log(query);
     }
 
+    let categoryAndFilter = [query];
     if (req.query && req.query.filters) {
       let filtersArr = JSON.parse(req.query.filters as string);
 
-      const filters: { [key: string]: string } = {};
-
       filtersArr.forEach((filter: { title: string; option: string }) => {
-        filters[filter.title] = filter.option;
+        let filterObject: { [key: string]: string } = {};
+        filterObject[filter.title] = filter.option;
+        categoryAndFilter.push(filterObject);
       });
-      query = { ...query, ...filters };
     }
-
-    const categoryAndFilter = [query];
     console.log(categoryAndFilter);
     const posts = await Posts.find({ $and: categoryAndFilter }).lean();
-
-    res.send(posts);
+    res.status(200).send(posts);
+    console.log(posts);
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "Error getting the posts" });
   }
 });
+
+// router.get("/getposts", async (req: Request, res: Response) => {
+//   try {
+//     let query: any = {};
+
+//     if (req.query && req.query.category) {
+//       query = { category: req.query.category };
+//     }
+
+//     if (req.query && req.query.filters) {
+//       let filtersArr = JSON.parse(req.query.filters as string);
+
+//       const filters: { [key: string]: string } = {};
+
+//       filtersArr.forEach((filter: { title: string; option: string }) => {
+//         filters[filter.title] = filter.option;
+//       });
+//       query = { ...query, ...filters };
+//     }
+
+//     const categoryAndFilter = [query];
+//     console.log(categoryAndFilter);
+//     const posts = await Posts.find({ $and: categoryAndFilter }).lean();
+//     res.status(200).send(posts);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send({ message: "Error getting the posts" });
+//   }
+// });
 
 //get single pattern
 router.get("/:id/getsinglepost", async (req: Request, res: Response) => {

@@ -1,18 +1,11 @@
 import { useState, useEffect } from "react";
-import { IPost, IReview } from "../../../interfaces/IProps";
+import { IPost } from "../../../interfaces/IProps";
 import { Link } from "react-router-dom";
 import { postsProps } from "../../../interfaces/IProps";
-import { getCurrentUser } from "../../../interfaces/IProps";
 import ReactPaginate from "react-paginate";
 
 export const AllPatterns = (props: postsProps) => {
   const [posts, setPosts] = useState([]);
-  const [rating, setRating] = useState<number>(0);
-  const [ratingOne, setRatingOne] = useState<Boolean>(false);
-  const [ratingTwo, setRatingTwo] = useState<Boolean>(false);
-  const [ratingThree, setRatingThree] = useState<Boolean>(false);
-  const [ratingFour, setRatingFour] = useState<Boolean>(false);
-  const [ratingFive, setRatingFive] = useState<Boolean>(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [perPage] = useState(12); // Number of items per page
 
@@ -35,31 +28,9 @@ export const AllPatterns = (props: postsProps) => {
     fetchProducts();
   }, [props.category, props.filters]);
 
-  //set rating in correct state
   useEffect(() => {
-    if (rating === 0) {
-      setRatingOne(false);
-      setRatingTwo(false);
-      setRatingThree(false);
-      setRatingFour(false);
-      setRatingFive(false);
-    }
-    if (rating === 1) {
-      setRatingOne(true);
-    }
-    if (rating === 2) {
-      setRatingTwo(true);
-    }
-    if (rating === 3) {
-      setRatingThree(true);
-    }
-    if (rating === 4) {
-      setRatingFour(true);
-    }
-    if (rating === 5) {
-      setRatingFive(true);
-    }
-  }, [rating]);
+    console.log(posts);
+  }, [posts]);
 
   const handlePageClick = (data: any) => {
     setCurrentPage(data.selected);
