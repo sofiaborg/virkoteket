@@ -1,7 +1,27 @@
 import { useState, useEffect } from "react";
-import { getCurrentUser } from "../../../interfaces/IProps";
+import {
+  getCurrentUser,
+  categoryList,
+  mainFiltersList,
+  startFilter,
+  crochetFilter,
+  knitFilter,
+} from "../../../interfaces/IProps";
 import storage from "../../../firebase/firebaseConfig";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+
+const validationSchema = z.object({
+  title: z.string().min(5, { message: "Title is required" }),
+  description: z.string().min(25, { message: "Description is required" }),
+  image: z.string().min(25, { message: "Image is required" }),
+  pattern: z.string().min(25, { message: "Pattern file is required" }),
+  category: z.string().min(25, { message: "Category is required" }),
+});
+
+type ValidationSchema = z.infer<typeof validationSchema>;
 
 export const CreatePattern = () => {
   const [typeCrochet, setTypeCrochet] = useState<Boolean>(false);
@@ -20,11 +40,18 @@ export const CreatePattern = () => {
 
   const [file, setFile] = useState<File>();
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ValidationSchema>({
+    resolver: zodResolver(validationSchema),
+  });
+
   const convertImgFile = (files: FileList | null) => {
     if (files) {
       const fileRef = files[0] || "";
       const fileType: String = fileRef.type || "";
-      console.log("This file upload is of type:", fileType);
       const reader = new FileReader();
       reader.readAsBinaryString(fileRef);
       reader.onload = (ev: any) => {
@@ -40,10 +67,6 @@ export const CreatePattern = () => {
   }
 
   useEffect(() => {
-    // if (!file) {
-    //   alert("Please upload an image first!");
-    // }
-
     if (file) {
       const storageRef = ref(storage, `/files/${file.name}`); // progress can be paused and resumed. It also exposes progress updates. // Receives the storage reference and the file to upload.
       const uploadTask = uploadBytesResumable(storageRef, file);
@@ -61,10 +84,8 @@ export const CreatePattern = () => {
     }
   }, [file]);
 
-  const handleCreatePattern = async (e: any) => {
+  const onSubmit: SubmitHandler<ValidationSchema> = async () => {
     const user = getCurrentUser();
-
-    e.preventDefault();
     await fetch(
       "http://localhost:8000/user/createpost",
 
@@ -101,19 +122,48 @@ export const CreatePattern = () => {
   return (
     <div className="w-full h-full flex justify-center items-center bg-[#F6F0F0]">
       <div className="w-3/5 py-20 ">
-        <form className="flex flex-col gap-4">
-          <input
-            className="p-1 w-full text-sm text-gray-900 bg-gray-50"
-            type="text"
-            placeholder="Pattern title"
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <textarea
-            id="message"
-            className="block p-1 w-full text-sm text-gray-900 bg-gray-50"
-            placeholder="Description..."
-            onChange={(e) => setDescription(e.target.value)}
-          ></textarea>
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+          <div>
+            <label
+              htmlFor="title"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
+              Title
+            </label>
+            <input
+              id="title"
+              className="p-1 w-full text-sm text-gray-900 bg-gray-50"
+              type="text"
+              {...register("title")}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+            {errors.title && (
+              <p className="text-xs italic text-red-500 mt-2">
+                {" "}
+                {errors.title?.message}
+              </p>
+            )}
+          </div>
+          <div>
+            <label
+              htmlFor="description"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
+              Description
+            </label>
+            <textarea
+              id="description"
+              className="block p-1 w-full text-sm text-gray-900 bg-gray-50"
+              {...register("description")}
+              onChange={(e) => setDescription(e.target.value)}
+            ></textarea>
+            {errors.description && (
+              <p className="text-xs italic text-red-500 mt-2">
+                {" "}
+                {errors.description?.message}
+              </p>
+            )}
+          </div>
           <div>
             <p
               className="mt-1 text-sm text-gray-500 dark:text-gray-300"
@@ -126,12 +176,19 @@ export const CreatePattern = () => {
               aria-describedby="file_input_help"
               id="file_input"
               type="file"
-              placeholder="IMAGE"
+              {...register("image")}
               onChange={(e) => convertImgFile(e.target.files)}
             />
 
             {image.indexOf("image/") > -1 && (
               <img src={image} alt="img" width={200} />
+            )}
+
+            {errors.image && (
+              <p className="text-xs italic text-red-500 mt-2">
+                {" "}
+                {errors.image?.message}
+              </p>
             )}
           </div>
 
@@ -142,56 +199,98 @@ export const CreatePattern = () => {
             >
               Choose file. PDF (MAX. 0.5MB).
             </p>
-            <input type="file" onChange={handleChange} accept="" />
+            <input
+              type="file"
+              {...register("pattern")}
+              onChange={handleChange}
+              accept=""
+            />
+            {errors.pattern && (
+              <p className="text-xs italic text-red-500 mt-2">
+                {" "}
+                {errors.pattern?.message}
+              </p>
+            )}
           </div>
-          <select
-            className="p-1 w-full cursor-pointer text-sm text-gray-900 bg-gray-50 "
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <option selected disabled>
-              Category
-            </option>
-            <option value="Women">Women</option>
-            <option value="Men">Men</option>
-            <option value="Kids">Kids</option>
-            <option value="Baby">Baby</option>
-            <option value="Pets">Pets</option>
-            <option value="Home">Home</option>
-            <option value="Holidays">Holidays</option>
-          </select>
-          <select
-            className="p-1 w-full cursor-pointer text-sm text-gray-900 bg-gray-50 "
-            onChange={(e) => {
-              if (e.target.value === "Crochet") {
-                setTypeCrochet(true);
-                setTypeKnit(false);
-                setType(e.target.value);
-              } else if (e.target.value === "Knit") {
-                setTypeCrochet(false);
-                setTypeKnit(true);
-                setType(e.target.value);
-              }
-            }}
-          >
-            <option selected disabled>
-              Type
-            </option>
-            <option value="Crochet">Crochet</option>
-            <option value="Knit">Knit</option>
-          </select>
+
+          <div>
+            <select
+              className="p-1 w-full cursor-pointer text-sm text-gray-900 bg-gray-50 "
+              {...register("category")}
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              <option selected disabled>
+                Category
+              </option>
+              {categoryList.map((category) => (
+                <option key={category.title} value={category.title}>
+                  {category.title}
+                </option>
+              ))}
+            </select>
+
+            {errors.category && (
+              <p className="text-xs italic text-red-500 mt-2">
+                {" "}
+                {errors.category?.message}
+              </p>
+            )}
+          </div>
+
+          <div>
+            {mainFiltersList.map((type) => (
+              <div key={type.title}>
+                <label>{type.title}</label>
+
+                <select
+                  className="p-1 w-full cursor-pointer text-sm text-gray-900 bg-gray-50 "
+                  onChange={(e) => {
+                    if (e.target.value === "Crochet") {
+                      setTypeCrochet(true);
+                      setTypeKnit(false);
+                      setType(e.target.value);
+                    } else if (e.target.value === "Knit") {
+                      setTypeCrochet(false);
+                      setTypeKnit(true);
+                      setType(e.target.value);
+                    }
+                  }}
+                >
+                  <option selected disabled>
+                    {type.title}
+                  </option>
+                  {type.options.map((option) => (
+                    <option key={option.title} value={option.title}>
+                      {option.title}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            ))}
+          </div>
+
+          <div>
+            {startFilter.map((filter) => (
+              <div key={filter.title}>
+                <select
+                  className="p-1 cursor-pointer w-full text-sm text-gray-900 bg-gray-50 "
+                  onChange={(e) => setDifficulty(e.target.value)}
+                >
+                  <option className="py-7" selected disabled>
+                    {filter.title}
+                  </option>
+                  {filter.options.map((option) => (
+                    <option key={option.title} value={option.title}>
+                      {option.title}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            ))}
+          </div>
+
           {typeCrochet && (
             <div className="flex flex-col gap-1">
-              <select
-                className="p-1 cursor-pointer w-full text-sm text-gray-900 bg-gray-50 "
-                onChange={(e) => setDifficulty(e.target.value)}
-              >
-                <option className="py-7" selected disabled>
-                  Difficulty
-                </option>
-                <option value="Beginner">Beginner</option>
-                <option value="Interemediate">Interemediate</option>
-                <option value="Experienced">Experienced</option>
-              </select>
               <select
                 className="p-1 w-full cursor-pointer  text-sm text-gray-900 bg-gray-50  "
                 onChange={(e) => setHook(e.target.value)}
@@ -199,41 +298,17 @@ export const CreatePattern = () => {
                 <option selected disabled>
                   Hook
                 </option>
-                <option value="2-2.5 mm">2-2.5 mm</option>
-                <option value="3-3.5 mm">3-3.5 mm</option>
-                <option value="4-4.5 mm">4-4.5 mm</option>
-                <option value="6-6.5 mm">6-6.5 mm</option>
-                <option value="7-8 mm">7-8 mm</option>
-                <option value="9-10 mm">9-10 mm</option>
-                <option value="12-20 mm">12-20 mm</option>
-              </select>
 
-              <select
-                className="p-1 w-full cursor-pointer text-sm text-gray-900 bg-gray-50  "
-                onChange={(e) => setYarn(e.target.value)}
-              >
-                <option selected disabled>
-                  Yarn
-                </option>
-                <option value="Mohair">Mohair</option>
-                <option value="Fine cotton">Fine cotton</option>
-                <option value="Wool">Wool</option>
+                {crochetFilter.map((filter) => (
+                  <option key={filter.title} value={filter.title}>
+                    {filter.title}
+                  </option>
+                ))}
               </select>
             </div>
           )}
           {typeKnit && (
             <div className="flex flex-col gap-1">
-              <select
-                className="p-1 w-full cursor-pointer text-sm text-gray-900 bg-gray-50"
-                onChange={(e) => setDifficulty(e.target.value)}
-              >
-                <option selected disabled>
-                  Difficulty
-                </option>
-                <option value="Beginner">Beginner</option>
-                <option value="Interemediate">Interemediate</option>
-                <option value="Experienced">Experienced</option>
-              </select>
               <select
                 className="p-1 w-full cursor-pointer text-sm text-gray-900 bg-gray-50  "
                 onChange={(e) => setNeedle(e.target.value)}
@@ -241,38 +316,27 @@ export const CreatePattern = () => {
                 <option selected disabled>
                   Needle
                 </option>
-                <option value="2-2.5 mm">2-2.5 mm</option>
-                <option value="2.5-3.5 mm">.25-3.5 mm</option>
-                <option value="3.5-4 mm">3.5-4 mm</option>
-                <option value="4-4.5 mm">4-4.5 mm</option>
-                <option value="5-5.5 mm">5-5.5 mm</option>
-                <option value="6-7 mm">6-7 mm</option>
-                <option value="8-10-20 mm">8-10 mm</option>
-                <option value="12-20 mm">12-20 mm</option>
-              </select>
-
-              <select
-                className="p-1 w-full cursor-pointer  text-sm text-gray-900 bg-gray-50 "
-                onChange={(e) => setYarn(e.target.value)}
-              >
-                <option selected disabled>
-                  Yarn
-                </option>
-                <option value="Mohair">Mohair</option>
-                <option value="Fine cotton">Fine cotton</option>
-                <option value="Wool">Wool</option>
+                {knitFilter.map((filter) => (
+                  <option key={filter.title} value={filter.title}>
+                    {filter.title}
+                  </option>
+                ))}
               </select>
             </div>
           )}
+
+          <div>
+            {" "}
+            <button
+              className="bg-[#ed9999] hover:bg-[#da9090] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              type="submit"
+            >
+              Upload pattern
+            </button>
+          </div>
         </form>
-        <div className="flex justify-center items-center pt-5">
-          <button
-            className="bg-[#ed9999] hover:bg-[#da9090] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            onClick={handleCreatePattern}
-          >
-            Upload pattern
-          </button>
-        </div>
+
+        <div className="flex justify-center items-center pt-5"></div>
       </div>
     </div>
   );

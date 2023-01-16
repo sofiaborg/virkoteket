@@ -193,7 +193,7 @@ export const SinglePattern = () => {
                 <img
                   className="h-full w-48 object-cover"
                   src={post.image}
-                  alt="alttext"
+                  alt={post.title}
                 />
               </div>
             </div>

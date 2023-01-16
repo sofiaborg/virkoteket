@@ -5,7 +5,7 @@ import { postsProps } from "../../../interfaces/IProps";
 import ReactPaginate from "react-paginate";
 
 export const AllPatterns = (props: postsProps) => {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<IPost[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [perPage] = useState(12); // Number of items per page
 
@@ -29,8 +29,8 @@ export const AllPatterns = (props: postsProps) => {
   }, [props.category, props.filters]);
 
   useEffect(() => {
-    console.log(posts);
-  }, [posts]);
+    console.log("inne i useeffect", posts);
+  }, [posts, props.category, props.filters]);
 
   const handlePageClick = (data: any) => {
     setCurrentPage(data.selected);

@@ -22,12 +22,14 @@ router.get("/getposts", async (req: Request, res: Response) => {
       filtersArr.forEach((filter: { title: string; option: string }) => {
         let filterObject: { [key: string]: string } = {};
         filterObject[filter.title] = filter.option;
-        categoryAndFilter.push(filterObject);
+        categoryAndFilter.push({ ...filterObject });
       });
     }
     console.log(categoryAndFilter);
-    const posts = await Posts.find({ $and: categoryAndFilter }).lean();
+    const posts = await Posts.find({ $and: categoryAndFilter });
+
     res.status(200).send(posts);
+    console.log(posts.length);
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "Error getting the posts" });

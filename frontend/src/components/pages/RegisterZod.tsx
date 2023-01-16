@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { object, string, TypeOf, z } from "zod";
-import { useState, useEffect } from "react";
+import { z } from "zod";
+import { useState } from "react";
 
 const validationSchema = z
   .object({
@@ -11,7 +11,7 @@ const validationSchema = z
     }),
     password: z
       .string()
-      .min(6, { message: "Password must be atleast 6 characters" }),
+      .min(6, { message: "Password must be at least 6 characters" }),
     confirmPassword: z
       .string()
       .min(1, { message: "Confirm Password is required" }),
