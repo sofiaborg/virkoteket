@@ -3,7 +3,7 @@ import React from "react";
 export const Footer = () => {
   return (
     <div className="w-full flex flex-col justify-center items-center bg-[#edeaea]">
-      <div className="w-3/4 flex justify-between ">
+      <div className="w-3/4 flex flex-col sm:flex-row justify-between ">
         <div>
           <h1 className="uppercase font-sans font-family: sans-open pt-16">
             FAQ
@@ -11,22 +11,22 @@ export const Footer = () => {
           <ul className="text-xs pt-2">
             <li className="cursor-pointer hover:font-medium">
               <a className="font-sans font-family: sans-open" href="/faq">
-                Is Virkotetet free to use?
+                Is KnitOnePurlOne free to use?
               </a>
             </li>
             <li className="pt-2 cursor-pointer hover:font-medium">
               <a className="font-sans font-family: sans-open" href="faq">
-                Is Virkotetet free to use?
+                Copyright on patterns?
               </a>
             </li>
             <li className="pt-2 cursor-pointer hover:font-medium">
               <a className="font-sans font-family: sans-open" href="/faq">
-                Is Virkotetet free to use?
+                GDPR policy
               </a>
             </li>
             <li className="pt-2 cursor-pointer hover:font-medium">
               <a className="font-sans font-family: sans-open" href="/faq">
-                Is Virkotetet free to use?
+                How do I upload a pattern?
               </a>
             </li>
           </ul>
@@ -38,46 +38,53 @@ export const Footer = () => {
           <ul className="text-xs font-sans font-family: sans-open pt-2">
             <li className="cursor-pointer hover:font-medium">
               <a className="font-sans font-family: sans-open " href="/faq">
-                Pattern copyright
+                Community guidelines
               </a>
             </li>
             <li className="pt-2 cursor-pointer hover:font-medium">
               <a className="font-sans font-family: sans-open" href="/faq">
-                Is Virkotetet free to use?
+                KnitOnePurlOne history
               </a>
             </li>
             <li className="pt-2 cursor-pointer hover:font-medium">
               <a className="font-sans font-family: sans-open" href="/faq">
-                Is Virkotetet free to use?
+                Make a donation
               </a>
             </li>
             <li className="pt-2 cursor-pointer hover:font-medium">
               <a className="font-sans font-family: sans-open" href="/faq">
-                Is Virkotetet free to use?
+                Work with us!
               </a>
             </li>
           </ul>
         </div>
         <div>
           <h1 className="uppercase font-sans font-family: sans-open pt-16">
-            Contact
+            Contact us
           </h1>
 
           <form className=" pt-2">
             <input
               type="email"
-              className="block p-1 w-full text-sm text-gray-900"
+              className="font-sans font-family: sans-open block p-1 mb-1 w-full text-xs text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Email"
             />
             <textarea
-              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="font-sans font-family: sans-open block mb-1 p-2.5 w-full text-xs text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Message here..."
             ></textarea>
-            <button>Send</button>
+            <div className="w-full flex justify-end">
+              <button className="bg-[#ed9999] hover:bg-[#da9090] font-sans font-family: sans-open text-xs text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
+                Send
+              </button>
+            </div>
           </form>
         </div>
       </div>
       <div className=" w-9/12 flex justify-between pt-10 pb-10 ">
-        <div className="font-sans font-family: sans-open">copyright</div>
+        <div className="font-sans font-family: sans-open text-xs">
+          © KnitOntPurlOne 2023
+        </div>
 
         <div className="flex gap-6">
           <div>

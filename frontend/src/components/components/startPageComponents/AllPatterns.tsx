@@ -7,7 +7,7 @@ import ReactPaginate from "react-paginate";
 export const AllPatterns = (props: postsProps) => {
   const [posts, setPosts] = useState<IPost[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const [perPage] = useState(12); // Number of items per page
+  const [perPage] = useState(9); // Number of items per page
 
   useEffect(() => {
     // const headers: Record<string, string> = {

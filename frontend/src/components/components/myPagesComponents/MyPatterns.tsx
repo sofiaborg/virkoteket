@@ -54,10 +54,9 @@ export const MyPatterns = () => {
 
           {posts.map((post: IPost) => (
             <div key={post._id}>
-              <Link className="link" to={"/mypages/" + post._id}>
-                <img src={post.image} alt={post.image} />
-                <h3>{post.title}</h3>
-              </Link>
+              <img src={post.image} alt={post.image} />
+              <h3>{post.title}</h3>
+
               <button onClick={() => deletePost(post._id)}>
                 Radera mönster
               </button>

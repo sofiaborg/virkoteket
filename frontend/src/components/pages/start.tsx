@@ -1,18 +1,20 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Categories } from "../components/startPageComponents/Categories";
 import { Filters } from "../components/startPageComponents/Filters";
 import { AllPatterns } from "../components/startPageComponents/AllPatterns";
 import { IFilterObject } from "../../interfaces/IProps";
-import { ICategory } from "../../interfaces/IProps";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/auth-context";
 import "../../index.css";
 
 export const Start = () => {
   const [toggleSidebar, setToggleSidebar] = useState(false);
-
   const [chosenCategory, setChosenCategory] = useState("");
   const [categoryDescription, setCategoryDescription] = useState("");
-
   const [chosenFilters, setChosenFilters] = useState<IFilterObject[]>([]);
+
+  const auth = useContext(AuthContext);
+  const navigate = useNavigate();
 
   //callback-functions to send to child-components
   const handleCategory = (category: string, description: string) => {
@@ -50,22 +52,18 @@ export const Start = () => {
   };
 
   useEffect(() => {
-    // const headers: Record<string, string> = {
-    //   Authorization: sessionStorage.getItem(user.token) as string,
-    // };
-
-    fetch(
-      `http://localhost:8000/posts/getposts?category=${encodeURIComponent(
-        chosenCategory
-      )}&filters=${encodeURIComponent(JSON.stringify(chosenFilters))}`
-
-      // {
-      //   headers,
-      // }
-    )
-      .then((response) => response.json())
-      .then((data) => console.log("posts fetched"))
-      .catch((error) => console.error(error));
+    if (auth.isLoggedIn) {
+      fetch(
+        `http://localhost:8000/posts/getposts?category=${encodeURIComponent(
+          chosenCategory
+        )}&filters=${encodeURIComponent(JSON.stringify(chosenFilters))}`
+      )
+        .then((response) => response.json())
+        .then((data) => console.log("posts fetched"))
+        .catch((error) => console.error(error));
+    } else {
+      navigate("/");
+    }
   }, [chosenFilters, chosenCategory]);
 
   return (

@@ -1,10 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router";
 import { IPost } from "../../../interfaces/IProps";
 import { IReview } from "../../../interfaces/IProps";
 import { getCurrentUser } from "../../../interfaces/IProps";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../contexts/auth-context";
 
 export const SinglePattern = () => {
+  const auth = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const [post, setPost] = useState<IPost>({
     _id: 0,
     title: "",
@@ -54,6 +59,7 @@ export const SinglePattern = () => {
   }
 
   //fetch pattern
+
   useEffect(() => {
     async function fetchProduct() {
       const response = await fetch(
@@ -62,6 +68,7 @@ export const SinglePattern = () => {
       const data = await response.json();
       setPost(data);
     }
+
     fetchProduct();
   }, [addReview]);
 

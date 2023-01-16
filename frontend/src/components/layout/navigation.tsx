@@ -6,12 +6,14 @@ export const Navigation = () => {
     <div className=" flex justify-center w-full border-b-4 border-black-100 h-32">
       <div className="flex h-full w-10/12 justify-between">
         <div className=" flex justify-center items-center">
-          <div className="image-logo">
-            <img
-              className="h-28 w-28"
-              src="https://firebasestorage.googleapis.com/v0/b/virkoteket.appspot.com/o/files%2Fyarn.gif?alt=media&token=54fb1173-03c5-44c5-ab3d-f7d5ed5dd216"
-              alt="Virkoteket"
-            />
+          <div className="image-logo cursor-pointer">
+            <Link to="/patterns">
+              <img
+                className="h-28 w-28"
+                src="https://firebasestorage.googleapis.com/v0/b/virkoteket.appspot.com/o/files%2Fyarn.gif?alt=media&token=54fb1173-03c5-44c5-ab3d-f7d5ed5dd216"
+                alt="Virkoteket"
+              />
+            </Link>
           </div>
         </div>
 

@@ -1,9 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { getCurrentUser } from "../../../interfaces/IProps";
 import { IUser } from "../../../interfaces/IProps";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../contexts/auth-context";
 
 export const MyAccount = () => {
   const [user, setUser] = useState([]);
+
+  const auth = useContext(AuthContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const user = getCurrentUser();
