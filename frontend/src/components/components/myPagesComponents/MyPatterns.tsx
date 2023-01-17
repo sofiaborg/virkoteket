@@ -48,32 +48,46 @@ export const MyPatterns = () => {
 
   if (posts.length > 0) {
     return (
-      <div className="w-full h-full flex justify-center items-center bg-[#F6F0F0]">
-        <div>
-          <h3>Mina mönster</h3>
-
+      <div className="container mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-3">
           {posts.map((post: IPost) => (
             <div key={post._id}>
-              <img src={post.image} alt={post.image} />
-              <h3>{post.title}</h3>
+              <div className="relative overflow-hidden bg-no-repeat bg-cover">
+                <img
+                  className="h-full md:h-60 w-full object-cover"
+                  src={post.image}
+                  alt={post.image}
+                />
+              </div>
 
-              <button onClick={() => deletePost(post._id)}>
-                Radera mönster
-              </button>
+              <div className="flex justify-evenly md:justify-between pt-2">
+                <p className="text-xs text-gray-900 font-sans font-family: sans-open">
+                  {post.title}
+                </p>
+
+                <button
+                  className="flex justify-center items-center hover:bg-[#da9090] cursor-pointer rounded-full p-1 w-16 text-xs text-gray-900 font-sans font-family: sans-open bg-[#e8a7a7]"
+                  onClick={() => deletePost(post._id)}
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           ))}
         </div>
-
-        <div></div>
       </div>
     );
   } else {
     return (
       <div>
         <div>
-          <h3>Mina mönster</h3>
+          <h3 className="text-xs text-gray-900 font-sans font-family: sans-open">
+            Mina mönster
+          </h3>
 
-          <h4>Du har inga mönster</h4>
+          <h4 className="text-xs text-gray-900 font-sans font-family: sans-open">
+            Du har inga mönster
+          </h4>
         </div>
 
         <div></div>

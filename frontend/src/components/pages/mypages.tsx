@@ -13,32 +13,45 @@ export const Mypages = () => {
 
   return (
     <>
-      <div className="w-full flex justify-center items-center">
-        <div className="pt-10 flex w-3/5">
-          <div className=" w-1/4 bg-[#e39a9a]">
-            <div>
+      <div className="w-full flex flex-col md:flex-row justify-center items-center py-0 md:py-20">
+        <div className="block md:hidden bg-[#d79e9e] w-full text-center py-2">
+          Klicka
+        </div>
+        <div className="flex w-full md:w-3/5 gap-1">
+          <div className=" hidden md:block w-1/4 bg-[#F6F0F0]">
+            <div className="pt-6">
               <Link to="/mypages/createpattern">
-                <h2>Skapa mönster</h2>
+                <div className="uppercase text-sm px-4 py-2 cursor-pointer font-sans font-family: sans-open  bg-[#F6F0F0] hover:bg-[#f3e8e8]">
+                  Create pattern
+                </div>
               </Link>
             </div>
             <div>
               <Link to="/mypages/mypatterns">
-                <h2>Mina mönster</h2>
+                <div className="uppercase text-sm  px-4 py-2 cursor-pointer font-sans font-family: sans-open  bg-[#F6F0F0] hover:bg-[#f3e8e8]">
+                  My pattern
+                </div>
               </Link>
             </div>
             <div>
               <Link to="/mypages/myaccount">
-                <h2>Mitt konto</h2>
+                <div className="uppercase text-sm px-4 py-2 cursor-pointer font-sans font-family: sans-open  bg-[#F6F0F0] hover:bg-[#f3e8e8]">
+                  My account
+                </div>
               </Link>
             </div>
             <div>
-              <button id="logout-button" onClick={auth.logout}>
+              <div
+                className="uppercase text-sm  px-4 py-2 cursor-pointer font-sans font-family: sans-open  bg-[#F6F0F0] hover:bg-[#f3e8e8]"
+                id="logout-button"
+                onClick={auth.logout}
+              >
                 Logga ut
-              </button>
+              </div>
             </div>
           </div>
 
-          <div className="w-3/4">
+          <div className="w-full md:w-3/4">
             <div className="patterns-wrapper">
               {location.pathname === "/mypages/createpattern" && (
                 <CreatePattern />

@@ -186,83 +186,115 @@ export const CreatePattern = () => {
   };
 
   return (
-    <div className="w-full h-full flex justify-center items-center bg-[#F6F0F0]">
-      <div className="w-3/5 py-20 ">
+    <div className="w-full h-full flex justify-start items-center bg-[#f2eded] pl-12">
+      <div className="w-5/6 py-20 ">
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <div>
+          <div className="flex h-full">
             <input
               id="title"
-              className="p-1 w-full text-sm text-gray-900 bg-gray-50"
+              placeholder="Pattern title..."
+              className="p-1 w-4/6 text-xs text-gray-900 bg-gray-50 font-sans font-family: sans-open"
               type="text"
               onChange={(e) => setTitle(e.target.value)}
             />
-            <p>{titleError}</p>
+
+            <p className="flex items-center pl-2 h-4/4 w-full md:w-2/6 italic text-xs">
+              {titleError}
+            </p>
           </div>
-          <div>
+          <div className="flex h-full">
             <textarea
               id="description"
-              className="block p-1 w-full text-sm text-gray-900 bg-gray-50"
+              placeholder="Short description of the pattern..."
+              className="block p-1 w-4/6 text-xs text-gray-900 bg-gray-50 font-sans font-family: sans-open"
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
-            <p>{descriptionError}</p>
-          </div>
-          <div>
-            <p
-              className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-              id="file_input_help"
-            >
-              Choose image. PNG, JPG or JPG (MAX. 0.5MB).
+            <p className="flex items-center pl-2 h-4/4 w-full md:w-2/6 italic text-xs">
+              {descriptionError}
             </p>
-            <input
-              className="block p-1 w-full text-sm text-gray-900"
-              aria-describedby="file_input_help"
-              id="file_input"
-              type="file"
-              onChange={(e) => convertImgFile(e.target.files)}
-            />
-
-            <p>{imageError}</p>
-
-            {image.indexOf("image/") > -1 && (
-              <img src={image} alt="img" width={200} />
-            )}
           </div>
+          <div className="flex h-full">
+            <div className="w-4/6">
+              <label
+                htmlFor="imgFile"
+                className="flex justify-center items-center cursor-pointer hover:bg-[#da9090] rounded-full p-1 w-20 text-xs text-gray-900 font-sans font-family: sans-open bg-[#e8a7a7]"
+              >
+                Add image
+              </label>
+              <input
+                className="hidden"
+                aria-describedby="file_input_help"
+                id="imgFile"
+                type="file"
+                onChange={(e) => convertImgFile(e.target.files)}
+              />
+            </div>
 
-          <div>
-            <p
-              className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-              id="file_input_help"
-            >
-              Choose file. PDF (MAX. 0.5MB).
+            <p className="flex items-center pl-2 h-4/4 w-full md:w-2/6 italic text-xs">
+              {imageError}
             </p>
-            <input id="image" type="file" onChange={handleChange} accept="" />
-            <p>{patternError}</p>
           </div>
+          {image.indexOf("image/") > -1 && (
+            <img src={image} alt="img" width={200} />
+          )}
 
-          <div>
+          <div className="flex h-full">
+            <div className="w-4/6">
+              <label
+                htmlFor="patternFile"
+                className="flex justify-center items-center hover:bg-[#da9090] cursor-pointer rounded-full p-1 w-20 text-xs text-gray-900 font-sans font-family: sans-open bg-[#e8a7a7]"
+              >
+                Add pattern
+              </label>
+              <input
+                id="patternFile"
+                className="hidden"
+                type="file"
+                onChange={handleChange}
+                accept=""
+              />
+            </div>
+
+            <p className="flex items-center pl-2 h-4/4 w-full md:w-2/6 italic text-xs">
+              {patternError}
+            </p>
+          </div>
+          <p className=" text-xs text-gray-500 italic">{pattern}</p>
+
+          <div className="flex h-full">
             <select
               id="category"
-              className="p-1 w-full cursor-pointer text-sm text-gray-900 bg-gray-50 "
+              className="p-1 w-4/6 cursor-pointer text-xs text-gray-900 bg-gray-50 font-sans font-family: sans-open "
               onChange={(e) => setCategory(e.target.value)}
             >
-              <option selected disabled>
+              <option
+                className="font-sans font-family: sans-open text-xs"
+                selected
+                disabled
+              >
                 Category
               </option>
               {categoryList.map((category) => (
-                <option key={category.title} value={category.title}>
+                <option
+                  className="font-sans font-family: sans-open text-xs"
+                  key={category.title}
+                  value={category.title}
+                >
                   {category.title}
                 </option>
               ))}
             </select>
-            <p>{categoryError}</p>
+            <p className="flex items-center pl-2 h-4/4 w-full md:w-2/6 italic text-xs">
+              {categoryError}
+            </p>
           </div>
 
-          <div>
+          <div className="flex h-full">
             {mainFiltersList.map((type) => (
-              <div key={type.title}>
+              <div className="w-4/6" key={type.title}>
                 <select
                   id="type"
-                  className="p-1 w-full cursor-pointer text-sm text-gray-900 bg-gray-50 "
+                  className="p-1 w-full cursor-pointer text-xs text-gray-900 bg-gray-50 font-sans font-family: sans-open"
                   onChange={(e) => {
                     if (e.target.value === "Crochet") {
                       setTypeCrochet(true);
@@ -275,127 +307,309 @@ export const CreatePattern = () => {
                     }
                   }}
                 >
-                  <option selected disabled>
+                  <option
+                    className="font-sans font-family: sans-open text-xs"
+                    selected
+                    disabled
+                  >
                     {type.title}
                   </option>
                   {type.options.map((option) => (
-                    <option key={option.title} value={option.title}>
+                    <option
+                      className="font-sans font-family: sans-open text-xs"
+                      key={option.title}
+                      value={option.title}
+                    >
                       {option.title}
                     </option>
                   ))}
                 </select>
               </div>
             ))}
-            <p>{typeError}</p>
+            <p className="flex items-center pl-2 h-4/4 w-full md:w-2/6 italic text-xs">
+              {typeError}
+            </p>
           </div>
 
           {typeCrochet && (
             <div className="flex flex-col gap-1">
-              <div>
+              <div className="flex h-full">
                 <select
-                  className="p-1 cursor-pointer w-full text-sm text-gray-900 bg-gray-50 "
+                  className="p-1 cursor-pointer w-4/6 text-gray-900 bg-gray-50 font-sans font-family: sans-open text-xs"
                   onChange={(e) => setDifficulty(e.target.value)}
                 >
-                  <option className="py-7" selected disabled>
+                  <option
+                    className="font-sans font-family: sans-open text-xs py-7"
+                    selected
+                    disabled
+                  >
                     Difficulty
                   </option>
-                  <option value="Beginner">Beginner</option>
-                  <option value="Interemediate">Interemediate</option>
-                  <option value="Experienced">Experienced</option>
+                  <option
+                    className="font-sans font-family: sans-open text-xs"
+                    value="Beginner"
+                  >
+                    Beginner
+                  </option>
+                  <option
+                    className="font-sans font-family: sans-open text-xs"
+                    value="Interemediate"
+                  >
+                    Interemediate
+                  </option>
+                  <option
+                    className="font-sans font-family: sans-open text-xs"
+                    value="Experienced"
+                  >
+                    Experienced
+                  </option>
                 </select>
-                <p>{difficultyError}</p>
+                <p className="flex items-center pl-2 h-4/4 w-full md:w-2/6 italic text-xs">
+                  {difficultyError}
+                </p>
               </div>
 
-              <div>
+              <div className="flex h-full">
                 <select
-                  className="p-1 w-full cursor-pointer  text-sm text-gray-900 bg-gray-50  "
+                  className="p-1 w-4/6 cursor-pointer  text-xs text-gray-900 bg-gray-50  font-sans font-family: sans-open"
                   onChange={(e) => setHook(e.target.value)}
                 >
-                  <option selected disabled>
+                  <option
+                    className="font-sans font-family: sans-open text-xs"
+                    selected
+                    disabled
+                  >
                     Hook
                   </option>
-                  <option value="2-2.5 mm">2-2.5 mm</option>
-                  <option value="3-3.5 mm">3-3.5 mm</option>
-                  <option value="4-4.5 mm">4-4.5 mm</option>
-                  <option value="6-6.5 mm">6-6.5 mm</option>
-                  <option value="7-8 mm">7-8 mm</option>
-                  <option value="9-10 mm">9-10 mm</option>
-                  <option value="12-20 mm">12-20 mm</option>
+                  <option
+                    className="font-sans font-family: sans-open text-xs"
+                    value="2-2.5 mm"
+                  >
+                    2-2.5 mm
+                  </option>
+                  <option
+                    className="font-sans font-family: sans-open text-xs"
+                    value="3-3.5 mm"
+                  >
+                    3-3.5 mm
+                  </option>
+                  <option
+                    className="font-sans font-family: sans-open text-xs"
+                    value="4-4.5 mm"
+                  >
+                    4-4.5 mm
+                  </option>
+                  <option
+                    className="font-sans font-family: sans-open text-xs"
+                    value="6-6.5 mm"
+                  >
+                    6-6.5 mm
+                  </option>
+                  <option
+                    className="font-sans font-family: sans-open text-xs"
+                    value="7-8 mm"
+                  >
+                    7-8 mm
+                  </option>
+                  <option
+                    className="font-sans font-family: sans-open text-xs"
+                    value="9-10 mm"
+                  >
+                    9-10 mm
+                  </option>
+                  <option
+                    className="font-sans font-family: sans-open text-xs"
+                    value="12-20 mm"
+                  >
+                    12-20 mm
+                  </option>
                 </select>
-                <p>{hookError}</p>
+                <p className="flex items-center pl-2 h-4/4 w-full md:w-2/6 italic text-xs">
+                  {hookError}
+                </p>
               </div>
-
-              <select
-                className="p-1 w-full cursor-pointer text-sm text-gray-900 bg-gray-50  "
-                onChange={(e) => setYarn(e.target.value)}
-              >
-                <option selected disabled>
-                  Yarn
-                </option>
-                <option value="Mohair">Mohair</option>
-                <option value="Fine cotton">Fine cotton</option>
-                <option value="Wool">Wool</option>
-              </select>
-              <p>{yarnError}</p>
+              <div className="flex h-full">
+                <select
+                  className="p-1 w-4/6 cursor-pointer text-xs text-gray-900 bg-gray-50  font-sans font-family: sans-open"
+                  onChange={(e) => setYarn(e.target.value)}
+                >
+                  <option
+                    className="font-sans font-family: sans-open text-xs"
+                    selected
+                    disabled
+                  >
+                    Yarn
+                  </option>
+                  <option
+                    className="font-sans font-family: sans-open text-xs"
+                    value="Mohair"
+                  >
+                    Mohair
+                  </option>
+                  <option
+                    className="font-sans font-family: sans-open text-xs"
+                    value="Fine cotton"
+                  >
+                    Fine cotton
+                  </option>
+                  <option
+                    className="font-sans font-family: sans-open text-xs"
+                    value="Wool"
+                  >
+                    Wool
+                  </option>
+                </select>
+                <p className="flex items-center pl-2 h-4/4 w-full md:w-2/6 italic text-xs">
+                  {yarnError}
+                </p>
+              </div>
             </div>
           )}
           {typeKnit && (
             <div className="flex flex-col gap-1">
-              <div>
+              <div className="flex h-full">
                 <select
-                  className="p-1 w-full cursor-pointer text-sm text-gray-900 bg-gray-50"
+                  className="p-1 w-4/6 cursor-pointer text-xs text-gray-900 bg-gray-50 font-sans font-family: sans-open"
                   onChange={(e) => setDifficulty(e.target.value)}
                 >
-                  <option selected disabled>
+                  <option
+                    className="font-sans font-family: sans-open text-xs"
+                    selected
+                    disabled
+                  >
                     Difficulty
                   </option>
-                  <option value="Beginner">Beginner</option>
-                  <option value="Interemediate">Interemediate</option>
-                  <option value="Experienced">Experienced</option>
+                  <option
+                    className="font-sans font-family: sans-open text-xs"
+                    value="Beginner"
+                  >
+                    Beginner
+                  </option>
+                  <option
+                    className="font-sans font-family: sans-open text-xs"
+                    value="Interemediate"
+                  >
+                    Interemediate
+                  </option>
+                  <option
+                    className="font-sans font-family: sans-open text-xs"
+                    value="Experienced"
+                  >
+                    Experienced
+                  </option>
                 </select>
-                <p>{difficultyError}</p>
+                <p className="flex items-center pl-2 h-4/4 w-full md:w-2/6 italic text-xs">
+                  {difficultyError}
+                </p>
               </div>
-              <div>
+              <div className="flex h-full">
                 <select
-                  className="p-1 w-full cursor-pointer text-sm text-gray-900 bg-gray-50  "
+                  className="p-1 w-4/6 cursor-pointer text-xs text-gray-900 bg-gray-50 font-sans font-family: sans-open "
                   onChange={(e) => setNeedle(e.target.value)}
                 >
-                  <option selected disabled>
+                  <option
+                    className="font-sans font-family: sans-open text-xs"
+                    selected
+                    disabled
+                  >
                     Needle
                   </option>
-                  <option value="2-2.5 mm">2-2.5 mm</option>
-                  <option value="2.5-3.5 mm">.25-3.5 mm</option>
-                  <option value="3.5-4 mm">3.5-4 mm</option>
-                  <option value="4-4.5 mm">4-4.5 mm</option>
-                  <option value="5-5.5 mm">5-5.5 mm</option>
-                  <option value="6-7 mm">6-7 mm</option>
-                  <option value="8-10-20 mm">8-10 mm</option>
-                  <option value="12-20 mm">12-20 mm</option>
+                  <option
+                    className="font-sans font-family: sans-open text-xs"
+                    value="2-2.5 mm"
+                  >
+                    2-2.5 mm
+                  </option>
+                  <option
+                    className="font-sans font-family: sans-open text-xs"
+                    value="2.5-3.5 mm"
+                  >
+                    .25-3.5 mm
+                  </option>
+                  <option
+                    className="font-sans font-family: sans-open text-xs"
+                    value="3.5-4 mm"
+                  >
+                    3.5-4 mm
+                  </option>
+                  <option
+                    className="font-sans font-family: sans-open text-xs"
+                    value="4-4.5 mm"
+                  >
+                    4-4.5 mm
+                  </option>
+                  <option
+                    className="font-sans font-family: sans-open text-xs"
+                    value="5-5.5 mm"
+                  >
+                    5-5.5 mm
+                  </option>
+                  <option
+                    className="font-sans font-family: sans-open text-xs"
+                    value="6-7 mm"
+                  >
+                    6-7 mm
+                  </option>
+                  <option
+                    className="font-sans font-family: sans-open text-xs"
+                    value="8-10-20 mm"
+                  >
+                    8-10 mm
+                  </option>
+                  <option
+                    className="font-sans font-family: sans-open text-xs"
+                    value="12-20 mm"
+                  >
+                    12-20 mm
+                  </option>
                 </select>
 
-                <p>{needleError}</p>
+                <p className="flex items-center pl-2 h-4/4 w-full md:w-2/6 italic text-xs">
+                  {needleError}
+                </p>
               </div>
 
-              <div>
+              <div className="flex h-full">
                 <select
-                  className="p-1 w-full cursor-pointer  text-sm text-gray-900 bg-gray-50 "
+                  className="p-1 w-4/6 cursor-pointer  text-xs text-gray-900 bg-gray-50 font-sans font-family: sans-open"
                   onChange={(e) => setYarn(e.target.value)}
                 >
-                  <option selected disabled>
+                  <option
+                    className="font-sans font-family: sans-open text-xs"
+                    selected
+                    disabled
+                  >
                     Yarn
                   </option>
-                  <option value="Mohair">Mohair</option>
-                  <option value="Fine cotton">Fine cotton</option>
-                  <option value="Wool">Wool</option>
+                  <option
+                    className="font-sans font-family: sans-open text-xs"
+                    value="Mohair"
+                  >
+                    Mohair
+                  </option>
+                  <option
+                    className="font-sans font-family: sans-open text-xs"
+                    value="Fine cotton"
+                  >
+                    Fine cotton
+                  </option>
+                  <option
+                    className="font-sans font-family: sans-open text-xs"
+                    value="Wool"
+                  >
+                    Wool
+                  </option>
                 </select>
-                <p>{yarnError}</p>
+                <p className="flex items-center pl-2 h-4/4 w-full md:w-2/6 italic text-xs">
+                  {yarnError}
+                </p>
               </div>
             </div>
           )}
 
           <button
             id="create-pattern"
-            className="bg-[#ed9999] hover:bg-[#da9090] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="bg-[#ed9999] hover:bg-[#da9090] text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline font-sans font-family: sans-open"
             type="submit"
           >
             Upload pattern
