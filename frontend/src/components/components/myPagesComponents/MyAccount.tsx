@@ -28,13 +28,27 @@ export const MyAccount = () => {
     fetchInfo();
   }, [user]);
   return (
-    <div className="w-full h-full flex justify-center items-center bg-[#F6F0F0]">
+    <div className="w-full h-full flex bg-[#F6F0F0] pt-6 pb-40 px-8">
       <div>
-        <h3>Mitt konto</h3>
+        <h3 className="font-sans font-family: sans-open pb-4">My account</h3>
 
         {user.map((user: IUser) => (
           <div key={user._id}>
-            <h3>Welcome {user.email}</h3>
+            <p className="font-sans font-family: sans-open text-xs pb-4">
+              Welcome {user.username}!
+            </p>
+            <p className="font-sans font-family: sans-open text-xs pb-8">
+              Here at The Crochet Club we aim to have a strong community with
+              happy users. To make sure that we have the correct information
+              about you, please confirm email below.
+            </p>
+
+            <p className="font-sans font-family: sans-open text-xs pb-2">
+              Registered email: {user.email}
+            </p>
+            <button className="flex justify-center items-center hover:bg-[#da9090] cursor-pointer rounded-full p-1 w-40 text-xs text-gray-900 font-sans font-family: sans-open bg-[#e8a7a7]">
+              I confirm this is my email!
+            </button>
           </div>
         ))}
       </div>
