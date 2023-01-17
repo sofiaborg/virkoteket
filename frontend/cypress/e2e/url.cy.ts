@@ -36,7 +36,7 @@ describe("login", () => {
   beforeEach(() => {
     cy.login();
   });
-  it("logs in and set sessionStorage", () => {
+  it("logs in and sets sessionStorage", () => {
     cy.visit("http://localhost:3000/");
     cy.get("#username").type("StickJanne");
     cy.get("#password").type("password");
@@ -65,6 +65,19 @@ describe("render single post", () => {
   it("renders single post page", () => {
     cy.visit("http://localhost:3000/patterns");
     cy.get("#single-pattern").click();
+  });
+});
+
+//Should render info-page if button is clicked
+describe("Info-page", () => {
+  beforeEach(() => {
+    cy.login();
+  });
+  it("Button on start-page should render info-page when clicked", () => {
+    cy.visit("http://localhost:3000/patterns");
+
+    cy.get("#faq-button").click();
+    cy.visit("http://localhost:3000/faq");
   });
 });
 
