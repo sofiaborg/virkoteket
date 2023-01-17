@@ -21,45 +21,64 @@ Cypress.Commands.add("login", () => {
 });
 
 //Should render register-page if button is clicked
-describe("If user need to register", () => {
+describe("User need to register", () => {
   it("Button on start-page should render register-page when clicked", () => {
     cy.visit("http://localhost:3000/");
 
-    cy.get('*[class^="register-button"]').click();
+    cy.get("#register-button").click();
 
     cy.url().should("include", "/register");
   });
 });
 
-//Should render info-page if button is clicked
-describe("If user need to register", () => {
-  it("Button on start-page should render register-page when clicked", () => {
-    cy.visit("http://localhost:3000/mypages/myaccount");
-
-    cy.get('*[class^="faq-button"]').click();
-
-    cy.url().should("include", "/faq");
-  });
-});
-
-// My Account-page if login is success
-describe("Login success", () => {
+//should login and set sessionStorage
+describe("login", () => {
   beforeEach(() => {
     cy.login();
   });
+  it("logs in and set sessionStorage", () => {
+    cy.visit("http://localhost:3000/");
+    cy.get("#username").type("StickJanne");
+    cy.get("#password").type("password");
+    cy.get("#login-button").click();
 
-  it("should display logged in users name", () => {
-    cy.visit("http://localhost:3000/mypages/myaccount");
+    cy.visit("http://localhost:3000/patterns");
   });
 });
 
-//Should
+//Category-buttons should render posts in clicked category - test click is Kids
+describe("render posts", () => {
+  beforeEach(() => {
+    cy.login();
+  });
+  it("renders posts in clicked category", () => {
+    cy.visit("http://localhost:3000/patterns");
+    cy.get("#Kids").click();
+  });
+});
 
-//MAKE THIS WORK
-describe("Logout user", () => {
-  it("should logout logged in user", () => {
-    cy.visit("http://localhost:3000/mypages/myaccount");
-    cy.get('*[class^="logout-button"]').click();
-    cy.url().should("be", "http://localhost:3000/");
+//Click on a post should render single post
+describe("render single post", () => {
+  beforeEach(() => {
+    cy.login();
+  });
+  it("renders single post page", () => {
+    cy.visit("http://localhost:3000/patterns");
+    cy.get("#single-pattern").click();
+  });
+});
+
+//should give validation-error when posting
+describe("posting pattern", () => {
+  beforeEach(() => {
+    cy.login();
+  });
+  it("post a error-pattern and get validations", () => {
+    cy.visit("http://localhost:3000/mypages/createpattern");
+    cy.get("#title").type("Gosedjur");
+    cy.get("#description").type("This is cute");
+    cy.get("#category").type("Women");
+
+    cy.get("#create-pattern").click();
   });
 });

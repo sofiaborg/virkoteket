@@ -191,6 +191,7 @@ export const CreatePattern = () => {
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
             <input
+              id="title"
               className="p-1 w-full text-sm text-gray-900 bg-gray-50"
               type="text"
               onChange={(e) => setTitle(e.target.value)}
@@ -199,6 +200,7 @@ export const CreatePattern = () => {
           </div>
           <div>
             <textarea
+              id="description"
               className="block p-1 w-full text-sm text-gray-900 bg-gray-50"
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
@@ -212,7 +214,7 @@ export const CreatePattern = () => {
               Choose image. PNG, JPG or JPG (MAX. 0.5MB).
             </p>
             <input
-              className=" block p-1 w-full text-sm text-gray-900"
+              className="block p-1 w-full text-sm text-gray-900"
               aria-describedby="file_input_help"
               id="file_input"
               type="file"
@@ -233,12 +235,13 @@ export const CreatePattern = () => {
             >
               Choose file. PDF (MAX. 0.5MB).
             </p>
-            <input type="file" onChange={handleChange} accept="" />
+            <input id="image" type="file" onChange={handleChange} accept="" />
             <p>{patternError}</p>
           </div>
 
           <div>
             <select
+              id="category"
               className="p-1 w-full cursor-pointer text-sm text-gray-900 bg-gray-50 "
               onChange={(e) => setCategory(e.target.value)}
             >
@@ -258,6 +261,7 @@ export const CreatePattern = () => {
             {mainFiltersList.map((type) => (
               <div key={type.title}>
                 <select
+                  id="type"
                   className="p-1 w-full cursor-pointer text-sm text-gray-900 bg-gray-50 "
                   onChange={(e) => {
                     if (e.target.value === "Crochet") {
@@ -390,6 +394,7 @@ export const CreatePattern = () => {
           )}
 
           <button
+            id="create-pattern"
             className="bg-[#ed9999] hover:bg-[#da9090] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
           >

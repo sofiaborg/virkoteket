@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { Navigate, useNavigate } from "react-router";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useContext } from "react";
@@ -27,6 +28,8 @@ export const LoginPage = () => {
     resolver: zodResolver(validationSchema),
   });
 
+  const navigate = useNavigate();
+
   const onSubmit: SubmitHandler<ValidationSchema> = async () => {
     await fetch("http://localhost:8000/auth/login", {
       method: "POST",
@@ -48,7 +51,7 @@ export const LoginPage = () => {
       .then((data) => {
         if (data.token) {
           auth.login(data);
-          window.location.replace("http://localhost:3000/patterns");
+          navigate("/patterns");
         } else {
           setLoginFailed(true);
           console.log(data);
@@ -118,14 +121,15 @@ export const LoginPage = () => {
 
         <div className="flex items-center justify-between">
           <button
-            id="login"
+            id="login-button"
             className="bg-pink-400 hover:bg-pink-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
           >
             Log in
           </button>
           <a
-            className="register-button inline-block align-baseline font-bold text-sm text-black-500 hover:text-black-800"
+            id="register-button"
+            className="inline-block align-baseline font-bold text-sm text-black-500 hover:text-black-800"
             href="/register"
           >
             Register here

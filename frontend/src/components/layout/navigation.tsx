@@ -17,7 +17,10 @@ export const Navigation = () => {
           </div>
         </div>
 
-        <div className="faq-button flex justify-center items-center gap-4">
+        <div
+          className=" flex justify-center items-center gap-4"
+          id="faq-button"
+        >
           <Link to="/faq">
             <svg
               xmlns="http://www.w3.org/2000/svg"

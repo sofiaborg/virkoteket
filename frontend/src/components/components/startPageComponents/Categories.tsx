@@ -20,7 +20,8 @@ export const Categories = (props: categoryProps) => {
         <ul>
           {categoryList.map((category, i) => (
             <li
-              className={`category-button uppercase font-sans font-family: sans-open text-sm pb-3 cursor-pointer hover:font-bold ${
+              id={category.title}
+              className={`uppercase font-sans font-family: sans-open text-sm pb-3 cursor-pointer hover:font-bold ${
                 activeCategory === category.title ? "font-bold" : ""
               }`}
               key={i}

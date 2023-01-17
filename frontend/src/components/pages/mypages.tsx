@@ -32,7 +32,7 @@ export const Mypages = () => {
               </Link>
             </div>
             <div>
-              <button className="logout-button" onClick={auth.logout}>
+              <button id="logout-button" onClick={auth.logout}>
                 Logga ut
               </button>
             </div>
