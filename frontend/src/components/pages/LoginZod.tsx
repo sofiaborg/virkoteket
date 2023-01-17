@@ -8,9 +8,7 @@ import { AuthContext } from "../../contexts/auth-context";
 
 const validationSchema = z.object({
   username: z.string().min(1, { message: "Username is required" }),
-  password: z
-    .string()
-    .min(6, { message: "Your password is at least 6 characters" }),
+  password: z.string().min(6, { message: "You need to enter a password" }),
 });
 
 type ValidationSchema = z.infer<typeof validationSchema>;
@@ -61,81 +59,90 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="w-full h-full flex justify-center items-center">
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="form-element bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
-      >
-        <div className="text-center">LOGO</div>
-        <div className="mb-4">
-          <label
-            htmlFor="username"
-            className="block text-gray-700 text-sm font-bold mb-2"
-          >
-            Username
-          </label>
-          <input
-            className="username shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="username"
-            type="username"
-            {...register("username")}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>
-        {errors.username && (
-          <p className="text-xs italic text-red-500 mt-2">
-            {" "}
-            {errors.username?.message}
-          </p>
-        )}
+    <div className="w-full h-full sm:h-screen flex flex-col sm:flex-row justify-evenly items-center ">
+      <div className="w-3/6 pt-2 sm:w-2/6">
+        {" "}
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/virkoteket.appspot.com/o/files%2FDesktop%20-%201.png?alt=media&token=a2c477a4-d7d2-45a9-90d9-d5608ea24fc1"
+          alt="The crochet club"
+        />
+      </div>
 
-        <div className="form-element mb-6">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="password"
-          >
-            Password
-          </label>
-          <input
-            className="password shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-            id="password"
-            type="password"
-            {...register("password")}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          {errors.password && (
+      <div className="pb-12 sm:pt-12">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="form-element bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+        >
+          <div className="mb-4">
+            <label
+              htmlFor="username"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
+              Username
+            </label>
+            <input
+              className="username shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="username"
+              type="username"
+              {...register("username")}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
+          {errors.username && (
             <p className="text-xs italic text-red-500 mt-2">
               {" "}
-              {errors.password?.message}
+              {errors.username?.message}
             </p>
           )}
-        </div>
 
-        {loginFailed ? (
-          <p className="pb-4 text-xs italic text-red-500 mt-2">
-            No user with that username, please register first!
-          </p>
-        ) : (
-          <div></div>
-        )}
+          <div className="form-element mb-6">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="password"
+            >
+              Password
+            </label>
+            <input
+              className="password shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+              id="password"
+              type="password"
+              {...register("password")}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {errors.password && (
+              <p className="text-xs italic text-red-500 mt-2">
+                {" "}
+                {errors.password?.message}
+              </p>
+            )}
+          </div>
 
-        <div className="flex items-center justify-between">
-          <button
-            id="login-button"
-            className="bg-pink-400 hover:bg-pink-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="submit"
-          >
-            Log in
-          </button>
-          <a
-            id="register-button"
-            className="inline-block align-baseline font-bold text-sm text-black-500 hover:text-black-800"
-            href="/register"
-          >
-            Register here
-          </a>
-        </div>
-      </form>
+          {loginFailed ? (
+            <p className="pb-4 text-xs italic text-red-500 mt-2">
+              Wrong password
+            </p>
+          ) : (
+            <div></div>
+          )}
+
+          <div className="flex items-center justify-between">
+            <button
+              id="login-button"
+              className="bg-pink-400 hover:bg-pink-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              type="submit"
+            >
+              Log in
+            </button>
+            <a
+              id="register-button"
+              className="inline-block align-baseline font-bold text-sm text-black-500 hover:text-black-800"
+              href="/register"
+            >
+              Register here
+            </a>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

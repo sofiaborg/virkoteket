@@ -57,108 +57,117 @@ export const RegisterPage = () => {
   };
 
   return (
-    <div className="w-full h-full flex justify-center items-center">
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="form-element bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
-      >
-        <div className="text-center">LOGO</div>
-        <div className="form-element mb-4">
-          <label
-            htmlFor="email"
-            className="block text-gray-700 text-sm font-bold mb-2"
-          >
-            Email
-          </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="email"
-            type="email"
-            {...register("email")}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          {errors.email && (
-            <p className="text-xs italic text-red-500 mt-2">
-              {" "}
-              {errors.email?.message}
-            </p>
-          )}
-        </div>
+    <div className="w-full h-full sm:h-screen flex flex-col sm:flex-row justify-evenly items-center ">
+      <div className="w-3/6 pt-2 sm:w-2/6">
+        {" "}
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/virkoteket.appspot.com/o/files%2FDesktop%20-%201.png?alt=media&token=a2c477a4-d7d2-45a9-90d9-d5608ea24fc1"
+          alt="The crochet club"
+        />
+      </div>
 
-        <div className="form-element mb-4">
-          <label
-            htmlFor="username"
-            className="block text-gray-700 text-sm font-bold mb-2"
-          >
-            Username
-          </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="username"
-            type="text"
-            {...register("username")}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          {errors.username && (
-            <p className="text-xs italic text-red-500 mt-2">
-              {" "}
-              {errors.username?.message}
-            </p>
-          )}
+      <div className="pb-12 sm:pt-12">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="form-element bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+        >
+          <div className="form-element mb-4">
+            <label
+              htmlFor="email"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
+              Email
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="email"
+              type="email"
+              {...register("email")}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            {errors.email && (
+              <p className="text-xs italic text-red-500 mt-2">
+                {" "}
+                {errors.email?.message}
+              </p>
+            )}
+          </div>
 
-          {loginFailed ? <p>This username aldready exists</p> : <div></div>}
-        </div>
+          <div className="form-element mb-4">
+            <label
+              htmlFor="username"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
+              Username
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="username"
+              type="text"
+              {...register("username")}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            {errors.username && (
+              <p className="text-xs italic text-red-500 mt-2">
+                {" "}
+                {errors.username?.message}
+              </p>
+            )}
 
-        <div className="form-element mb-6">
-          <label
-            htmlFor="password"
-            className="block text-gray-700 text-sm font-bold mb-2"
-          >
-            Password
-          </label>
-          <input
-            className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-            id="password"
-            type="password"
-            {...register("password")}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          {errors.password && (
-            <p className="text-xs italic text-red-500 mt-2">
-              {" "}
-              {errors.password?.message}
-            </p>
-          )}
-        </div>
+            {loginFailed ? <p>This username aldready exists</p> : <div></div>}
+          </div>
 
-        <div className="form-element mb-6">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="confirmPassword"
-          >
-            Confirm password
-          </label>
-          <input
-            className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-            id="confirmPassword"
-            type="password"
-            {...register("confirmPassword")}
-          />
-          {errors.confirmPassword && (
-            <p className="text-xs italic text-red-500 mt-2">
-              {errors.confirmPassword?.message}
-            </p>
-          )}
-        </div>
-        <div className="flex items-center justify-center">
-          <button
-            className="bg-pink-400 hover:bg-pink-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="submit"
-          >
-            SUBMIT
-          </button>
-        </div>
-      </form>
+          <div className="form-element mb-6">
+            <label
+              htmlFor="password"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
+              Password
+            </label>
+            <input
+              className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+              id="password"
+              type="password"
+              {...register("password")}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {errors.password && (
+              <p className="text-xs italic text-red-500 mt-2">
+                {" "}
+                {errors.password?.message}
+              </p>
+            )}
+          </div>
+
+          <div className="form-element mb-6">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="confirmPassword"
+            >
+              Confirm password
+            </label>
+            <input
+              className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+              id="confirmPassword"
+              type="password"
+              {...register("confirmPassword")}
+            />
+            {errors.confirmPassword && (
+              <p className="text-xs italic text-red-500 mt-2">
+                {errors.confirmPassword?.message}
+              </p>
+            )}
+          </div>
+          <div className="flex items-center justify-center">
+            <button
+              className="bg-pink-400 hover:bg-pink-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              type="submit"
+            >
+              SUBMIT
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

@@ -2,7 +2,7 @@ import { Outlet } from "react-router";
 
 export const StartLayout = () => {
   return (
-    <div className="bg-hero bg-cover h-screen flex justify-center items-center">
+    <div className="bg-[#F6F0F0] bg-cover h-full flex justify-center items-center">
       <section>
         <main>
           <Outlet></Outlet>

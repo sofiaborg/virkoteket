@@ -10,17 +10,11 @@ export const AllPatterns = (props: postsProps) => {
   const [perPage] = useState(9); // Number of items per page
 
   useEffect(() => {
-    // const headers: Record<string, string> = {
-    //   Authorization: sessionStorage.getItem(user.token) as string,
-    // };
     async function fetchProducts() {
       const response = await fetch(
         `http://localhost:8000/posts/getposts/?category=${
           props.category
         }&filter=${encodeURIComponent(JSON.stringify(props.filters))}`
-        // {
-        //   headers,
-        // }
       );
       const data = await response.json();
       setPosts(data);
@@ -28,9 +22,9 @@ export const AllPatterns = (props: postsProps) => {
     fetchProducts();
   }, [props.category, props.filters]);
 
-  useEffect(() => {
-    console.log("inne i useeffect", posts);
-  }, [posts, props.category, props.filters]);
+  // useEffect(() => {
+  //   console.log("inne i useeffect", posts);
+  // }, [posts]);
 
   const handlePageClick = (data: any) => {
     setCurrentPage(data.selected);
