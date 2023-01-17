@@ -187,7 +187,10 @@ export const CreatePattern = () => {
 
   return (
     <div className="w-full h-full flex justify-start items-center bg-[#f2eded] pl-12">
-      <div className="w-5/6 py-20 ">
+      <div className="w-5/6 pb-20 pt-8">
+        <h1 className="font-sans font-family: sans-open pb-6">
+          Create pattern
+        </h1>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div className="flex h-full">
             <input

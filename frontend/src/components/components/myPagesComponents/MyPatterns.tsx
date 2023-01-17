@@ -48,13 +48,14 @@ export const MyPatterns = () => {
 
   if (posts.length > 0) {
     return (
-      <div className="container mx-auto">
+      <div className="container mx-auto bg-[#f2eded] px-8 py-6">
+        <h1 className="font-sans font-family: sans-open pb-4">My patterns </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-3">
           {posts.map((post: IPost) => (
             <div key={post._id}>
               <div className="relative overflow-hidden bg-no-repeat bg-cover">
                 <img
-                  className="h-full md:h-60 w-full object-cover"
+                  className="h-full md:h-56 w-full object-cover"
                   src={post.image}
                   alt={post.image}
                 />

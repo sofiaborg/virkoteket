@@ -29,7 +29,7 @@ export const Mypages = () => {
             <div>
               <Link to="/mypages/mypatterns">
                 <div className="uppercase text-sm  px-4 py-2 cursor-pointer font-sans font-family: sans-open  bg-[#F6F0F0] hover:bg-[#f3e8e8]">
-                  My pattern
+                  My patterns
                 </div>
               </Link>
             </div>
