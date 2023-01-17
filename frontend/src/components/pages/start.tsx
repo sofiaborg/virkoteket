@@ -112,8 +112,8 @@ export const Start = () => {
                   {" "}
                   <h1 className="text-xl">Latest patterns</h1>
                   <p className="italic">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Amet itaque vel cupiditate.
+                    Scroll through the latest patterns publiced by the users of
+                    KnitOnePurlOne. Happy knitting and crocheting!
                   </p>
                 </div>
               ) : (

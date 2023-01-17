@@ -72,7 +72,7 @@ export const LoginPage = () => {
             Username
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="username shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="username"
             type="username"
             {...register("username")}
@@ -94,7 +94,7 @@ export const LoginPage = () => {
             Password
           </label>
           <input
-            className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+            className="password shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
             id="password"
             type="password"
             {...register("password")}
@@ -118,13 +118,14 @@ export const LoginPage = () => {
 
         <div className="flex items-center justify-between">
           <button
+            id="login"
             className="bg-pink-400 hover:bg-pink-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
           >
             Log in
           </button>
           <a
-            className="inline-block align-baseline font-bold text-sm text-black-500 hover:text-black-800"
+            className="register-button inline-block align-baseline font-bold text-sm text-black-500 hover:text-black-800"
             href="/register"
           >
             Register here

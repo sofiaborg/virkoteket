@@ -17,7 +17,7 @@ export const Navigation = () => {
           </div>
         </div>
 
-        <div className="flex justify-center items-center gap-4">
+        <div className="faq-button flex justify-center items-center gap-4">
           <Link to="/faq">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +35,7 @@ export const Navigation = () => {
             </svg>
           </Link>
 
-          <Link to={"/mypages/createpattern"}>
+          <Link to={"/mypages/createpattern"} className="mypages-button">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
