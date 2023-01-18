@@ -73,8 +73,8 @@ export const RegisterPage = () => {
       <Link to="/" className="w-3/6 pt-2 sm:w-2/6">
         {" "}
         <img
-          src="https://firebasestorage.googleapis.com/v0/b/virkoteket.appspot.com/o/files%2FDesktop%20-%201.png?alt=media&token=a2c477a4-d7d2-45a9-90d9-d5608ea24fc1"
-          alt="The Crochet club"
+          src="https://firebasestorage.googleapis.com/v0/b/virkoteket.appspot.com/o/files%2Fgreenpink.png?alt=media&token=8465d5fd-0a57-4077-803e-d2cb51724471"
+          alt="The crochet club"
         />
       </Link>
 

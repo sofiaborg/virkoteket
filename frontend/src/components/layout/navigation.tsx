@@ -6,11 +6,11 @@ export const Navigation = () => {
     <div className=" flex justify-center w-full border-b-4 border-black-100 h-32">
       <div className="flex h-full w-10/12 justify-between">
         <div className=" flex justify-center items-center">
-          <div className="image-logo cursor-pointer">
+          <div className="image-logo cursor-pointer pb-4">
             <Link to="/patterns">
               <img
-                className="h-36 w-36"
-                src="https://firebasestorage.googleapis.com/v0/b/virkoteket.appspot.com/o/files%2FDesktop%20-%201.png?alt=media&token=a2c477a4-d7d2-45a9-90d9-d5608ea24fc1"
+                className="h-16"
+                src="https://firebasestorage.googleapis.com/v0/b/virkoteket.appspot.com/o/files%2FTCC.png?alt=media&token=d5ed5582-77df-445b-93b8-94ed1d68db75"
                 alt="The crochet club"
               />
             </Link>
