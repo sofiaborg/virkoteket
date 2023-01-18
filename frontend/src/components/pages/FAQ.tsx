@@ -21,7 +21,7 @@ export const FAQ = () => {
         className="md:hidden w-full flex justify-center bg-[#F6F0F0]"
       >
         <p className="font-sans font-family: sans-open text-sm px-3 py-3">
-          Search by filters
+          FAQ Menu
         </p>
         <p className="flex justify-center items-center pr-3 cursor-pointer">
           <svg
@@ -52,7 +52,10 @@ export const FAQ = () => {
                 {" "}
                 FAQ
               </h2>
-              <li className="pt-5 hover:font-bold">
+              <li
+                onClick={() => setToggleSidebar(!toggleSidebar)}
+                className="pt-5 hover:font-bold"
+              >
                 {" "}
                 <a
                   className="font-sans font-family: sans-open text-sm "
@@ -61,7 +64,10 @@ export const FAQ = () => {
                   Is KnitOnePurlOne free to use?
                 </a>{" "}
               </li>{" "}
-              <li className="pt-5 hover:font-bold">
+              <li
+                onClick={() => setToggleSidebar(!toggleSidebar)}
+                className="pt-5 hover:font-bold"
+              >
                 {" "}
                 <a
                   className="font-sans font-family: sans-open  text-sm"
@@ -70,7 +76,10 @@ export const FAQ = () => {
                   Copyright on patterns?
                 </a>{" "}
               </li>{" "}
-              <li className="pt-5 hover:font-bold">
+              <li
+                onClick={() => setToggleSidebar(!toggleSidebar)}
+                className="pt-5 hover:font-bold"
+              >
                 {" "}
                 <a
                   className="font-sans font-family: sans-open  text-sm"
@@ -79,7 +88,10 @@ export const FAQ = () => {
                   GDPR policy
                 </a>{" "}
               </li>{" "}
-              <li className="pt-5 hover:font-bold">
+              <li
+                onClick={() => setToggleSidebar(!toggleSidebar)}
+                className="pt-5 hover:font-bold"
+              >
                 {" "}
                 <a
                   className="font-sans font-family: sans-open  text-sm"
@@ -94,7 +106,10 @@ export const FAQ = () => {
                 {" "}
                 Community
               </h2>
-              <li className="pt-5 hover:font-bold">
+              <li
+                onClick={() => setToggleSidebar(!toggleSidebar)}
+                className="pt-5 hover:font-bold"
+              >
                 {" "}
                 <a
                   className="font-sans font-family: sans-open  text-sm"
@@ -103,7 +118,10 @@ export const FAQ = () => {
                   Community guidelines
                 </a>{" "}
               </li>{" "}
-              <li className="pt-5 hover:font-bold">
+              <li
+                onClick={() => setToggleSidebar(!toggleSidebar)}
+                className="pt-5 hover:font-bold"
+              >
                 {" "}
                 <a
                   className="font-sans font-family: sans-open  text-sm"
@@ -112,7 +130,10 @@ export const FAQ = () => {
                   KnitOnePurlOne history
                 </a>{" "}
               </li>{" "}
-              <li className="pt-5 hover:font-bold">
+              <li
+                onClick={() => setToggleSidebar(!toggleSidebar)}
+                className="pt-5 hover:font-bold"
+              >
                 {" "}
                 <a
                   className="font-sans font-family: sans-open text-sm"
@@ -121,7 +142,10 @@ export const FAQ = () => {
                   Make a donation
                 </a>{" "}
               </li>{" "}
-              <li className="pt-5 hover:font-bold">
+              <li
+                onClick={() => setToggleSidebar(!toggleSidebar)}
+                className="pt-5 hover:font-bold"
+              >
                 {" "}
                 <a
                   className="font-sans font-family: sans-open text-sm"

@@ -9,7 +9,7 @@ export const Navigation = () => {
           <div className="image-logo cursor-pointer pb-4">
             <Link to="/patterns">
               <img
-                className="h-16"
+                className="h-12"
                 src="https://firebasestorage.googleapis.com/v0/b/virkoteket.appspot.com/o/files%2FTCC.png?alt=media&token=d5ed5582-77df-445b-93b8-94ed1d68db75"
                 alt="The crochet club"
               />

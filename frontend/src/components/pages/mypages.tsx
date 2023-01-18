@@ -29,7 +29,7 @@ export const Mypages = () => {
           className="md:hidden flex w-full mb-1 justify-center bg-[#F6F0F0]"
         >
           <p className="font-sans font-family: sans-open text-sm px-3 py-3">
-            Search by filters
+            Menu
           </p>
           <p className="flex justify-center items-center pr-3 cursor-pointer">
             <svg
@@ -54,21 +54,24 @@ export const Mypages = () => {
               toggleSidebar ? "block " : "hidden"
             }`}
           >
-            <div className="pt-0">
+            <div
+              className="pt-0"
+              onClick={() => setToggleSidebar(!toggleSidebar)}
+            >
               <Link to="/mypages/createpattern">
                 <div className="uppercase font-normal text-sm px-4 py-2 cursor-pointer font-sans font-family: sans-open bg-[#ffffffef] md:bg-[#F6F0F0] hover:bg-[#f3e8e8]">
                   Create pattern
                 </div>
               </Link>
             </div>
-            <div>
+            <div onClick={() => setToggleSidebar(!toggleSidebar)}>
               <Link to="/mypages/mypatterns">
                 <div className="uppercase font-normal text-sm  px-4 py-2 cursor-pointer font-sans font-family: sans-open  bg-[#ffffffef] md:bg-[#F6F0F0] hover:bg-[#f3e8e8]">
                   My patterns
                 </div>
               </Link>
             </div>
-            <div>
+            <div onClick={() => setToggleSidebar(!toggleSidebar)}>
               <Link to="/mypages/myaccount">
                 <div className="uppercase font-normal text-sm px-4 py-2 cursor-pointer font-sans font-family: sans-open  bg-[#ffffffef] md:bg-[#F6F0F0] hover:bg-[#f3e8e8]">
                   My account
