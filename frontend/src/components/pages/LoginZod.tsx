@@ -127,7 +127,7 @@ export const LoginPage = () => {
             </a>
             <button
               id="login-button"
-              className="bg-pink-400 hover:bg-pink-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline font-sans font-family: sans-open text-sm"
+              className="bg-[#ffa3a3] hover:bg-[#ff9290] text-white text-sm w-32 py-2 px-4 rounded focus:outline-none focus:shadow-outline font-sans font-family: sans-open"
               type="submit"
             >
               Log in

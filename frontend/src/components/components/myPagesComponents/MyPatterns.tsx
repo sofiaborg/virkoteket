@@ -82,12 +82,13 @@ export const MyPatterns = () => {
     return (
       <div>
         <div>
-          <h3 className="text-xs text-gray-900 font-sans font-family: sans-open">
-            Mina mönster
-          </h3>
+          <h2 className="font-sans font-family: sans-open pb-4 px-12 py-8">
+            My patterns
+          </h2>
 
-          <h4 className="text-xs text-gray-900 font-sans font-family: sans-open">
-            Du har inga mönster
+          <h4 className="text-xs text-gray-900 font-sans font-family: sans-open px-12">
+            You don't have any patterns yet. Create one by clicking "Create
+            pattern" in the menu!
           </h4>
         </div>
 

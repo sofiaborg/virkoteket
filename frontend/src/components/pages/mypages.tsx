@@ -46,7 +46,7 @@ export const Mypages = () => {
               toggleSidebar ? "block " : "hidden"
             }`}
           >
-            <div className="pt-0 md:pt-6">
+            <div className="pt-0">
               <Link to="/mypages/createpattern">
                 <div className="uppercase font-normal text-sm px-4 py-2 cursor-pointer font-sans font-family: sans-open bg-[#ffffffef] md:bg-[#F6F0F0] hover:bg-[#f3e8e8]">
                   Create pattern

@@ -28,7 +28,7 @@ export const MyAccount = () => {
     fetchInfo();
   }, [user]);
   return (
-    <div className="w-full h-full flex bg-[#F6F0F0] pt-6 pb-40 px-8">
+    <div className="w-full h-full flex bg-[#F6F0F0] pb-40 px-12 py-8">
       <div>
         <h3 className="font-sans font-family: sans-open pb-4">My account</h3>
 
@@ -37,7 +37,7 @@ export const MyAccount = () => {
             <p className="font-sans font-family: sans-open text-xs pb-4">
               Welcome {user.username}!
             </p>
-            <p className="font-sans font-family: sans-open text-xs pb-8">
+            <p className="font-sans font-family: sans-open text-xs pb-12">
               Here at The Crochet Club we aim to have a strong community with
               happy users. To make sure that we have the correct information
               about you, please confirm email below.
