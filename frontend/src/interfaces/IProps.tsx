@@ -16,6 +16,7 @@ export interface filtersProps {
 export interface postsProps {
   category: string;
   filters: IFilterObject[];
+  posts: IPost[];
 }
 
 export interface IPost {

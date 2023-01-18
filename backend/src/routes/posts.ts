@@ -14,7 +14,6 @@ router.get("/getposts", async (req: Request, res: Response) => {
     if (req.query && req.query.category) {
       query = { category: req.query.category };
     }
-
     let categoryAndFilter = [query];
     if (req.query && req.query.filters) {
       let filtersArr = JSON.parse(req.query.filters as string);
@@ -22,9 +21,10 @@ router.get("/getposts", async (req: Request, res: Response) => {
       filtersArr.forEach((filter: { title: string; option: string }) => {
         let filterObject: { [key: string]: string } = {};
         filterObject[filter.title] = filter.option;
-        categoryAndFilter.push({ ...filterObject });
+        Object.assign(query, filterObject);
       });
     }
+
     console.log(categoryAndFilter);
     const posts = await Posts.find({ $and: categoryAndFilter });
 

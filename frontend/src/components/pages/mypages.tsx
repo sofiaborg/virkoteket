@@ -73,7 +73,7 @@ export const Mypages = () => {
                 id="logout-button"
                 onClick={auth.logout}
               >
-                Logga ut
+                Log out
               </div>
             </div>
           </div>

@@ -12,6 +12,7 @@ export const Start = () => {
   const [chosenCategory, setChosenCategory] = useState("");
   const [categoryDescription, setCategoryDescription] = useState("");
   const [chosenFilters, setChosenFilters] = useState<IFilterObject[]>([]);
+  const [posts, setPosts] = useState([]);
 
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
@@ -59,7 +60,7 @@ export const Start = () => {
         )}&filters=${encodeURIComponent(JSON.stringify(chosenFilters))}`
       )
         .then((response) => response.json())
-        .then((data) => console.log("posts fetched"))
+        .then((data) => setPosts(data))
         .catch((error) => console.error(error));
     } else {
       navigate("/");
@@ -164,6 +165,7 @@ export const Start = () => {
             <AllPatterns
               filters={chosenFilters}
               category={chosenCategory}
+              posts={posts}
             ></AllPatterns>
           </div>
         </div>
