@@ -17,6 +17,12 @@ export const Start = () => {
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (!auth.isLoggedIn) {
+      navigate("/");
+    }
+  }, [auth.isLoggedIn]);
+
   //callback-functions to send to child-components
   const handleCategory = (category: string, description: string) => {
     setChosenFilters([]);
@@ -53,18 +59,14 @@ export const Start = () => {
   };
 
   useEffect(() => {
-    if (auth.isLoggedIn) {
-      fetch(
-        `http://localhost:8000/posts/getposts?category=${encodeURIComponent(
-          chosenCategory
-        )}&filters=${encodeURIComponent(JSON.stringify(chosenFilters))}`
-      )
-        .then((response) => response.json())
-        .then((data) => setPosts(data))
-        .catch((error) => console.error(error));
-    } else {
-      navigate("/");
-    }
+    fetch(
+      `http://localhost:8000/posts/getposts?category=${encodeURIComponent(
+        chosenCategory
+      )}&filters=${encodeURIComponent(JSON.stringify(chosenFilters))}`
+    )
+      .then((response) => response.json())
+      .then((data) => setPosts(data))
+      .catch((error) => console.error(error));
   }, [chosenFilters, chosenCategory]);
 
   return (
