@@ -603,7 +603,7 @@ export const CreatePattern = () => {
                     Wool
                   </option>
                 </select>
-                <p className="flex items-center pl-2 h-4/4 w-3/6  italic text-xs text-red-500 justify-end ">
+                <p className="flex items-center pl-2 h-4/4 w-3/6  italic text-xs text-red-500 ">
                   {yarnError}
                 </p>
               </div>

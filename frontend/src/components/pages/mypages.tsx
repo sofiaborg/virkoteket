@@ -42,7 +42,7 @@ export const Mypages = () => {
         </div>
         <div className="flex w-full md:w-3/5 gap-1">
           <div
-            className={`transition-all w-full absolute bg-[#ffffffef] md:bg-transparent px-6 py-6 z-10 md:static md:z-0 md:block md:w-1/4 md:bg-[#F6F0F0] ${
+            className={`transition-all w-full absolute bg-[#ffffffef] md:bg-transparent px-1 md:px-4 py-6 z-10 md:static md:z-0 md:block md:w-1/4 md:bg-[#F6F0F0] ${
               toggleSidebar ? "block " : "hidden"
             }`}
           >
