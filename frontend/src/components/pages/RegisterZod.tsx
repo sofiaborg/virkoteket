@@ -1,8 +1,10 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router";
+import { AuthContext } from "../../contexts/auth-context";
 
 const validationSchema = z
   .object({
@@ -36,6 +38,15 @@ export const RegisterPage = () => {
   } = useForm<ValidationSchema>({
     resolver: zodResolver(validationSchema),
   });
+
+  const navigate = useNavigate();
+  const auth = useContext(AuthContext);
+
+  useEffect(() => {
+    if (auth.isLoggedIn) {
+      navigate("/patterns");
+    }
+  }, [auth.isLoggedIn]);
 
   const onSubmit: SubmitHandler<ValidationSchema> = async () => {
     await fetch("http://localhost:8000/auth/register", {

@@ -1,7 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { AuthContext } from "../../contexts/auth-context";
+import { useNavigate } from "react-router";
 
 export const FAQ = () => {
   const [toggleSidebar, setToggleSidebar] = useState(false);
+
+  const navigate = useNavigate();
+  const auth = useContext(AuthContext);
+
+  useEffect(() => {
+    if (!auth.isLoggedIn) {
+      navigate("/");
+    }
+  }, [auth.isLoggedIn]);
 
   return (
     <div className=" w-full flex flex-col md:flex justify-center items-center">

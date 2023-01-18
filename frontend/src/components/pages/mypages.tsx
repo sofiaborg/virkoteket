@@ -4,14 +4,22 @@ import { CreatePattern } from "../components/myPagesComponents/CreatePattern";
 import { MyPatterns } from "../components/myPagesComponents/MyPatterns";
 import { MyAccount } from "../components/myPagesComponents/MyAccount";
 import { useLocation } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../contexts/auth-context";
+import { useNavigate } from "react-router";
 
 export const Mypages = () => {
   const [toggleSidebar, setToggleSidebar] = useState(false);
 
   const auth = useContext(AuthContext);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!auth.isLoggedIn) {
+      navigate("/");
+    }
+  }, [auth.isLoggedIn]);
 
   return (
     <>

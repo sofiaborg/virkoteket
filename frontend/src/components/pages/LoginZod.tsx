@@ -3,7 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { Navigate, useNavigate } from "react-router";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../../contexts/auth-context";
 
 const validationSchema = z.object({
@@ -27,6 +27,12 @@ export const LoginPage = () => {
   });
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (auth.isLoggedIn) {
+      navigate("/patterns");
+    }
+  }, [auth.isLoggedIn]);
 
   const onSubmit: SubmitHandler<ValidationSchema> = async () => {
     await fetch("http://localhost:8000/auth/login", {

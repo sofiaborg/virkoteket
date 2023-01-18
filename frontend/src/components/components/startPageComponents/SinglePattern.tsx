@@ -35,6 +35,12 @@ export const SinglePattern = () => {
   const [commentError, setCommentError] = useState<string>("");
   const [ratingError, setRatingError] = useState<string>("");
 
+  useEffect(() => {
+    if (!auth.isLoggedIn) {
+      navigate("/");
+    }
+  }, [auth.isLoggedIn]);
+
   function validateForm() {
     let error = false;
 
