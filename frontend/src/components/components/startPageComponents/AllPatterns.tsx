@@ -7,37 +7,22 @@ import ReactPaginate from "react-paginate";
 export const AllPatterns = (props: postsProps) => {
   const [posts, setPosts] = useState<IPost[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const [perPage] = useState(6); // Number of items per page
-  const [postsWithAvg, setPostsWithAvg] = useState<IPost[]>([]);
+  const [perPage] = useState(9); // Number of items per page
 
   useEffect(() => {
     setPosts(props.posts);
   }, [props.posts]);
 
-  //set state-posts with average ratings
-  useEffect(() => {
-    setPostsWithAvg(
-      posts.map((post: IPost) => {
-        const ratings = post.reviews?.map((review) => review.rating) ?? [];
-        const averageRating =
-          ratings.reduce((total, rating) => total + rating, 0) / ratings.length;
-        return {
-          ...post,
-          averageRating,
-        };
-      })
-    );
-  }, [posts]);
-
-  // Use slice method to get the items for the current page
-  const currentItems = postsWithAvg.slice(
-    currentPage * perPage,
-    (currentPage + 1) * perPage
-  );
-
   const handlePageClick = (data: any) => {
     setCurrentPage(data.selected);
   };
+
+  // Use slice method to get the items for the current page
+
+  const currentItems = posts.slice(
+    currentPage * perPage,
+    (currentPage + 1) * perPage
+  );
 
   return (
     <>
@@ -45,7 +30,7 @@ export const AllPatterns = (props: postsProps) => {
         {currentItems.length > 0 ? (
           <div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {postsWithAvg.map((post: IPost) => (
+              {currentItems.map((post: IPost) => (
                 <div className="bg-white " key={post._id}>
                   <Link
                     id="single-pattern"
@@ -64,26 +49,6 @@ export const AllPatterns = (props: postsProps) => {
                   <h3 className="font-sans font-family: sans-open text-xs pt-1">
                     {post.title}
                   </h3>
-                  <div>
-                    <div>
-                      {" "}
-                      {[...Array(5)].map((star, index) => {
-                        index += 1;
-                        return (
-                          <span
-                            key={index}
-                            className={`text-xs md:text-xl ${
-                              index <= post.averageRating
-                                ? "text-[#e9bcbc]"
-                                : "text-gray-200"
-                            }`}
-                          >
-                            &#10084;
-                          </span>
-                        );
-                      })}
-                    </div>
-                  </div>
                 </div>
               ))}
             </div>
@@ -95,7 +60,7 @@ export const AllPatterns = (props: postsProps) => {
                 nextClassName={"hover:font-bold"}
                 breakLabel={"..."}
                 breakClassName={"break-me"}
-                pageCount={Math.ceil(postsWithAvg.length / perPage)}
+                pageCount={Math.ceil(posts.length / perPage)}
                 marginPagesDisplayed={2}
                 pageRangeDisplayed={5}
                 onPageChange={handlePageClick}
