@@ -8,6 +8,7 @@ import { RegisterPage } from "./components/pages/RegisterZod";
 import { LoginPage } from "./components/pages/LoginZod";
 import { SinglePattern } from "./components/components/startPageComponents/SinglePattern";
 import { FAQ } from "./components/pages/FAQ";
+import { NotFound } from "./components/pages/NotFound";
 import "./App.css";
 import "./index.css";
 
@@ -32,6 +33,7 @@ export const App = () => {
             <Route path="/patterns" element={<Start />}></Route>
             <Route path="/patterns/:id" element={<SinglePattern />}></Route>
           </Route>
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -29,7 +29,6 @@ router.get("/getposts", async (req: Request, res: Response) => {
     const posts = await Posts.find({ $and: categoryAndFilter });
 
     res.status(200).send(posts);
-    console.log(posts.length);
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "Error getting the posts" });
@@ -42,10 +41,13 @@ router.get("/:id/getsinglepost", async (req: Request, res: Response) => {
     const id: String = ObjectId(req.params.id);
     const post = await Posts.findOne({ _id: id });
 
-    res.status(200).send(post);
+    if (!post) {
+      res.status(404).send({ error: "Not found" });
+    } else {
+      res.status(200).send(post);
+    }
   } catch (error) {
-    console.log(error);
-    res.status(500).send("An error occurred while trying to get the post.");
+    res.status(500).send({ error: "Internal server error" });
   }
 });
 
@@ -59,8 +61,7 @@ router.get("/:id/getuserposts", async (req: Request, res: Response) => {
         res.send(user);
       });
   } catch (error) {
-    console.log(error);
-    res.status(500).send("An error occurred while trying to get the posts.");
+    res.status(500).send(error);
   }
 });
 

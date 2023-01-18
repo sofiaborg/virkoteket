@@ -65,10 +65,14 @@ export const SinglePattern = () => {
       const response = await fetch(
         `http://localhost:8000/posts/${id}/getsinglepost`
       );
-      const data = await response.json();
-      setPost(data);
-    }
 
+      if (response.status === 200) {
+        const data = await response.json();
+        setPost(data);
+      } else {
+        navigate("/*");
+      }
+    }
     fetchProduct();
   }, [addReview]);
 
