@@ -177,11 +177,11 @@ export const CreatePattern = () => {
         if (response.status === 200) {
           navigate("/mypages/mypatterns");
         } else if (response.status === 500) {
-          console.log("fail");
+          setValidationFail(true);
         }
       });
     } else {
-      console.log("gick ej hallå");
+      setValidationFail(true);
     }
   };
 

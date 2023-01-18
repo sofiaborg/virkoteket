@@ -25,13 +25,11 @@ router.get("/getposts", async (req: Request, res: Response) => {
       });
     }
 
-    console.log(categoryAndFilter);
     const posts = await Posts.find({ $and: categoryAndFilter });
 
     res.status(200).send(posts);
   } catch (error) {
-    console.error(error);
-    res.status(500).send({ message: "Error getting the posts" });
+    res.status(500).send(error);
   }
 });
 

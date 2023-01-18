@@ -25,7 +25,6 @@ export const MyPatterns = () => {
   }, [posts]);
 
   const deletePost = async (id: number) => {
-    console.log(id);
     const response = await fetch(
       `http://localhost:8000/user/${id}/deletepost`,
       {
@@ -42,7 +41,6 @@ export const MyPatterns = () => {
       const data = await response.json();
       setPosts(data);
     } else {
-      console.log("error");
     }
   };
 

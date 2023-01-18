@@ -25,8 +25,7 @@ router.get("/myinfo", async (req, res) => {
     const myInfo = await Users.find({ _id: userID });
     res.send(myInfo);
   } catch (error) {
-    console.error(error);
-    res.status(500).send({ message: "Error finding user's information" });
+    res.status(500).send(error);
   }
 });
 
@@ -63,8 +62,7 @@ router.post("/createpost", async (req, res) => {
     await newPost.save();
     res.status(200).send(newPost);
   } catch (error) {
-    console.error(error);
-    res.status(500).send({ message: "Error creating the post" });
+    res.status(500).send(error);
   }
 });
 

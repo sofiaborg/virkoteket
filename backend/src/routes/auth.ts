@@ -26,8 +26,7 @@ router.post("/register", async (req: Request, res: Response) => {
       }
     );
   } catch (error) {
-    console.log(error);
-    res.status(500).send("Registration failed.");
+    res.status(500).send(error);
   }
 });
 
@@ -44,7 +43,6 @@ router.post("/login", async (req: Request, res: Response) => {
         res.status(401).send({ error: "Invalid Password" });
       } else {
         console.log("logged in");
-        console.log(user);
         //logged in
         const userData = { userId: user._id };
         const accessToken = jwt.sign(userData, process.env.JWTSECRET);
