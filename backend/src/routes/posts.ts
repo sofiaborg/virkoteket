@@ -1,5 +1,4 @@
 import { Reviews } from "./../models/ReviewModel";
-import { forceAuth } from "../middlewares/forceAuth";
 import { Posts } from "../models/PostModel";
 import { Users } from "../models/UserModel";
 const { ObjectId } = require("mongodb");

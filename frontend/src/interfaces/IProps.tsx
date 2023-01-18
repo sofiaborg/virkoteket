@@ -32,7 +32,8 @@ export interface IPost {
   needle: number;
   category: string;
   user: string;
-  reviews: [];
+  reviews: IReview[];
+  averageRating: number;
 }
 
 export const ReviewNumbers: string[] = ["1", "2", "3", "4", "5"];

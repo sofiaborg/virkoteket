@@ -24,6 +24,7 @@ export const SinglePattern = () => {
     category: "",
     user: "",
     reviews: [],
+    averageRating: 0,
   });
   const [rating, setRating] = useState<number>(0);
   const [ratingHover, setRatingHover] = useState(0);
