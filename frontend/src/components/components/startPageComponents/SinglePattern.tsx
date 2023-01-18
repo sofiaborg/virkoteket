@@ -140,76 +140,107 @@ export const SinglePattern = () => {
   return (
     <>
       <div className="flex justify-center ">
-        <div className=" w-3/4 py-20 flex gap-6 ">
-          <div className=" w-3/12 bg-[#F6F0F0] h-4/5 pb-7 px-5 overflow-y-scroll ">
+        <div className=" w-4/5 md:w-3/4 py-20 flex flex-col flex-col-reverse gap-1 sm:flex-row sm:flex-row">
+          <div className="w-full sm:w-3/5 bg-[#F6F0F0] h-4/5 pb-2 px-5 overflow-y-scroll ">
             {post.reviews.length > 0 ? (
               <div>
                 {post.reviews
                   .slice()
                   .reverse()
                   .map((review: IReview) => (
-                    <div className="pt-7" key={review._id}>
-                      <div className="w-full">
-                        {" "}
-                        <img
-                          className="h-50 w-full object-cover"
-                          src={review.image}
-                          alt="Review"
-                        />{" "}
+                    <div className="flex sm:flex-col pt-7" key={review._id}>
+                      <div className="flex">
+                        <div className="w-full">
+                          {" "}
+                          <img
+                            className="h-50 w-full object-cover pr-2"
+                            src={review.image}
+                            alt="Review"
+                          />{" "}
+                        </div>
                       </div>
-                      <h3 className="text-xs italic pt-3">{review.comment}</h3>
-                      <div className="pt-3">
-                        {[...Array(5)].map((star, index) => {
-                          index += 1;
-                          return (
-                            <span
-                              key={index}
-                              className={`text-xl ${
-                                index <= review.rating
-                                  ? "text-[#e9bcbc]"
-                                  : "text-gray-200"
-                              }`}
-                            >
-                              &#10084;
-                            </span>
-                          );
-                        })}
+
+                      <div className="flex-col">
+                        <h3 className="text-xs italic pt-3">
+                          {review.comment}
+                        </h3>
+
+                        <div className="pt-3">
+                          {[...Array(5)].map((star, index) => {
+                            index += 1;
+                            return (
+                              <span
+                                key={index}
+                                className={`text-xs md:text-xl ${
+                                  index <= review.rating
+                                    ? "text-[#e9bcbc]"
+                                    : "text-gray-200"
+                                }`}
+                              >
+                                &#10084;
+                              </span>
+                            );
+                          })}
+                        </div>
+                        <p className="text-xs pb-2">{review.user} </p>
                       </div>
-                      <h5 className="text-xs">{review.user} </h5>
                     </div>
                   ))}
               </div>
             ) : (
               <ul>
-                <li>No reviews yet.</li>
+                <li className="py-6 italic">
+                  This pattern has no reviews yet.
+                </li>
               </ul>
             )}
           </div>
 
-          <div className=" w-9/12 ">
+          <div className="flex flex-col px-8">
             <div>
-              <h1 className="text-xl ">{post.title}</h1>
-              <p className="text-xs">Pattern by FIXA</p>
-              <p className="pt-7 text-sm">{post.description}</p>
+              <div className="title-description">
+                <h1 className="text-xl font-sans font-family: sans-open">
+                  {post.title}
+                </h1>
+                <p className="pt-7 text-sm font-sans font-family: sans-open">
+                  {post.description}
+                </p>
+              </div>
 
-              <div className="flex flex-col md:flex-row justify-between w-full">
-                <ul className="pt-7 text-sm w-3/6">
-                  <li>Type of project: {post.type}</li>
-                  <li>Level: {post.difficulty}</li>
-                  <li>Category: {post.category}</li>
-                  <li>Yarn used in pattern: {post.yarn}</li>
-                  <li>
-                    Needle/hook size: {post.needle} {post.hook}
-                  </li>
-                </ul>
+              <div className="flex flex-col md:flex-row w-full gap-6">
+                <div className="image flex pt-7 gap-4 justify-center">
+                  <img
+                    className="h-full w-48 object-cover"
+                    src={post.image}
+                    alt={post.title}
+                  />
+                </div>
 
-                <div className="pt-7 flex justify-center items-center w-3/6">
-                  <div className="bg-red-500 rounded-full h-24 w-24 flex justify-center items-center">
+                <div className="flex flex-col">
+                  <div className="information">
+                    <ul className="pt-7 text-sm">
+                      <li className="font-sans font-family: sans-open text-xs pb-2">
+                        Type of project: {post.type}
+                      </li>
+                      <li className="font-sans font-family: sans-open text-xs pb-2">
+                        Level: {post.difficulty}
+                      </li>
+                      <li className="font-sans font-family: sans-open text-xs pb-2">
+                        Category: {post.category}
+                      </li>
+                      <li className="font-sans font-family: sans-open text-xs pb-2">
+                        Yarn used in pattern: {post.yarn}
+                      </li>
+                      <li className="font-sans font-family: sans-open text-xs pb-10">
+                        Needle/hook size: {post.needle} {post.hook}
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div className="button flex justify-center items-center">
                     <a
                       href={post.pattern}
-                      target="_blank"
-                      rel="noreferrer"
-                      attributes-list
+                      className="bg-[#ffa3a3] hover:bg-[#ff9290] flex justify-evenly text-white text-sm w-44 py-2 px-2 rounded focus:outline-none focus:shadow-outline font-sans font-family: sans-open"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -217,7 +248,7 @@ export const SinglePattern = () => {
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
                         stroke="currentColor"
-                        className="w-6 h-6"
+                        className="w-4 h-4"
                       >
                         <path
                           strokeLinecap="round"
@@ -225,24 +256,17 @@ export const SinglePattern = () => {
                           d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
                         />
                       </svg>
+                      Free Download
                     </a>
                   </div>
                 </div>
               </div>
-
-              <div className="flex pt-7 gap-4 justify-center">
-                <img
-                  className="h-full w-48 object-cover"
-                  src={post.image}
-                  alt={post.title}
-                />
-              </div>
             </div>
 
-            <div className="pt-7 flex flex-col items-center justify-center">
-              <h1>
+            <div className="pt-7 flex flex-col items-center justify-center pt-20">
+              <p className="font-sans font-family: sans-open text-sm pb-8">
                 Have you used this pattern? Please tell us what you think!
-              </h1>
+              </p>
               <form
                 className="w-full flex flex-col justify-center items-center "
                 onSubmit={handleSubmit}
@@ -256,14 +280,21 @@ export const SinglePattern = () => {
                 ></textarea>
                 <p>{commentError}</p>
 
-                <input
-                  className=" block p-1 w-full text-sm text-gray-900"
-                  aria-describedby="file_input_help"
-                  id="file_input"
-                  type="file"
-                  placeholder="IMAGE"
-                  onChange={(e) => convertImgFile(e.target.files)}
-                />
+                <div className="flex justify-center pt-6">
+                  <label
+                    htmlFor="imgFile"
+                    className="flex justify-center text-white items-center cursor-pointer hover:bg-[#ff9290] rounded-full p-1 w-20 text-xs text-gray-900 font-sans font-family: sans-open bg-[#ffa3a3]"
+                  >
+                    Add image
+                  </label>
+                  <input
+                    className="hidden"
+                    aria-describedby="file_input_help"
+                    id="imgFile"
+                    type="file"
+                    onChange={(e) => convertImgFile(e.target.files)}
+                  />
+                </div>
 
                 <div className="star-rating pt-5">
                   {[...Array(5)].map((star, index) => {
@@ -275,7 +306,7 @@ export const SinglePattern = () => {
                         key={index}
                         className={`${
                           index <= (ratingHover || rating)
-                            ? "text-[]"
+                            ? "text-[#e9bcbc]"
                             : "text-gray-200"
                         } bg-transparent text-xl`}
                         onClick={() => setRating(index)}
@@ -289,16 +320,15 @@ export const SinglePattern = () => {
                   <p>{ratingError}</p>
                 </div>
 
-                <div className="pt-5">
-                  <button className="bg-[#ed9999] hover:bg-[#da9090] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                    Send
+                <div className="pt-5 pb-10">
+                  <button className="bg-[#ffa3a3] hover:bg-[#ff9290] text-white text-sm w-40 py-2 px-4 rounded focus:outline-none focus:shadow-outline font-sans font-family: sans-open">
+                    Send review
                   </button>
                 </div>
               </form>
             </div>
           </div>
         </div>
-        <a href="/patterns">Back</a>
       </div>
     </>
   );

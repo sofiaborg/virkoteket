@@ -5,7 +5,7 @@ import { hashPassword, comparePassword } from "../utils/utils";
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-//registrera användare
+//register user
 router.post("/register", async (req: Request, res: Response) => {
   try {
     const { email, username, password } = req.body;
@@ -31,7 +31,7 @@ router.post("/register", async (req: Request, res: Response) => {
   }
 });
 
-// logga in
+// log in
 router.post("/login", async (req: Request, res: Response) => {
   try {
     const { username, password } = req.body;

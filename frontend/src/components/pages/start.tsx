@@ -111,10 +111,10 @@ export const Start = () => {
               {chosenCategory === "" ? (
                 <div>
                   {" "}
-                  <h1 className="text-xl">Latest patterns</h1>
+                  <h1 className="text-xl">The Crochet Club patterns</h1>
                   <p className="italic">
                     Scroll through the latest patterns publiced by the users of
-                    KnitOnePurlOne. Happy knitting and crocheting!
+                    The Crochet Club. Happy knitting and crocheting!
                   </p>
                 </div>
               ) : (
