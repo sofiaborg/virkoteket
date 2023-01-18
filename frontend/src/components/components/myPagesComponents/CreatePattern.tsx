@@ -186,7 +186,7 @@ export const CreatePattern = () => {
   };
 
   return (
-    <div className="w-full h-full flex justify-start items-center bg-[#f2eded] pl-12">
+    <div className="w-full h-full flex justify-center items-center bg-[#f2eded]">
       <div className="w-5/6 pb-20 pt-8">
         <h1 className="font-sans font-family: sans-open pb-6">
           Create pattern
@@ -196,12 +196,12 @@ export const CreatePattern = () => {
             <input
               id="title"
               placeholder="Pattern title..."
-              className="p-1 w-4/6 text-xs text-gray-900 bg-gray-50 font-sans font-family: sans-open"
+              className="p-1 w-3/6 text-xs text-gray-900 bg-gray-50 font-sans font-family: sans-open"
               type="text"
               onChange={(e) => setTitle(e.target.value)}
             />
 
-            <p className="flex items-center pl-2 h-4/4 w-full md:w-2/6 italic text-xs">
+            <p className="flex items-center justify-end pl-2 h-4/4 w-3/6 italic text-xs text-red-500">
               {titleError}
             </p>
           </div>
@@ -209,18 +209,18 @@ export const CreatePattern = () => {
             <textarea
               id="description"
               placeholder="Short description of the pattern..."
-              className="block p-1 w-4/6 text-xs text-gray-900 bg-gray-50 font-sans font-family: sans-open"
+              className="block p-1 w-3/6  text-xs text-gray-900 bg-gray-50 font-sans font-family: sans-open"
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
-            <p className="flex items-center pl-2 h-4/4 w-full md:w-2/6 italic text-xs">
+            <p className="flex items-center pl-2 h-4/4 w-3/6  italic text-xs text-red-500 justify-end ">
               {descriptionError}
             </p>
           </div>
           <div className="flex h-full">
-            <div className="w-4/6">
+            <div className="w-3/6">
               <label
                 htmlFor="imgFile"
-                className="flex justify-center items-center cursor-pointer hover:bg-[#da9090] rounded-full p-1 w-20 text-xs text-gray-900 font-sans font-family: sans-open bg-[#e8a7a7]"
+                className="flex justify-center text-white items-center cursor-pointer hover:bg-[#ff9290] rounded-full p-1 w-20 text-xs text-gray-900 font-sans font-family: sans-open bg-[#ffa3a3]"
               >
                 Add image
               </label>
@@ -233,7 +233,7 @@ export const CreatePattern = () => {
               />
             </div>
 
-            <p className="flex items-center pl-2 h-4/4 w-full md:w-2/6 italic text-xs">
+            <p className="flex items-center pl-2 h-4/4 w-3/6 italic text-xs text-red-500 justify-end ">
               {imageError}
             </p>
           </div>
@@ -242,10 +242,10 @@ export const CreatePattern = () => {
           )}
 
           <div className="flex h-full">
-            <div className="w-4/6">
+            <div className="w-3/6">
               <label
                 htmlFor="patternFile"
-                className="flex justify-center items-center hover:bg-[#da9090] cursor-pointer rounded-full p-1 w-20 text-xs text-gray-900 font-sans font-family: sans-open bg-[#e8a7a7]"
+                className="flex justify-center items-center text-white hover:bg-[#ff9290] cursor-pointer rounded-full p-1 w-20 text-xs text-gray-900 font-sans font-family: sans-open bg-[#ffa3a3]"
               >
                 Add pattern
               </label>
@@ -258,7 +258,7 @@ export const CreatePattern = () => {
               />
             </div>
 
-            <p className="flex items-center pl-2 h-4/4 w-full md:w-2/6 italic text-xs">
+            <p className="flex items-center pl-2 h-4/4 w-3/6 italic text-xs text-red-500 justify-end ">
               {patternError}
             </p>
           </div>
@@ -267,7 +267,7 @@ export const CreatePattern = () => {
           <div className="flex h-full">
             <select
               id="category"
-              className="p-1 w-4/6 cursor-pointer text-xs text-gray-900 bg-gray-50 font-sans font-family: sans-open "
+              className="p-1 w-3/6 cursor-pointer text-xs text-gray-900 bg-gray-50 font-sans font-family: sans-open "
               onChange={(e) => setCategory(e.target.value)}
             >
               <option
@@ -287,17 +287,17 @@ export const CreatePattern = () => {
                 </option>
               ))}
             </select>
-            <p className="flex items-center pl-2 h-4/4 w-full md:w-2/6 italic text-xs">
+            <p className="flex items-center pl-2 h-4/4 w-3/6 italic text-xs text-red-500 justify-end ">
               {categoryError}
             </p>
           </div>
 
           <div className="flex h-full">
             {mainFiltersList.map((type) => (
-              <div className="w-4/6" key={type.title}>
+              <div className="w-3/6" key={type.title}>
                 <select
                   id="type"
-                  className="p-1 w-full cursor-pointer text-xs text-gray-900 bg-gray-50 font-sans font-family: sans-open"
+                  className="p-1 w-3/6  cursor-pointer text-xs text-gray-900 bg-gray-50 font-sans font-family: sans-open"
                   onChange={(e) => {
                     if (e.target.value === "Crochet") {
                       setTypeCrochet(true);
@@ -329,7 +329,7 @@ export const CreatePattern = () => {
                 </select>
               </div>
             ))}
-            <p className="flex items-center pl-2 h-4/4 w-full md:w-2/6 italic text-xs">
+            <p className="flex items-center pl-2 h-4/4 w-3/6  italic text-xs text-red-500 justify-end ">
               {typeError}
             </p>
           </div>
@@ -338,7 +338,7 @@ export const CreatePattern = () => {
             <div className="flex flex-col gap-1">
               <div className="flex h-full">
                 <select
-                  className="p-1 cursor-pointer w-4/6 text-gray-900 bg-gray-50 font-sans font-family: sans-open text-xs"
+                  className="p-1 cursor-pointer w-3/6  text-gray-900 bg-gray-50 font-sans font-family: sans-open text-xs"
                   onChange={(e) => setDifficulty(e.target.value)}
                 >
                   <option
@@ -367,14 +367,14 @@ export const CreatePattern = () => {
                     Experienced
                   </option>
                 </select>
-                <p className="flex items-center pl-2 h-4/4 w-full md:w-2/6 italic text-xs">
+                <p className="flex items-center pl-2 h-4/4 w-3/6  italic text-xs text-red-500 justify-end ">
                   {difficultyError}
                 </p>
               </div>
 
               <div className="flex h-full">
                 <select
-                  className="p-1 w-4/6 cursor-pointer  text-xs text-gray-900 bg-gray-50  font-sans font-family: sans-open"
+                  className="p-1 w-3/6  cursor-pointer  text-xs text-gray-900 bg-gray-50  font-sans font-family: sans-open"
                   onChange={(e) => setHook(e.target.value)}
                 >
                   <option
@@ -427,13 +427,13 @@ export const CreatePattern = () => {
                     12-20 mm
                   </option>
                 </select>
-                <p className="flex items-center pl-2 h-4/4 w-full md:w-2/6 italic text-xs">
+                <p className="flex items-center pl-2 h-4/4 w-3/6  italic text-xs text-red-500 justify-end ">
                   {hookError}
                 </p>
               </div>
               <div className="flex h-full">
                 <select
-                  className="p-1 w-4/6 cursor-pointer text-xs text-gray-900 bg-gray-50  font-sans font-family: sans-open"
+                  className="p-1 w-3/6  cursor-pointer text-xs text-gray-900 bg-gray-50  font-sans font-family: sans-open"
                   onChange={(e) => setYarn(e.target.value)}
                 >
                   <option
@@ -462,7 +462,7 @@ export const CreatePattern = () => {
                     Wool
                   </option>
                 </select>
-                <p className="flex items-center pl-2 h-4/4 w-full md:w-2/6 italic text-xs">
+                <p className="flex items-center pl-2 h-4/4 w-3/6  italic text-xs text-red-500 justify-end ">
                   {yarnError}
                 </p>
               </div>
@@ -472,7 +472,7 @@ export const CreatePattern = () => {
             <div className="flex flex-col gap-1">
               <div className="flex h-full">
                 <select
-                  className="p-1 w-4/6 cursor-pointer text-xs text-gray-900 bg-gray-50 font-sans font-family: sans-open"
+                  className="p-1 w-3/6 cursor-pointer text-xs text-gray-900 bg-gray-50 font-sans font-family: sans-open"
                   onChange={(e) => setDifficulty(e.target.value)}
                 >
                   <option
@@ -501,13 +501,13 @@ export const CreatePattern = () => {
                     Experienced
                   </option>
                 </select>
-                <p className="flex items-center pl-2 h-4/4 w-full md:w-2/6 italic text-xs">
+                <p className="flex items-center pl-2 h-4/4 w-3/6 italic text-xs text-red-500 justify-end ">
                   {difficultyError}
                 </p>
               </div>
               <div className="flex h-full">
                 <select
-                  className="p-1 w-4/6 cursor-pointer text-xs text-gray-900 bg-gray-50 font-sans font-family: sans-open "
+                  className="p-1 w-3/6 cursor-pointer text-xs text-gray-900 bg-gray-50 font-sans font-family: sans-open "
                   onChange={(e) => setNeedle(e.target.value)}
                 >
                   <option
@@ -567,14 +567,14 @@ export const CreatePattern = () => {
                   </option>
                 </select>
 
-                <p className="flex items-center pl-2 h-4/4 w-full md:w-2/6 italic text-xs">
+                <p className="flex items-center pl-2 h-4/4 w-3/6  italic text-xs text-red-500 justify-end ">
                   {needleError}
                 </p>
               </div>
 
               <div className="flex h-full">
                 <select
-                  className="p-1 w-4/6 cursor-pointer  text-xs text-gray-900 bg-gray-50 font-sans font-family: sans-open"
+                  className="p-1 w-3/6 cursor-pointer  text-xs text-gray-900 bg-gray-50 font-sans font-family: sans-open"
                   onChange={(e) => setYarn(e.target.value)}
                 >
                   <option
@@ -603,28 +603,30 @@ export const CreatePattern = () => {
                     Wool
                   </option>
                 </select>
-                <p className="flex items-center pl-2 h-4/4 w-full md:w-2/6 italic text-xs">
+                <p className="flex items-center pl-2 h-4/4 w-3/6  italic text-xs text-red-500 justify-end ">
                   {yarnError}
                 </p>
               </div>
             </div>
           )}
 
-          <button
-            id="create-pattern"
-            className="bg-[#ed9999] hover:bg-[#da9090] text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline font-sans font-family: sans-open"
-            type="submit"
-          >
-            Upload pattern
-          </button>
+          <div className="flex justify-start md:justify-end w-full pt-10">
+            <button
+              id="create-pattern"
+              className="bg-[#ffa3a3] hover:bg-[#ff9290] text-white text-sm w-32 py-2 px-4 rounded focus:outline-none focus:shadow-outline font-sans font-family: sans-open"
+              type="submit"
+            >
+              Upload pattern
+            </button>
+          </div>
         </form>
         {validationFail ? (
-          <h1>Failed to upload pattern, please try again</h1>
+          <p className="flex items-center pl-2 h-4/4 w-full md:w-2/6 italic text-xs text-red-500">
+            Failed to upload pattern, please try again
+          </p>
         ) : (
           <div></div>
         )}
-
-        <div className="flex justify-center items-center pt-5"></div>
       </div>
     </div>
   );

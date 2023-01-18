@@ -67,7 +67,7 @@ export const MyPatterns = () => {
                 </p>
 
                 <button
-                  className="flex justify-center items-center hover:bg-[#da9090] cursor-pointer rounded-full p-1 w-16 text-xs text-gray-900 font-sans font-family: sans-open bg-[#e8a7a7]"
+                  className="flex justify-center items-center text-white hover:bg-[#ff9290] cursor-pointer rounded-full p-1 w-16 text-xs text-gray-900 font-sans font-family: sans-open bg-[#ffa3a3]"
                   onClick={() => deletePost(post._id)}
                 >
                   Delete

@@ -9,9 +9,9 @@ export const Navigation = () => {
           <div className="image-logo cursor-pointer">
             <Link to="/patterns">
               <img
-                className="h-28 w-28"
-                src="https://firebasestorage.googleapis.com/v0/b/virkoteket.appspot.com/o/files%2Fyarn.gif?alt=media&token=54fb1173-03c5-44c5-ab3d-f7d5ed5dd216"
-                alt="Virkoteket"
+                className="h-36 w-36"
+                src="https://firebasestorage.googleapis.com/v0/b/virkoteket.appspot.com/o/files%2FDesktop%20-%201.png?alt=media&token=a2c477a4-d7d2-45a9-90d9-d5608ea24fc1"
+                alt="The crochet club"
               />
             </Link>
           </div>

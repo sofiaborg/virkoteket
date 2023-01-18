@@ -46,7 +46,7 @@ export const MyAccount = () => {
             <p className="font-sans font-family: sans-open text-xs pb-2">
               Registered email: {user.email}
             </p>
-            <button className="flex justify-center items-center hover:bg-[#da9090] cursor-pointer rounded-full p-1 w-40 text-xs text-gray-900 font-sans font-family: sans-open bg-[#e8a7a7]">
+            <button className="flex justify-center items-center text-white hover:bg-[#ff9290] cursor-pointer rounded-full p-1 w-40 text-xs text-gray-900 font-sans font-family: sans-open bg-[#ffa3a3]">
               I confirm this is my email!
             </button>
           </div>

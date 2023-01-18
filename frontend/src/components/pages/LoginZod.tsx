@@ -8,7 +8,7 @@ import { AuthContext } from "../../contexts/auth-context";
 
 const validationSchema = z.object({
   username: z.string().min(1, { message: "Username is required" }),
-  password: z.string().min(6, { message: "You need to enter a password" }),
+  password: z.string().min(1, { message: "You need to enter a password" }),
 });
 
 type ValidationSchema = z.infer<typeof validationSchema>;
@@ -73,11 +73,8 @@ export const LoginPage = () => {
           onSubmit={handleSubmit(onSubmit)}
           className="form-element bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
         >
-          <div className="mb-4">
-            <label
-              htmlFor="username"
-              className="block text-gray-700 text-sm font-bold mb-2"
-            >
+          <div className="mb-1">
+            <label className="font-sans font-family: sans-open text-xs">
               Username
             </label>
             <input
@@ -89,28 +86,25 @@ export const LoginPage = () => {
             />
           </div>
           {errors.username && (
-            <p className="text-xs italic text-red-500 mt-2">
+            <p className="text-xs italic text-red-500 pb-6">
               {" "}
               {errors.username?.message}
             </p>
           )}
 
-          <div className="form-element mb-6">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="password"
-            >
+          <div className="form-element mb-1">
+            <label className="font-sans font-family: sans-open text-xs">
               Password
             </label>
             <input
-              className="password shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+              className="password shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline"
               id="password"
               type="password"
               {...register("password")}
               onChange={(e) => setPassword(e.target.value)}
             />
             {errors.password && (
-              <p className="text-xs italic text-red-500 mt-2">
+              <p className="text-xs italic text-red-500">
                 {" "}
                 {errors.password?.message}
               </p>
@@ -118,28 +112,26 @@ export const LoginPage = () => {
           </div>
 
           {loginFailed ? (
-            <p className="pb-4 text-xs italic text-red-500 mt-2">
-              Wrong password
-            </p>
+            <p className="pb-4 text-xs italic text-red-500">Wrong password</p>
           ) : (
             <div></div>
           )}
 
-          <div className="flex items-center justify-between">
-            <button
-              id="login-button"
-              className="bg-pink-400 hover:bg-pink-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="submit"
-            >
-              Log in
-            </button>
+          <div className="flex items-center justify-between pt-4">
             <a
               id="register-button"
-              className="inline-block align-baseline font-bold text-sm text-black-500 hover:text-black-800"
+              className="inline-block align-baseline font-bold text-sm text-black-500 hover:text-black-800 font-sans font-family: sans-open text.sm"
               href="/register"
             >
               Register here
             </a>
+            <button
+              id="login-button"
+              className="bg-pink-400 hover:bg-pink-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline font-sans font-family: sans-open text-sm"
+              type="submit"
+            >
+              Log in
+            </button>
           </div>
         </form>
       </div>

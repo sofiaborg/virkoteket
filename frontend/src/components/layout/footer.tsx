@@ -74,7 +74,7 @@ export const Footer = () => {
               placeholder="Message here..."
             ></textarea>
             <div className="w-full flex justify-end">
-              <button className="bg-[#ed9999] hover:bg-[#da9090] font-sans font-family: sans-open text-xs text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
+              <button className=" bg-[#ffa3a3] hover:bg-[#ff9290] font-sans font-family: sans-open text-xs text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
                 Send
               </button>
             </div>
