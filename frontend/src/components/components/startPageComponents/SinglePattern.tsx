@@ -67,6 +67,8 @@ export const SinglePattern = () => {
   //fetch pattern
 
   useEffect(() => {
+    setAddReview(false);
+
     async function fetchProduct() {
       const response = await fetch(
         `http://localhost:8000/posts/${id}/getsinglepost`
@@ -141,7 +143,7 @@ export const SinglePattern = () => {
     <>
       <div className="flex justify-center ">
         <div className=" w-4/5 md:w-3/4 py-20 flex flex-col flex-col-reverse gap-1 sm:flex-row sm:flex-row">
-          <div className="w-full sm:w-3/5 bg-[#F6F0F0] h-4/5 pb-2 px-5 overflow-y-scroll ">
+          <div className="w-full sm:w-3/5 bg-[#F6F0F0] h-6/8 pb-2 px-5 overflow-y-scroll ">
             {post.reviews.length > 0 ? (
               <div>
                 {post.reviews
@@ -278,7 +280,7 @@ export const SinglePattern = () => {
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
                 ></textarea>
-                <p>{commentError}</p>
+                <p className="text-xs italic">{commentError}</p>
 
                 <div className="flex justify-center pt-6">
                   <label
@@ -295,6 +297,12 @@ export const SinglePattern = () => {
                     onChange={(e) => convertImgFile(e.target.files)}
                   />
                 </div>
+
+                {image.length > 0 ? (
+                  <p className="text-xs italic">Image added!</p>
+                ) : (
+                  <></>
+                )}
 
                 <div className="star-rating pt-5">
                   {[...Array(5)].map((star, index) => {
@@ -317,7 +325,7 @@ export const SinglePattern = () => {
                       </button>
                     );
                   })}
-                  <p>{ratingError}</p>
+                  <p className="text-xs italic">{ratingError}</p>
                 </div>
 
                 <div className="pt-5 pb-10">
